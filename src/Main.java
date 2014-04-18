@@ -16,10 +16,9 @@ import java.util.HashMap;
  */
 public class Main implements Observer {
 
-    private final File ADDRESSBOOKLIST = new File("addressBooks/books.txt");
+    private final File BOOKS = new File("addressBooks/books.txt");
 
     private ImportExport importExport;
-    private File file;
     private TSV tsv;
     private AllBooksView allBooksView;
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
@@ -30,11 +29,7 @@ public class Main implements Observer {
      */
     public Main() {
         tsv = new TSV();
-        file = ADDRESSBOOKLIST;
-
-        allAddressBooks = new ArrayList<>();
-
-        addressBookList = read(ADDRESSBOOKLIST.toPath());
+        addressBookList = read(BOOKS.toPath());
 
         createAllAddressBooks();
 
@@ -44,8 +39,10 @@ public class Main implements Observer {
     }
 
     private void createAllAddressBooks() {
+        allAddressBooks = new ArrayList<>();
+
         for (String addressBook : addressBookList) {
-            file = new File ("addressBooks/" + addressBook);
+            File file = new File ("addressBooks/" + addressBook);
 
             AddressConverter convert = new AddressConverter();
             try {
@@ -63,6 +60,7 @@ public class Main implements Observer {
     private void saveTSV(File file) {
         AddressConverter convert = new AddressConverter();
         try {
+            System.out.println(file.getName());
             tsv.write(file, convert.internalToStandard(allBooksView.getAddressBook()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +101,7 @@ public class Main implements Observer {
 
     private void write(ArrayList<String> addressBookList) {
         try {
-            BufferedWriter writer = Files.newBufferedWriter(ADDRESSBOOKLIST.toPath(), Charset.forName("US-ASCII"));
+            BufferedWriter writer = Files.newBufferedWriter(BOOKS.toPath(), Charset.forName("US-ASCII"));
             for (String string : addressBookList) {
                 writer.write(string + "\n");
             }
@@ -119,6 +117,8 @@ public class Main implements Observer {
      */
     @Override
     public void update(int num) {
+        File file;
+
         switch (num) {
             case 1:  // Save
                 saveTSV(allBooksView.getFile());
@@ -150,11 +150,11 @@ public class Main implements Observer {
                 allBooksView.updateBookList();
                 break;
             case 5:  // Load
-                //file = allBooksView.getAddressBookFile();
-                if (file != null) {
-                    //loadTSV();
-                    //view.setAddressBook(addressBook);
-                }
+//                //file = allBooksView.getAddressBookFile();
+//                if (file != null) {
+//                    //loadTSV();
+//                    //view.setAddressBook(addressBook);
+//                }
                 break;
             default:
                 break;

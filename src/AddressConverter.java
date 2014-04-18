@@ -49,17 +49,31 @@ public class AddressConverter {
         for (HashMap<String, String> address : addressBook) {
             HashMap<String, String> tempAddress = new HashMap<>();
 
-            String[] last = address.get("Last").split("\\s+");
-                if (last.length == 0) {
-                    last = new String[]{" ", " ", " "};
-                } else if (last.length == 1) {
+            String[] tempLast = address.get("Last").split("\\s+");
 
-                    last = new String[]{last[0], " ", " "};
-                } else if (last.length == 2) {
-                    last = new String[]{last[0], last[1], " "};
-                } else {
-                    last = new String[]{last[0], last[1], last[2]};
+            if (tempLast.length == 0) {
+                tempLast = new String[] {" ", " ", " "};
+            } else if (tempLast.length == 1) {
+                tempLast = new String[] {tempLast[0], " ", " "};
+            } else if (tempLast.length == 2) {
+                tempLast = new String[] {tempLast[0], tempLast[1], " "};
+            } else {
+                tempLast = new String[] {tempLast[0], tempLast[1], tempLast[2]};
             }
+
+            String[] last = new String[] {" ", " ", " "};
+            for (String string : tempLast) {
+                if (checkLast(string) == 0) {
+                    last[0] = string;
+                }
+                if (checkLast(string) == 1) {
+                    last[1] = string;
+                }
+                if (checkLast(string) == 2) {
+                    last[2] = string;
+                }
+            }
+
             String delivery = address.get("Delivery");
             String second = address.get("Second");
             String[] recipient = address.get("Recipient").split("\\s+");
@@ -77,7 +91,6 @@ public class AddressConverter {
             tempBook.add(tempAddress);
         }
 
-        //System.out.println("convert " + tempBook);
         return tempBook;
     }
 

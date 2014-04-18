@@ -65,6 +65,8 @@ public class AddressBookView extends JFrame {
 
     private int index;
 
+    private JDialog addressBookFrame;
+
     public AddressBookView(AllBooksView allBooksView, int index) {
         this.index = index;
         this.allBooksView = allBooksView;
@@ -72,13 +74,13 @@ public class AddressBookView extends JFrame {
         isEditing = false;
 
         // Window
-        JDialog AddressBookFrame = new JDialog();
-        AddressBookFrame.setTitle("Address Book");
-        AddressBookFrame.setSize(460, 260);
+        addressBookFrame = new JDialog();
+        addressBookFrame.setTitle("Address Book");
+        addressBookFrame.setSize(460, 260);
         setResizable(false);
         setLocationRelativeTo(null); // TODO fix location where address book window opens
-        AddressBookFrame.setLayout(new BorderLayout());
-        AddressBookFrame.setVisible(true);
+        addressBookFrame.setLayout(new BorderLayout());
+        addressBookFrame.setVisible(true);
 
         // Panels
         tabbedPane = new JTabbedPane();
@@ -176,7 +178,7 @@ public class AddressBookView extends JFrame {
         });
 
         // Layouts
-        AddressBookFrame.add(tabbedPane);
+        addressBookFrame.add(tabbedPane);
         tabbedPane.addTab("All Contacts", allContactsPanel);
         tabbedPane.addTab("Contact", contactPanel);
 
@@ -431,12 +433,25 @@ public class AddressBookView extends JFrame {
      * Notifies Main that it needs to save the current address book.
      */
     private void saveAddressBook() {
+        allBooksView.setAddressBook(addressBook);
         for (Observer observer : allBooksView.observers) {
             observer.update(1);
         }
     }
 
     private void closeAddressBook() {
-        allBooksView.closeAddressBook(index);
+
+        int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
+
+        if (choice == 0) { // Yes
+            saveAddressBook();
+            allBooksView.closeAddressBook(index);
+        } else if (choice == 1) {  // No
+            allBooksView.closeAddressBook(index);
+        }
+        if (choice != 2) {
+            addressBookFrame.dispose();
+        }
+
     }
 }

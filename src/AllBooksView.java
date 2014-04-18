@@ -41,7 +41,6 @@ public class AllBooksView extends JFrame {
         this.addressBookList = addressBookList;
         this.allAddressBooks = allAddressBooks;
         observers = new ArrayList<>();
-        //bookViews = new ArrayList<>();
 
         // Window
         setTitle("Address Book");
@@ -62,11 +61,25 @@ public class AllBooksView extends JFrame {
         JMenuItem newMenuItem = new JMenuItem("New");
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+        newMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                openNewBookPane();
+            }
+        });
         fileMenu.add(newMenuItem);
+
 
         JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+        openMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                //loadAddressBook();
+                openAddressBookView();
+            }
+        });
         fileMenu.add(openMenuItem);
 
         fileMenu.addSeparator();
@@ -74,6 +87,12 @@ public class AllBooksView extends JFrame {
         JMenuItem closeMenuItem = new JMenuItem("Close");
         closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        closeMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                closeAllBooksView();
+                System.exit(0);
+            }
+        });
         fileMenu.add(closeMenuItem);
 
         JMenuItem saveMenuItem = new JMenuItem("Save");
@@ -154,8 +173,17 @@ public class AllBooksView extends JFrame {
     private void openNewBookPane() {
         newFileName = "";
         newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?") + ".tsv";
-        if (!newFileName.equals("")) {
+        boolean matches = false;
+        for (String string : addressBookList) {
+            if (newFileName.equals(string)) {
+                matches = true;
+            }
+        }
+        if (!newFileName.equals("") && !matches) {
             createNewBook();
+        } else {
+            JOptionPane.showMessageDialog(this, "That title already exists. Please choose another.");
+            openNewBookPane();
         }
     }
 
@@ -167,8 +195,7 @@ public class AllBooksView extends JFrame {
     }
 
     private void openAddressBookView() {
-        //System.out.println(allAddressBooks);
-        System.out.println(allAddressBooks.get(bookList.getSelectedIndex()));
+        file = new File("addressBooks/" + addressBookList.get(bookList.getSelectedIndex()));
         new AddressBookView(this, bookList.getSelectedIndex());
     }
 
@@ -190,12 +217,13 @@ public class AllBooksView extends JFrame {
         }
     }
 
+    private void closeAllBooksView() {
+        dispose();
+    }
+
     public void closeAddressBook(int index) {
-        // TODO allAddressBooks is getting appended instead of replaced, making allAddressBooks.get(index) wrong
         file = new File("addressBooks/" + addressBookList.get(index));
-        System.out.println(addressBookList.get(index));
         addressBook = allAddressBooks.get(index);
-        System.out.println(addressBook);
     }
 
     /**
@@ -229,6 +257,11 @@ public class AllBooksView extends JFrame {
 
     public File getFile() {
         return file;
+    }
+
+
+    public void setAddressBook(ArrayList<HashMap<String, String>> addressBook) {
+        this.addressBook = addressBook;
     }
 
     public String getNewFileName() {

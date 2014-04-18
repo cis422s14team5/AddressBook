@@ -1,5 +1,4 @@
 store.tsv
 store2.tsv
 test.tsv
-thing.tsv
-other.tsv
+null.tsv

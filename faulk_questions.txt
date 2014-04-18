@@ -1,0 +1,31 @@
+Address Book
+
+- Print out all the entries in the addres book in "mailing label" format
+
+- File operations should be performed using standard New, Open, Close, Save and Save As ... File menu options.
+
+- allow for multiple address books to be open, each with its own window which can be closed separately. In this case, New and Open will result in creating a new window, without affecting the current window.
+
+- keep track of whether any changes have been made to an address book since it was last saved and offer the user the opportunity to save changes when an address book is closed either explicitly or as a result of choosing to create/open another or quitting the program.
+
+There is a contradiction:
+    - When creating/opening a new address book from the All Address Books view, do you want to keep multiple address book windows open or do you want them to close as a result of creating/opening a new address book.
+
+open address book
+    save state
+
+if address book is closed 
+    offer the user the opportunity to save changes
+
+if program is closed
+    offer the user the opportunity to save changes to all open address books
+
+if address book is opened or new address book is created
+    offer the user the opportunity to save changes to all open address books 
+    
+Ask Faulk what save and save as should do
+
+
+- support importing and exporting a set of addresses to other address books. (I'm interpreting this as creating a new address book from the import)
+
+-  It must be possible to extend and update the addressbook design as requirements change. (Hence my emphasis on modularity)
