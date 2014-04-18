@@ -1,0 +1,23 @@
+    public ArrayList<HashMap<String, String>> sortByLastName(ArrayList<HashMap<String, String>> addressList) {
+
+        ArrayList<HashMap<String, String>> sortedByLastName = new ArrayList<HashMap<String, String>>();
+        String nameArr[] = new String[addressBook.size()];
+
+        for(int i = 0; i < addressBook.size(); i++){
+            nameArr[i] = addressBook.get(i).get("lastName");
+        }
+       Arrays.sort(nameArr);
+
+        for(int i = 0; i < addressBook.size(); i++){
+            String nameStr = nameArr[i];
+            for(int j = 0; j < addressBook.size(); j++){
+                if(addressBook.get(j).get("lastName") == nameStr){
+                    sortedByLastName.add(addressBook.get(j));
+                    addressBook.get(j).put("lastName", ".");
+                }
+            }
+        }
+        return sortedByLastName;
+    }
+
+

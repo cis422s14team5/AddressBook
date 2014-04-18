@@ -1,0 +1,18 @@
+                String errorMessage = "";
+                if(lastNameField.getText().matches("^$"))
+                    errorMessage += "Must enter a last name.\n";
+                if(firstNameField.getText().matches("^$"))
+                    errorMessage += "Must enter a first name.\n";
+                if(phoneField.getText().matches("^$"))
+                    errorMessage += "Must enter a phone number.\n";
+                if(!zipField.getText().matches("^$") &&
+                        !(zipField.getText().matches("^[0-9]{5}$")) &&
+                        (!zipField.getText().matches("^[0-9]{5}[-]{1}[0-9]{4}$")))
+                    errorMessage += "Please enter zip matching 99999 or 99999-9999.\n";
+                if(!emailField.getText().matches("^[a-zA-Z0-9.-_,]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+$") &&
+                        !emailField.getText().matches("^$"))
+                    errorMessage += "Email address not valid.\n";
+                if(!phoneField.getText().matches("^$") &&
+                        !phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$") &&
+                        !phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{4}$"))
+                    errorMessage += "Please use standard phone input 999-999-9999 OR 999-9999\n";

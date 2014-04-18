@@ -50,14 +50,15 @@ public class AddressConverter {
             HashMap<String, String> tempAddress = new HashMap<>();
 
             String[] last = address.get("Last").split("\\s+");
-            if (last.length == 0) {
-                last = new String[]{" ", " ", " "};
-            } else if (last.length == 1) {
-                last = new String[]{last[0], " ", " "};
-            } else if (last.length == 2) {
-                last = new String[]{last[0], last[1], " "};
-            } else {
-                last = new String[]{last[0], last[1], last[2]};
+                if (last.length == 0) {
+                    last = new String[]{" ", " ", " "};
+                } else if (last.length == 1) {
+
+                    last = new String[]{last[0], " ", " "};
+                } else if (last.length == 2) {
+                    last = new String[]{last[0], last[1], " "};
+                } else {
+                    last = new String[]{last[0], last[1], last[2]};
             }
             String delivery = address.get("Delivery");
             String second = address.get("Second");
@@ -76,6 +77,19 @@ public class AddressConverter {
             tempBook.add(tempAddress);
         }
 
+        //System.out.println("convert " + tempBook);
         return tempBook;
+    }
+
+    private int checkLast(String string) {
+        if (string.matches("[a-zA-Z]+")) {
+            return 0;
+        } else if (string.matches("[A-Z]{2}")) {
+            return 1;
+        } else if (string.matches("[0-9]{5}") || string.matches("[0-9]{5}[-][0-9]{4}")) {
+            return 2;
+        }
+
+        return -1;
     }
 }

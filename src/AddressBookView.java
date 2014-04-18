@@ -3,18 +3,50 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// TODO Break the View into different modules: All Address Books, All Contacts, Contact
-// TODO Fix the layout of the Contacts tab so the fields fill up all the space left after the labels.
-// TODO Validate input in a separate module
+public class AddressBookView extends JFrame {
 
-/**
- * The address book GUI.
- */
-public class View extends JFrame {
+    private View view;
+    private ArrayList<HashMap<String, String>> addressBook;
+    private HashMap<String, String> address;
+    public ArrayList<Observer> observers;
+
+    public ArrayList<Integer> getListOfIndex() {
+        return listOfIndex;
+    }
+
+    private ArrayList<Integer> listOfIndex;
+
+    // Panels
+    JTabbedPane tabbedPane;
+
+    // All Contacts Panels
+    JPanel allContactsPanel;
+    JPanel allContactsButtonPanel;
+
+    // Contact Panels
+    JPanel contactPanel;
+    JPanel contactButtonPanel;
+    JPanel addressPanel;
+    JPanel lastPanel;
+    JPanel deliveryPanel;
+    JPanel secondPanel;
+    JPanel recipientPanel;
+    JPanel phonePanel;
+
+    // Labels
+    JLabel lastLabel;
+    JLabel cityLabel = new JLabel("City");
+    JLabel stateLabel = new JLabel("State");
+    JLabel zipLabel = new JLabel("Zip");
+    JLabel deliveryLabel = new JLabel("Delivery:");
+    JLabel secondLabel = new JLabel("Second:");
+    JLabel recipientLabel = new JLabel("Recipient: ");
+    JLabel lastNameLabel = new JLabel("Last");
+    JLabel firstNameLabel = new JLabel("First");
+    JLabel phoneLabel = new JLabel("Phone:");
 
     // Text Fields
     private JTextField cityField;
@@ -26,107 +58,75 @@ public class View extends JFrame {
     private JTextField firstNameField;
     private JTextField phoneField;
 
-    final private JTabbedPane tabbedPane;
+    JButton newContact;
+    JButton edit;
+    JButton remove;
+    JButton clear;
+    JButton save;
 
-    private JList<String> scrollList;
+    private JList scrollList;
+    private DefaultListModel listModel;
 
-    private ArrayList<HashMap<String, String>> addressBook;
-    private HashMap<String, String> address;
     private boolean isEditing;
-    private ArrayList<Observer> observers;
 
-    /**
-     * Constructor. Sets up the window, panels, labels, buttons, and fields.
-     * @param addressList is an addressBook loaded from the TSV file.
-     */
-    public View(ArrayList<HashMap<String, String>> addressList) {
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-        addressBook = addressList;
-        observers = new ArrayList<>();
+    private int index;
+
+    public AddressBookView(View view, int index) {
+        this.index = index;
+        this.view = view;
+        addressBook = view.getAllAddressBooks().get(index);
+        System.out.println("view " + addressBook);
         isEditing = false;
 
         // Window
-        setTitle("Address Book");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(460, 280);
+        JDialog AddressBookFrame = new JDialog();
+        AddressBookFrame.setTitle("Address Book");
+        AddressBookFrame.setSize(460, 260);
         setResizable(false);
         setLocationRelativeTo(null);
-
-        // Menu
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.getAccessibleContext().setAccessibleDescription(
-                "The only menu in this program that has menu items");
-        fileMenu.setMnemonic(KeyEvent.VK_F);
-        menuBar.add(fileMenu);
-
-        JMenuItem newMenuItem = new JMenuItem("New");
-        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        fileMenu.add(newMenuItem);
-
-        JMenuItem openMenuItem = new JMenuItem("Open");
-        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        fileMenu.add(openMenuItem);
-
-        fileMenu.addSeparator();
-
-        JMenuItem closeMenuItem = new JMenuItem("Close");
-        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        fileMenu.add(closeMenuItem);
-
-        JMenuItem saveMenuItem = new JMenuItem("Save");
-        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        fileMenu.setMnemonic(KeyEvent.VK_S);
-        fileMenu.add(saveMenuItem);
-
-        JMenuItem saveAsMenuItem = new JMenuItem("Save As...");
-        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
-        fileMenu.add(saveAsMenuItem);
-
-        setJMenuBar(menuBar);
+        AddressBookFrame.setLayout(new BorderLayout());
+        AddressBookFrame.setVisible(true);
 
         // Panels
         tabbedPane = new JTabbedPane();
 
         // All Contacts Panels
-        JPanel allContactsPanel = new JPanel();
-        JPanel allContactsButtonPanel = new JPanel();
+        allContactsPanel = new JPanel();
+        allContactsButtonPanel = new JPanel();
 
         // Contact Panels
-        JPanel contactPanel = new JPanel();
-        JPanel contactButtonPanel = new JPanel();
-        JPanel addressPanel = new JPanel();
-        JPanel lastPanel = new JPanel();
-        JPanel deliveryPanel = new JPanel();
-        JPanel secondPanel = new JPanel();
-        JPanel recipientPanel = new JPanel();
-        JPanel phonePanel = new JPanel();
+        contactPanel = new JPanel();
+        contactButtonPanel = new JPanel();
+        addressPanel = new JPanel();
+        lastPanel = new JPanel();
+        deliveryPanel = new JPanel();
+        secondPanel = new JPanel();
+        recipientPanel = new JPanel();
+        phonePanel = new JPanel();
 
         // JList and JScrollPane
-        scrollList = new JList<>();
+        listModel = new DefaultListModel();
+        scrollList = new JList<String>(listModel);
         scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollList.setSelectedIndex(0);
-        JScrollPane scrollPane = new JScrollPane(scrollList);
-        scrollPane.setPreferredSize(new Dimension(360, 145));
+        listModel.clear();
+
         updateScrollList();
 
+        JScrollPane scrollPane = new JScrollPane(scrollList);
+        scrollPane.setPreferredSize(new Dimension(360, 145));
+
         // Labels
-        JLabel lastLabel = new JLabel("Last:");
-        JLabel cityLabel = new JLabel("City");
-        JLabel stateLabel = new JLabel("State");
-        JLabel zipLabel = new JLabel("Zip");
-        JLabel deliveryLabel = new JLabel("Delivery:");
-        JLabel secondLabel = new JLabel("Second:");
-        JLabel recipientLabel = new JLabel("Recipient: ");
-        JLabel lastNameLabel = new JLabel("Last");
-        JLabel firstNameLabel = new JLabel("First");
-        JLabel phoneLabel = new JLabel("Phone:");
+        lastLabel = new JLabel("Last:");
+        cityLabel = new JLabel("City");
+        stateLabel = new JLabel("State");
+        zipLabel = new JLabel("Zip");
+        deliveryLabel = new JLabel("Delivery:");
+        secondLabel = new JLabel("Second:");
+        recipientLabel = new JLabel("Recipient: ");
+        lastNameLabel = new JLabel("Last");
+        firstNameLabel = new JLabel("First");
+        phoneLabel = new JLabel("Phone:");
 
         // Text Fields
         cityField = new JTextField();
@@ -139,21 +139,21 @@ public class View extends JFrame {
         phoneField = new JTextField();
 
         // All Contacts Buttons
-        final JButton newContact = new JButton("New");
+        newContact = new JButton("New");
         newContact.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 newContact();
             }
         });
 
-        JButton edit = new JButton("Edit");
+        edit = new JButton("Edit");
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 editContact();
             }
         });
 
-        JButton remove = new JButton("Remove");
+        remove = new JButton("Remove");
         remove.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 removeContact();
@@ -161,14 +161,14 @@ public class View extends JFrame {
         });
 
         // Contact Buttons
-        JButton clear = new JButton("Clear");
+        clear = new JButton("Clear");
         clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 clearFields();
             }
         });
 
-        JButton save = new JButton("Save");
+        save = new JButton("Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 saveContact();
@@ -176,7 +176,7 @@ public class View extends JFrame {
         });
 
         // Layouts
-        add(tabbedPane);
+        AddressBookFrame.add(tabbedPane);
         tabbedPane.addTab("All Contacts", allContactsPanel);
         tabbedPane.addTab("Contact", contactPanel);
 
@@ -240,14 +240,27 @@ public class View extends JFrame {
         contactButtonPanel.setBorder(border);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
+    }
 
-        setVisible(true);
+    /**
+     * Updates the list of addresses in the scroll list.
+     */
+    public void updateScrollList() {
+
+        //listModel.clear();
+        scrollList.setListData(new String[0]);
+        ArrayList<String> tempList = new ArrayList<>();
+        for (HashMap<String, String> address : addressBook) {
+            tempList.add(address.get("lastName") + ", " + address.get("firstName"));
+        }
+        scrollList.setListData(tempList.toArray(new String[tempList.size()]));
     }
 
     /**
      * Switches the view to the Contact tab and clears the fields.
      */
     private void newContact() {
+        isEditing = false;
         clearFields();
         tabbedPane.setSelectedIndex(1);
     }
@@ -275,6 +288,7 @@ public class View extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Please select a contact to edit.");
         }
+        isEditing = false;
     }
 
     /**
@@ -416,55 +430,22 @@ public class View extends JFrame {
      * Notifies Main that it needs to save the current address book.
      */
     private void saveAddressBook() {
-        for (Observer observer : observers) {
+        listOfIndex = new ArrayList<>();
+        listOfIndex.add(index);
+        listOfIndex.add(scrollList.getSelectedIndex());
+        for (Observer observer : view.observers) {
             observer.update(1);
         }
     }
 
-    /**
-     * Notifies Main that it needs to import an address book.
-     */
-    private void importTSV() {
-        for (Observer observer : observers) {
-            observer.update(2);
+    private void notifyIndex() {
+        listOfIndex = new ArrayList<>();
+        listOfIndex.add(index);
+        listOfIndex.add(scrollList.getSelectedIndex());
+
+        for (Observer observer : view.observers) {
+            observer.update(6);
         }
-    }
-
-    /**
-     * Notifies Main that it needs to export an address book.
-     */
-    private void exportTSV() {
-        for (Observer observer : observers) {
-            observer.update(3);
-        }
-    }
-
-    /**
-     * Updates the list of addresses in the scroll list.
-     */
-    public void updateScrollList() {
-        ArrayList<String> tempList = new ArrayList<>();
-        for (HashMap<String, String> address : addressBook) {
-            tempList.add(address.get("lastName") + ", " + address.get("firstName"));
-        }
-        scrollList.setListData(tempList.toArray(new String[tempList.size()]));
-    }
-
-    /**
-     * Sets the addressBook and updates the scroll list.
-     * @param addressBook is the new address book.
-     */
-    public void setAddressBook(ArrayList<HashMap<String, String>> addressBook) {
-        this.addressBook = addressBook;
-        updateScrollList();
-    }
-
-    /**
-     * Gets the addressBook.
-     * @return the current address book.
-     */
-    public ArrayList<HashMap<String, String>> getAddressBook() {
-        return addressBook;
     }
 
     /**

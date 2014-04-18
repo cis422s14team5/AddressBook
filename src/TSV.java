@@ -50,7 +50,8 @@ public class TSV {
      * Reads a tsv file using CsvMapReader. The code below is a modification of the default CsvMapReader implementation
      * provided by the developer. It has been modified to suit the context.
      */
-    public void read(File file) throws Exception {
+    public ArrayList<HashMap<String, String>> read(File file) throws Exception {
+        ArrayList<HashMap<String, String>> addressList = new ArrayList<>();
         ICsvMapReader mapReader = null;
         try {
             mapReader = new CsvMapReader(new FileReader(file), CsvPreference.TAB_PREFERENCE);
@@ -69,6 +70,8 @@ public class TSV {
                 mapReader.close();
             }
         }
+
+        return addressList;
     }
 
     /**
