@@ -5,7 +5,7 @@
 public interface Observer {
 
     /**
-     * Used by Main to receive updates from the View.
+     * Used by Main to receive updates from the AllBooksView.
      */
     public void update(int num);
 }

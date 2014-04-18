@@ -8,45 +8,38 @@ import java.util.HashMap;
 
 public class AddressBookView extends JFrame {
 
-    private View view;
+    private AllBooksView allBooksView;
     private ArrayList<HashMap<String, String>> addressBook;
     private HashMap<String, String> address;
-    public ArrayList<Observer> observers;
-
-    public ArrayList<Integer> getListOfIndex() {
-        return listOfIndex;
-    }
-
-    private ArrayList<Integer> listOfIndex;
 
     // Panels
-    JTabbedPane tabbedPane;
+    private JTabbedPane tabbedPane;
 
     // All Contacts Panels
-    JPanel allContactsPanel;
-    JPanel allContactsButtonPanel;
+    private JPanel allContactsPanel;
+    private JPanel allContactsButtonPanel;
 
     // Contact Panels
-    JPanel contactPanel;
-    JPanel contactButtonPanel;
-    JPanel addressPanel;
-    JPanel lastPanel;
-    JPanel deliveryPanel;
-    JPanel secondPanel;
-    JPanel recipientPanel;
-    JPanel phonePanel;
+    private JPanel contactPanel;
+    private JPanel contactButtonPanel;
+    private JPanel addressPanel;
+    private JPanel lastPanel;
+    private JPanel deliveryPanel;
+    private JPanel secondPanel;
+    private JPanel recipientPanel;
+    private JPanel phonePanel;
 
     // Labels
-    JLabel lastLabel;
-    JLabel cityLabel = new JLabel("City");
-    JLabel stateLabel = new JLabel("State");
-    JLabel zipLabel = new JLabel("Zip");
-    JLabel deliveryLabel = new JLabel("Delivery:");
-    JLabel secondLabel = new JLabel("Second:");
-    JLabel recipientLabel = new JLabel("Recipient: ");
-    JLabel lastNameLabel = new JLabel("Last");
-    JLabel firstNameLabel = new JLabel("First");
-    JLabel phoneLabel = new JLabel("Phone:");
+    private JLabel lastLabel;
+    private JLabel cityLabel = new JLabel("City");
+    private JLabel stateLabel = new JLabel("State");
+    private JLabel zipLabel = new JLabel("Zip");
+    private JLabel deliveryLabel = new JLabel("Delivery:");
+    private JLabel secondLabel = new JLabel("Second:");
+    private JLabel recipientLabel = new JLabel("Recipient: ");
+    private JLabel lastNameLabel = new JLabel("Last");
+    private JLabel firstNameLabel = new JLabel("First");
+    private JLabel phoneLabel = new JLabel("Phone:");
 
     // Text Fields
     private JTextField cityField;
@@ -58,24 +51,24 @@ public class AddressBookView extends JFrame {
     private JTextField firstNameField;
     private JTextField phoneField;
 
-    JButton newContact;
-    JButton edit;
-    JButton remove;
-    JButton clear;
-    JButton save;
+    // Buttons
+    private JButton close;
+    private JButton newContact;
+    private JButton edit;
+    private JButton remove;
+    private JButton clear;
+    private JButton save;
 
     private JList scrollList;
-    private DefaultListModel listModel;
 
     private boolean isEditing;
 
     private int index;
 
-    public AddressBookView(View view, int index) {
+    public AddressBookView(AllBooksView allBooksView, int index) {
         this.index = index;
-        this.view = view;
-        addressBook = view.getAllAddressBooks().get(index);
-        System.out.println("view " + addressBook);
+        this.allBooksView = allBooksView;
+        addressBook = allBooksView.getAllAddressBooks().get(index);
         isEditing = false;
 
         // Window
@@ -83,7 +76,7 @@ public class AddressBookView extends JFrame {
         AddressBookFrame.setTitle("Address Book");
         AddressBookFrame.setSize(460, 260);
         setResizable(false);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // TODO fix location where address book window opens
         AddressBookFrame.setLayout(new BorderLayout());
         AddressBookFrame.setVisible(true);
 
@@ -105,7 +98,7 @@ public class AddressBookView extends JFrame {
         phonePanel = new JPanel();
 
         // JList and JScrollPane
-        listModel = new DefaultListModel();
+        DefaultListModel listModel = new DefaultListModel();
         scrollList = new JList<String>(listModel);
         scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollList.setSelectedIndex(0);
@@ -139,6 +132,13 @@ public class AddressBookView extends JFrame {
         phoneField = new JTextField();
 
         // All Contacts Buttons
+        close = new JButton("Close");
+        close.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                closeAddressBook();
+            }
+        });
+
         newContact = new JButton("New");
         newContact.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -191,6 +191,7 @@ public class AddressBookView extends JFrame {
         allContactsButtonPanel.add(newContact);
         allContactsButtonPanel.add(edit);
         allContactsButtonPanel.add(remove);
+        allContactsButtonPanel.add(close);
 
         // Contact Layout
         contactPanel.setBorder(border);
@@ -257,7 +258,7 @@ public class AddressBookView extends JFrame {
     }
 
     /**
-     * Switches the view to the Contact tab and clears the fields.
+     * Switches the allBooksView to the Contact tab and clears the fields.
      */
     private void newContact() {
         isEditing = false;
@@ -276,10 +277,10 @@ public class AddressBookView extends JFrame {
     }
 
     /**
-     * Switches the view to the Contact tab and fills the fields with the selected contact's details.
+     * Switches the allBooksView to the Contact tab and fills the fields with the selected contact's details.
      */
     private void editContact() {
-        if (!scrollList.isSelectionEmpty()) {
+        if (!scrollList.isSelectionEmpty() && !isEditing) {
             isEditing = true;
             getContact(scrollList.getSelectedIndex());
             tabbedPane.setSelectedIndex(1);
@@ -288,7 +289,7 @@ public class AddressBookView extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Please select a contact to edit.");
         }
-        isEditing = false;
+        //isEditing = false;
     }
 
     /**
@@ -408,8 +409,8 @@ public class AddressBookView extends JFrame {
         clearFields();
         tabbedPane.setSelectedIndex(0);
         updateScrollList();
-        saveAddressBook();
-        JOptionPane.showMessageDialog(null, "Contact Saved.");
+        saveAddressBook(); // TODO only
+        // JOptionPane.showMessageDialog(null, "Contact Saved.");
     }
 
     /**
@@ -430,29 +431,12 @@ public class AddressBookView extends JFrame {
      * Notifies Main that it needs to save the current address book.
      */
     private void saveAddressBook() {
-        listOfIndex = new ArrayList<>();
-        listOfIndex.add(index);
-        listOfIndex.add(scrollList.getSelectedIndex());
-        for (Observer observer : view.observers) {
+        for (Observer observer : allBooksView.observers) {
             observer.update(1);
         }
     }
 
-    private void notifyIndex() {
-        listOfIndex = new ArrayList<>();
-        listOfIndex.add(index);
-        listOfIndex.add(scrollList.getSelectedIndex());
-
-        for (Observer observer : view.observers) {
-            observer.update(6);
-        }
-    }
-
-    /**
-     * Adds an observer to the observer list.
-     * @param observer is the observer to be added.
-     */
-    public void addObserver(Observer observer) {
-        observers.add(observer);
+    private void closeAddressBook() {
+        allBooksView.closeAddressBook(index);
     }
 }

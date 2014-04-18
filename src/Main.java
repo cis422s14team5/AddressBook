@@ -18,47 +18,43 @@ public class Main implements Observer {
 
     private final File ADDRESSBOOKLIST = new File("addressBooks/books.txt");
 
-    private TSV tsv;
-    private View view;
     private ImportExport importExport;
-    //private AddressConverter convert;
     private File file;
-    //private ArrayList<HashMap<String, String>> addressBook;
-
+    private TSV tsv;
+    private AllBooksView allBooksView;
+    private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
     private ArrayList<String> addressBookList;
 
-    private ArrayList<ArrayList<HashMap<String, String>>> allAddressbooks;
-
     /**
-     * Constructor. Loads the saved address book from the TSV file and starts the view.
+     * Constructor. Loads the saved address book from the TSV file and starts the allBooksView.
      */
     public Main() {
         tsv = new TSV();
         file = ADDRESSBOOKLIST;
 
-        allAddressbooks = new ArrayList<>();
+        allAddressBooks = new ArrayList<>();
 
-        addressBookList = readInput(ADDRESSBOOKLIST.toPath());
+        addressBookList = read(ADDRESSBOOKLIST.toPath());
 
+        createAllAddressBooks();
+
+        allBooksView = new AllBooksView(addressBookList, allAddressBooks);
+        allBooksView.addObserver(this);
+        importExport = new ImportExport(allBooksView);
+    }
+
+    private void createAllAddressBooks() {
         for (String addressBook : addressBookList) {
             file = new File ("addressBooks/" + addressBook);
 
             AddressConverter convert = new AddressConverter();
             try {
                 ArrayList<HashMap<String, String>> addressList = tsv.read(file);
-                allAddressbooks.add(convert.standardToInternal(addressList));
+                allAddressBooks.add(convert.standardToInternal(addressList));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        for (int i = 0; i < allAddressbooks.size(); i++) {
-            System.out.println(allAddressbooks.get(i));
-        }
-
-
-        view = new View(addressBookList, allAddressbooks);
-        view.addObserver(this);
-        importExport = new ImportExport(view);
     }
 
     /**
@@ -67,7 +63,7 @@ public class Main implements Observer {
     private void saveTSV(File file) {
         AddressConverter convert = new AddressConverter();
         try {
-            //tsv.write(file, convert.internalToStandard(allAddressbooks.get()));
+            tsv.write(file, convert.internalToStandard(allBooksView.getAddressBook()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,10 +81,10 @@ public class Main implements Observer {
 //        }
 //
 //        addressBook = convert.standardToInternal(tsv.addressList);
-//        //view.setAddressBook(addressBook);
+//        //allBooksView.setAddressBook(addressBook);
 //    }
 
-    private ArrayList<String> readInput(Path path) {
+    private ArrayList<String> read(Path path) {
         ArrayList<String> input = new ArrayList<>();
 
         try {
@@ -105,11 +101,11 @@ public class Main implements Observer {
         return input;
     }
 
-    private void writeInput(ArrayList<String> addressBookList) {
+    private void write(ArrayList<String> addressBookList) {
         try {
             BufferedWriter writer = Files.newBufferedWriter(ADDRESSBOOKLIST.toPath(), Charset.forName("US-ASCII"));
             for (String string : addressBookList) {
-                writer.write(string);
+                writer.write(string + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -118,24 +114,21 @@ public class Main implements Observer {
     }
 
     /**
-     * Initiates the save, import, or export of an address book. Called by the View.
+     * Initiates the save, import, or export of an address book. Called by the AllBooksView.
      * @param num is the switch case.
      */
     @Override
     public void update(int num) {
         switch (num) {
             case 1:  // Save
-                //int index1 = view.getBookViews().get(view.getBookViews().size()).getListOfIndex().get(0);
-                //int index2 = view.getBookViews().get(view.getBookViews().size()).getListOfIndex().get(1);
-                //addressBook = allAddressbooks.get(index1);
-                saveTSV(file);
+                saveTSV(allBooksView.getFile());
                 break;
             case 2:  // Import
                 file = importExport.importTSV();
                 if (file != null) {
                     //loadTSV();
                    // saveTSV(STORE);
-                    //view.setAddressBook(addressBook);
+                    //allBooksView.setAddressBook(addressBook);
                 }
                 break;
             case 3:  // Export
@@ -144,15 +137,24 @@ public class Main implements Observer {
                     saveTSV(file);
                 }
                 break;
-            case 4:  // Load
-                file = view.getAddressBookFile();
+            case 4:  // New Book
+                saveTSV(new File("addressBooks/" + allBooksView.getNewFileName()));
+
+                addressBookList.add(allBooksView.getNewFileName());
+                write(addressBookList);
+                allBooksView.setAddressBookList(addressBookList);
+
+                createAllAddressBooks();
+                allBooksView.setAllAddressBooks(allAddressBooks);
+
+                allBooksView.updateBookList();
+                break;
+            case 5:  // Load
+                //file = allBooksView.getAddressBookFile();
                 if (file != null) {
                     //loadTSV();
                     //view.setAddressBook(addressBook);
                 }
-                break;
-            case 5:
-                //view.getBookViews().;
                 break;
             default:
                 break;

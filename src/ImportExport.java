@@ -10,10 +10,10 @@ public class ImportExport {
 
     /**
      * Constructor.
-     * @param view is the window over which the file dialog is created.
+     * @param allBooksView is the window over which the file dialog is created.
      */
-    public ImportExport(View view) {
-        fileDialog = new FileDialog(view);
+    public ImportExport(AllBooksView allBooksView) {
+        fileDialog = new FileDialog(allBooksView);
         fileDialog.setFilenameFilter(new TSVFilter());
     }
 
