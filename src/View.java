@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +40,7 @@ public class View extends JFrame {
      * @param addressList is an addressBook loaded from the TSV file.
      */
     public View(ArrayList<HashMap<String, String>> addressList) {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
         addressBook = addressList;
         observers = new ArrayList<>();
         isEditing = false;
@@ -46,9 +48,48 @@ public class View extends JFrame {
         // Window
         setTitle("Address Book");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(460, 260);
+        setSize(460, 280);
         setResizable(false);
         setLocationRelativeTo(null);
+
+        // Menu
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.getAccessibleContext().setAccessibleDescription(
+                "The only menu in this program that has menu items");
+        fileMenu.setMnemonic(KeyEvent.VK_F);
+        menuBar.add(fileMenu);
+
+        JMenuItem newMenuItem = new JMenuItem("New");
+        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        fileMenu.add(newMenuItem);
+
+        JMenuItem openMenuItem = new JMenuItem("Open");
+        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        fileMenu.add(openMenuItem);
+
+        fileMenu.addSeparator();
+
+        JMenuItem closeMenuItem = new JMenuItem("Close");
+        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        fileMenu.add(closeMenuItem);
+
+        JMenuItem saveMenuItem = new JMenuItem("Save");
+        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        fileMenu.setMnemonic(KeyEvent.VK_S);
+        fileMenu.add(saveMenuItem);
+
+        JMenuItem saveAsMenuItem = new JMenuItem("Save As...");
+        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
+        fileMenu.add(saveAsMenuItem);
+
+        setJMenuBar(menuBar);
 
         // Panels
         tabbedPane = new JTabbedPane();
