@@ -25,7 +25,9 @@ public class ImportExport {
         fileDialog.setMode(FileDialog.LOAD);
         fileDialog.setVisible(true);
         if (fileDialog.getFile() != null) {
-            return new File(fileDialog.getFile());
+
+            String file = fileDialog.getDirectory() + fileDialog.getFile();
+            return new File(file);
         } else {
             return null;
         }
@@ -39,7 +41,8 @@ public class ImportExport {
         fileDialog.setMode(FileDialog.SAVE);
         fileDialog.setVisible(true);
         if (fileDialog.getFile() != null) {
-            return new File(fileDialog.getFile());
+            String file = fileDialog.getDirectory() + fileDialog.getFile();
+            return new File(file);
         } else {
             return null;
         }

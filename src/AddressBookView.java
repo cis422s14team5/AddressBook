@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +60,7 @@ public class AddressBookView extends JFrame {
     private JButton remove;
     private JButton clear;
     private JButton save;
+    private JButton cancel;
 
     private JList scrollList;
 
@@ -76,14 +79,21 @@ public class AddressBookView extends JFrame {
         // Window
         addressBookFrame = new JDialog();
         addressBookFrame.setTitle("Address Book");
-        addressBookFrame.setSize(460, 260);
-        setResizable(false);
-        setLocationRelativeTo(null); // TODO fix location where address book window opens
+        addressBookFrame.setSize(760, 260);
+        addressBookFrame.setResizable(false);
+        addressBookFrame.setLocationRelativeTo(null); // TODO fix location where address book window opens
         addressBookFrame.setLayout(new BorderLayout());
         addressBookFrame.setVisible(true);
 
         // Panels
         tabbedPane = new JTabbedPane();
+//        tabbedPane.addChangeListener(new ChangeListener() {
+//            @Override
+//            public void stateChanged(ChangeEvent e) {
+//                isEditing = false;
+//                //clearFields();
+//            }
+//        });
 
         // All Contacts Panels
         allContactsPanel = new JPanel();
@@ -144,6 +154,7 @@ public class AddressBookView extends JFrame {
         newContact = new JButton("New");
         newContact.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
+                tabbedPane.setEnabledAt(0, false);
                 newContact();
             }
         });
@@ -151,6 +162,7 @@ public class AddressBookView extends JFrame {
         edit = new JButton("Edit");
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
+                tabbedPane.setEnabledAt(0, false);
                 editContact();
             }
         });
@@ -177,6 +189,13 @@ public class AddressBookView extends JFrame {
             }
         });
 
+        cancel = new JButton("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                cancelEdit();
+            }
+        });
+
         // Layouts
         addressBookFrame.add(tabbedPane);
         tabbedPane.addTab("All Contacts", allContactsPanel);
@@ -196,13 +215,15 @@ public class AddressBookView extends JFrame {
         allContactsButtonPanel.add(close);
 
         // Contact Layout
-        contactPanel.setBorder(border);
+        //contactPanel.setBorder(border);
+        //GridLayout contactPanelLayout = new GridLayout(2, 0);
+        //contactPanel.setLayout(contactPanelLayout);
         contactPanel.add(addressPanel);
         contactPanel.add(contactButtonPanel);
 
         GridLayout addressPanelLayout = new GridLayout(5, 0);
         addressPanel.setLayout(addressPanelLayout);
-        addressPanel.setBorder(border);
+        //addressPanel.setBorder(border);
         addressPanel.add(lastPanel);
         addressPanel.add(deliveryPanel);
         addressPanel.add(secondPanel);
@@ -238,11 +259,12 @@ public class AddressBookView extends JFrame {
         phonePanel.add(phoneLabel);
         phonePanel.add(phoneField);
 
-        GridLayout contactButtonPanelLayout = new GridLayout(0, 2);
+        GridLayout contactButtonPanelLayout = new GridLayout(0, 3);
         contactButtonPanel.setLayout(contactButtonPanelLayout);
-        contactButtonPanel.setBorder(border);
+        //contactButtonPanel.setBorder(border);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
+        contactButtonPanel.add(cancel);
     }
 
     /**
@@ -257,6 +279,13 @@ public class AddressBookView extends JFrame {
             tempList.add(address.get("lastName") + ", " + address.get("firstName"));
         }
         scrollList.setListData(tempList.toArray(new String[tempList.size()]));
+    }
+
+    private void cancelEdit() {
+        tabbedPane.setSelectedIndex(0);
+        tabbedPane.setEnabledAt(0, true);
+        isEditing = false;
+        clearFields();
     }
 
     /**
@@ -349,70 +378,116 @@ public class AddressBookView extends JFrame {
     private void saveContact() {
         address = new HashMap<>();
 
-        if (!cityField.getText().equals("")) {
-            address.put("city", cityField.getText());
-        } else {
-            address.put("city", " ");
-        }
-        if (!stateField.getText().equals("")) {
-            address.put("state", stateField.getText());
-        } else {
-            address.put("state", " ");
-        }
-        if (!zipField.getText().equals("")) {
-            address.put("zip", zipField.getText());
-        } else {
-            address.put("zip", " ");
-        }
-        if (!deliveryField.getText().equals("")) {
-            address.put("delivery", deliveryField.getText());
-        } else {
-            address.put("delivery", " ");
-        }
-        if (!secondField.getText().equals("")) {
-            address.put("second", secondField.getText());
-        } else {
-            address.put("second", " ");
-        }
-        if (!lastNameField.getText().equals("")) {
+
+        if (checkLastName() && checkPhone() && checkZip()) {
             address.put("lastName", lastNameField.getText());
-        } else {
-            address.put("lastName", " ");
-        }
-        if (!firstNameField.getText().equals("")) {
-            address.put("firstName", firstNameField.getText());
-        } else {
-            address.put("firstName", " ");
-        }
-        if (!phoneField.getText().equals("")) {
-            address.put("phone", phoneField.getText());
-        } else {
-            address.put("phone", " ");
-        }
 
-        if (cityField.getText().equals("") && stateField.getText().equals("") &&
-                zipField.getText().equals("") && deliveryField.getText().equals("") &&
-                secondField.getText().equals("") && lastNameField.getText().equals("") &&
-                firstNameField.getText().equals("") && phoneField.getText().equals("")) {
-            if (isEditing) {
-                addressBook.remove(scrollList.getSelectedIndex());
-                updateScrollList();
-                saveAddressBook();
-            }
-        } else {
-            if (isEditing) {
-                addressBook.set(scrollList.getSelectedIndex(), address);
-                isEditing = false;
+            if (!phoneField.getText().equals("")) {
+                address.put("phone", phoneField.getText());
             } else {
-                addressBook.add(address);
+                address.put("phone", " ");
             }
+
+
+            if (!cityField.getText().equals("")) {
+                address.put("city", cityField.getText());
+            } else {
+                address.put("city", " ");
+            }
+            if (!stateField.getText().equals("")) {
+                address.put("state", stateField.getText());
+            } else {
+                address.put("state", " ");
+            }
+            if (!zipField.getText().equals("")) {
+                address.put("zip", zipField.getText());
+            } else {
+                address.put("zip", " ");
+            }
+            if (!deliveryField.getText().equals("")) {
+                address.put("delivery", deliveryField.getText());
+            } else {
+                address.put("delivery", " ");
+            }
+            if (!secondField.getText().equals("")) {
+                address.put("second", secondField.getText());
+            } else {
+                address.put("second", " ");
+            }
+            if (!firstNameField.getText().equals("")) {
+                address.put("firstName", firstNameField.getText());
+            } else {
+                address.put("firstName", " ");
+            }
+
+            if (cityField.getText().equals("") && stateField.getText().equals("") &&
+                    zipField.getText().equals("") && deliveryField.getText().equals("") &&
+                    secondField.getText().equals("") && lastNameField.getText().equals("") &&
+                    firstNameField.getText().equals("") && phoneField.getText().equals("")) {
+                if (isEditing) {
+                    addressBook.remove(scrollList.getSelectedIndex());
+                    updateScrollList();
+                    saveAddressBook();
+                }
+            } else {
+                if (isEditing) {
+                    addressBook.set(scrollList.getSelectedIndex(), address);
+                    isEditing = false;
+
+                    tabbedPane.setEnabledAt(0, true);
+                } else {
+                    addressBook.add(address);
+                }
+            }
+
+            clearFields();
+            tabbedPane.setSelectedIndex(0);
+            updateScrollList();
+            saveAddressBook(); // TODO only
+            // JOptionPane.showMessageDialog(null, "Contact Saved.");
+        }
+    }
+
+    private boolean checkLastName() {
+        boolean valid = false;
+        if (!lastNameField.getText().equals("")) {
+            valid = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter a last name.");
         }
 
-        clearFields();
-        tabbedPane.setSelectedIndex(0);
-        updateScrollList();
-        saveAddressBook(); // TODO only
-        // JOptionPane.showMessageDialog(null, "Contact Saved.");
+        return  valid;
+    }
+
+    private boolean checkPhone() {
+        boolean valid = false;
+        if (!phoneField.getText().equals("") &&
+                phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$") ||
+                phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{4}$")) {
+            valid = true;
+            //address.put("phone", phoneField.getText());
+        } else if (phoneField.getText().equals("")) {
+            valid = true;
+           // address.put("phone", " ");
+        } else {
+            JOptionPane.showMessageDialog(this, "You did not enter a valid phone number. Please try again.");
+        }
+
+        return valid;
+    }
+
+    private boolean checkZip() {
+        boolean valid = false;
+        if (!zipField.getText().equals("") && zipField.getText().matches("^[0-9]{5}$") ||
+                zipField.getText().matches("^[0-9]{5}[-]{1}[0-9]{4}$")) {
+            valid = true;
+        } else if (zipField.getText().equals("")) {
+            valid = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "You did not enter a valid zip code. Please try again.");
+        }
+
+        return valid;
     }
 
     /**

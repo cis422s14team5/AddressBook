@@ -23,9 +23,18 @@ if program is closed
 if address book is opened or new address book is created
     offer the user the opportunity to save changes to all open address books 
     
-Ask Faulk what save and save as should do
+Ask Faulk 
+ - what save and save as should do
+ - how to represent address book names in the book list, now file names, should we
+   use titles?
+ - What are the required fields? Is is it just last name?
 
 
 - support importing and exporting a set of addresses to other address books. (I'm interpreting this as creating a new address book from the import)
 
 -  It must be possible to extend and update the addressbook design as requirements change. (Hence my emphasis on modularity)
+
+
+TODO
+
+

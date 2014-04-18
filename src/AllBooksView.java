@@ -111,8 +111,8 @@ public class AllBooksView extends JFrame {
         // Book List
         bookList = new JList();
         bookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        bookList.setSelectedIndex(0);
         updateBookList();
+        bookList.setSelectedIndex(0);
 
         JScrollPane bookPane = new JScrollPane(bookList);
         bookPane.setPreferredSize(new Dimension(360, 145));
@@ -189,14 +189,22 @@ public class AllBooksView extends JFrame {
 
     private void createNewBook() {
         addressBook = new ArrayList<>();
+        bookList.setSelectedIndex(addressBookList.size());
         for (Observer observer : observers) {
             observer.update(4);
         }
     }
 
     private void openAddressBookView() {
-        file = new File("addressBooks/" + addressBookList.get(bookList.getSelectedIndex()));
-        new AddressBookView(this, bookList.getSelectedIndex());
+
+        if (!bookList.isSelectionEmpty()) {
+            file = new File("addressBooks/" + addressBookList.get(bookList.getSelectedIndex()));
+            new AddressBookView(this, bookList.getSelectedIndex());
+        } else if (addressBookList.size() == 0) {
+            JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
+        } else {
+            JOptionPane.showMessageDialog(null, "There are no address books selected, please select one.");
+        }
     }
 
     /**
@@ -212,6 +220,7 @@ public class AllBooksView extends JFrame {
      * Notifies Main that it needs to export an address book.
      */
     private void exportTSV() {
+        addressBook = allAddressBooks.get(bookList.getSelectedIndex());
         for (Observer observer : observers) {
             observer.update(3);
         }

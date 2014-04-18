@@ -60,27 +60,25 @@ public class Main implements Observer {
     private void saveTSV(File file) {
         AddressConverter convert = new AddressConverter();
         try {
-            System.out.println(file.getName());
             tsv.write(file, convert.internalToStandard(allBooksView.getAddressBook()));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    /**
-//     * Loads the contents of the TSV file into the addressBook.
-//     */
-//    private void loadTSV() {
-//        AddressConverter convert = new AddressConverter();
-//        try {
-//            tsv.read(file);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        addressBook = convert.standardToInternal(tsv.addressList);
-//        //allBooksView.setAddressBook(addressBook);
-//    }
+    /**
+     * Loads the contents of the TSV file into the addressBook.
+     */
+    private void loadTSV(File file) {
+        try {
+            tsv.read(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //addressBook = convert.standardToInternal(tsv.addressList);
+        //allBooksView.setAddressBook(addressBook);
+    }
 
     private ArrayList<String> read(Path path) {
         ArrayList<String> input = new ArrayList<>();
@@ -126,7 +124,26 @@ public class Main implements Observer {
             case 2:  // Import
                 file = importExport.importTSV();
                 if (file != null) {
-                    //loadTSV();
+
+                    /*
+                    1. read file
+                    2. write file into addressBooks
+                    3. add name to
+
+
+                     */
+                    //AddressConverter convert = new AddressConverter();
+                    loadTSV(file);
+                    saveTSV(new File("addressBooks/" + file.getName()));
+                    addressBookList.add(file.getName());
+                    write(addressBookList);
+                    allBooksView.setAddressBookList(addressBookList);
+
+                    createAllAddressBooks();
+                    allBooksView.setAllAddressBooks(allAddressBooks);
+
+                    allBooksView.updateBookList();
+
                    // saveTSV(STORE);
                     //allBooksView.setAddressBook(addressBook);
                 }

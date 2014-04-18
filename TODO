@@ -1,0 +1,7 @@
+Move import/export to addressBookView and change to import and export addresses from a file into the currently opened address book
+    when importing tsv discard extra data that doesn't fit in our fields
+Remove: if an address book is open ask if you want to keep it or close it (call all instances currently open)
+save/save as move to address book view, save is save and save as is create new entry in alladdressbooks list asking for a new name
+change layout of contactviewTab
+represent names of address without .tsv
+automatically open newly created address book
