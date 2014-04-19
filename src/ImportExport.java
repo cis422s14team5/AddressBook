@@ -18,7 +18,7 @@ public class ImportExport {
     }
 
     /**
-     * Launches the load file dialog and tells Main to import the selected file.
+     * Launches the load file dialog and tells AddressBook to import the selected file.
      * @return the file to import.
      */
     public File importTSV() {
@@ -34,7 +34,7 @@ public class ImportExport {
     }
 
     /**
-     * Launches the save file dialog dialog and tells Main to export the selected file.
+     * Launches the save file dialog dialog and tells AddressBook to export the selected file.
      * @return the file to export.
      */
     public File exportTSV() {

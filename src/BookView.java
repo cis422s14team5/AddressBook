@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AddressBookView extends JFrame {
+public class BookView extends JFrame {
 
     private AllBooksView allBooksView;
     private ArrayList<HashMap<String, String>> addressBook;
@@ -70,7 +70,7 @@ public class AddressBookView extends JFrame {
 
     private JDialog addressBookFrame;
 
-    public AddressBookView(AllBooksView allBooksView, int index) {
+    public BookView(AllBooksView allBooksView, int index) {
         this.index = index;
         this.allBooksView = allBooksView;
         addressBook = allBooksView.getAllAddressBooks().get(index);
@@ -505,7 +505,7 @@ public class AddressBookView extends JFrame {
     }
 
     /**
-     * Notifies Main that it needs to save the current address book.
+     * Notifies AddressBook that it needs to save the current address book.
      */
     private void saveAddressBook() {
         allBooksView.setAddressBook(addressBook);

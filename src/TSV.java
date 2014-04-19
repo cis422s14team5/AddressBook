@@ -102,4 +102,27 @@ public class TSV {
             }
         }
     }
+
+    /**
+     * Saves the contents of the addressBook to the TSV file.
+     */
+    protected void saveTSV(File file, ArrayList<HashMap<String, String>> addressBook) {
+        AddressConverter convert = new AddressConverter();
+        try {
+            write(file, convert.internalToStandard(addressBook));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the contents of the TSV file into the addressBook.
+     */
+    protected void loadTSV(File file) {
+        try {
+            read(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

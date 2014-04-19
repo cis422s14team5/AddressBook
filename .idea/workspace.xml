@@ -68,36 +68,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <file leaf-file-name="AddressBook.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AddressBook.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1567" max-vertical-offset="2820">
-              <caret line="59" column="37" selection-start-line="59" selection-start-column="37" selection-end-line="59" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.920398" vertical-offset="0" max-vertical-offset="2025">
+              <caret line="39" column="80" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
               <folding>
-                <element signature="e#5877#5878#0" expanded="true" />
-                <element signature="e#5903#5904#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImportExport.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImportExport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddressConverter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="174" max-vertical-offset="1710">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4440#4441#0" expanded="true" />
+                <element signature="e#4473#4474#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,8 +84,8 @@
       <file leaf-file-name="AllBooksView.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AllBooksView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3846154" vertical-offset="273" max-vertical-offset="4020">
-              <caret line="39" column="14" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="14" />
+            <state vertical-scroll-proportion="-0.5769231" vertical-offset="270" max-vertical-offset="4020">
+              <caret line="27" column="58" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="58" />
               <folding>
                 <element signature="e#2165#2313#0" expanded="true" />
                 <element signature="e#2302#2303#0" expanded="true" />
@@ -121,59 +99,49 @@
                 <element signature="e#4748#4749#0" expanded="true" />
                 <element signature="e#4852#4994#0" expanded="true" />
                 <element signature="e#4983#4984#0" expanded="true" />
-                <element signature="e#7838#7839#0" expanded="true" />
-                <element signature="e#7863#7864#0" expanded="true" />
+                <element signature="e#7845#7846#0" expanded="true" />
+                <element signature="e#7870#7871#0" expanded="true" />
                 <element signature="method#setAllAddressBooks#0;class#AllBooksView#0" expanded="false" />
-                <element signature="e#9020#9021#0" expanded="true" />
-                <element signature="e#9066#9067#0" expanded="true" />
-                <element signature="e#9104#9105#0" expanded="true" />
-                <element signature="e#9138#9139#0" expanded="true" />
+                <element signature="e#9034#9035#0" expanded="true" />
+                <element signature="e#9080#9081#0" expanded="true" />
+                <element signature="e#9118#9119#0" expanded="true" />
+                <element signature="e#9152#9153#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddressBookView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AddressBookView.java">
+      <file leaf-file-name="BookView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BookView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7467" max-vertical-offset="8070">
+            <state vertical-scroll-proportion="0.0" vertical-offset="6627" max-vertical-offset="8070">
               <caret line="305" column="26" selection-start-line="305" selection-start-column="26" selection-end-line="305" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4846#4995#0" expanded="true" />
-                <element signature="e#4984#4985#0" expanded="true" />
-                <element signature="e#5077#5271#0" expanded="true" />
-                <element signature="e#5260#5261#0" expanded="true" />
-                <element signature="e#5342#5537#0" expanded="true" />
-                <element signature="e#5526#5527#0" expanded="true" />
-                <element signature="e#5614#5760#0" expanded="true" />
-                <element signature="e#5749#5750#0" expanded="true" />
-                <element signature="e#5861#6005#0" expanded="true" />
-                <element signature="e#5994#5995#0" expanded="true" />
-                <element signature="e#6076#6220#0" expanded="true" />
-                <element signature="e#6209#6210#0" expanded="true" />
-                <element signature="e#6297#6440#0" expanded="true" />
-                <element signature="e#6429#6430#0" expanded="true" />
+                <element signature="e#4832#4981#0" expanded="true" />
+                <element signature="e#4970#4971#0" expanded="true" />
+                <element signature="e#5063#5257#0" expanded="true" />
+                <element signature="e#5246#5247#0" expanded="true" />
+                <element signature="e#5328#5523#0" expanded="true" />
+                <element signature="e#5512#5513#0" expanded="true" />
+                <element signature="e#5600#5746#0" expanded="true" />
+                <element signature="e#5735#5736#0" expanded="true" />
+                <element signature="e#5847#5991#0" expanded="true" />
+                <element signature="e#5980#5981#0" expanded="true" />
+                <element signature="e#6062#6206#0" expanded="true" />
+                <element signature="e#6195#6196#0" expanded="true" />
+                <element signature="e#6283#6426#0" expanded="true" />
+                <element signature="e#6415#6416#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TODO" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TODO" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14925373" vertical-offset="0" max-vertical-offset="603">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
               <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TSV.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TSV.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1440">
-              <caret line="81" column="92" selection-start-line="81" selection-start-column="92" selection-end-line="81" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -184,16 +152,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
               <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="regex.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/regex.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-              <caret line="9" column="82" selection-start-line="7" selection-start-column="16" selection-end-line="9" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -211,16 +169,18 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/store.tsv" />
-        <option value="$PROJECT_DIR$/src/TSV.java" />
         <option value="$PROJECT_DIR$/src/View.java" />
         <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/ImportExport.java" />
         <option value="$PROJECT_DIR$/addressBooks/books.txt" />
         <option value="$PROJECT_DIR$/src/AllBooksView.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/AddressBookView.java" />
         <option value="$PROJECT_DIR$/faulk_questions.txt" />
         <option value="$PROJECT_DIR$/TODO" />
+        <option value="$PROJECT_DIR$/src/ReadWrite.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/TSV.java" />
+        <option value="$PROJECT_DIR$/src/AddressBook.java" />
       </list>
     </option>
   </component>
@@ -332,9 +292,9 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+  <component name="RunManager" selected="Application.AddressBook">
+    <configuration default="false" name="AddressBook" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AddressBook" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -485,11 +445,11 @@
       <method />
     </configuration>
     <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="0" class="java.lang.String" itemvalue="Application.AddressBook" />
     </list>
     <recent_temporary>
       <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.AddressBook" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -554,14 +514,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/TSV.java</url>
-          <line>80</line>
-          <properties class="TSV" method="write" />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="7" />
     </breakpoint-manager>
   </component>
@@ -570,13 +522,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/AddressBook.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1530">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5903#5904#0" expanded="true" />
+            <element signature="e#4440#4441#0" expanded="true" />
+            <element signature="e#4473#4474#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -613,14 +565,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/regex.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <caret line="9" column="82" selection-start-line="7" selection-start-column="16" selection-end-line="9" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lalala.tsv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="603">
@@ -629,34 +573,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TSV.java">
+    <entry file="file://$PROJECT_DIR$/faulk_questions.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1440">
-          <caret line="81" column="92" selection-start-line="81" selection-start-column="92" selection-end-line="81" selection-end-column="92" />
+        <state vertical-scroll-proportion="0.8148148" vertical-offset="123" max-vertical-offset="690">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addressBooks/books.txt">
+    <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-          <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImportExport.java">
+    <entry file="file://$PROJECT_DIR$/src/ReadWrite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="174" max-vertical-offset="1710">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -665,8 +601,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AllBooksView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3846154" vertical-offset="273" max-vertical-offset="4020">
-          <caret line="39" column="14" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="14" />
+        <state vertical-scroll-proportion="-0.5769231" vertical-offset="270" max-vertical-offset="4020">
+          <caret line="27" column="58" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="58" />
           <folding>
             <element signature="e#2165#2313#0" expanded="true" />
             <element signature="e#2302#2303#0" expanded="true" />
@@ -680,65 +616,91 @@
             <element signature="e#4748#4749#0" expanded="true" />
             <element signature="e#4852#4994#0" expanded="true" />
             <element signature="e#4983#4984#0" expanded="true" />
-            <element signature="e#7838#7839#0" expanded="true" />
-            <element signature="e#7863#7864#0" expanded="true" />
+            <element signature="e#7845#7846#0" expanded="true" />
+            <element signature="e#7870#7871#0" expanded="true" />
             <element signature="method#setAllAddressBooks#0;class#AllBooksView#0" expanded="false" />
-            <element signature="e#9020#9021#0" expanded="true" />
-            <element signature="e#9066#9067#0" expanded="true" />
-            <element signature="e#9104#9105#0" expanded="true" />
-            <element signature="e#9138#9139#0" expanded="true" />
+            <element signature="e#9034#9035#0" expanded="true" />
+            <element signature="e#9080#9081#0" expanded="true" />
+            <element signature="e#9118#9119#0" expanded="true" />
+            <element signature="e#9152#9153#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/TSV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1567" max-vertical-offset="2820">
-          <caret line="59" column="37" selection-start-line="59" selection-start-column="37" selection-end-line="59" selection-end-column="37" />
-          <folding>
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5903#5904#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/faulk_questions.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8148148" vertical-offset="123" max-vertical-offset="690">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1182" max-vertical-offset="1785">
+          <caret line="98" column="28" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AddressBookView.java">
+    <entry file="file://$PROJECT_DIR$/regex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <caret line="9" column="82" selection-start-line="7" selection-start-column="16" selection-end-line="9" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addressBooks/books.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+          <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BookView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="7467" max-vertical-offset="8070">
           <caret line="305" column="26" selection-start-line="305" selection-start-column="26" selection-end-line="305" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4846#4995#0" expanded="true" />
-            <element signature="e#4984#4985#0" expanded="true" />
-            <element signature="e#5077#5271#0" expanded="true" />
-            <element signature="e#5260#5261#0" expanded="true" />
-            <element signature="e#5342#5537#0" expanded="true" />
-            <element signature="e#5526#5527#0" expanded="true" />
-            <element signature="e#5614#5760#0" expanded="true" />
-            <element signature="e#5749#5750#0" expanded="true" />
-            <element signature="e#5861#6005#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6076#6220#0" expanded="true" />
-            <element signature="e#6209#6210#0" expanded="true" />
-            <element signature="e#6297#6440#0" expanded="true" />
-            <element signature="e#6429#6430#0" expanded="true" />
+            <element signature="e#4832#4981#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5063#5257#0" expanded="true" />
+            <element signature="e#5246#5247#0" expanded="true" />
+            <element signature="e#5328#5523#0" expanded="true" />
+            <element signature="e#5512#5513#0" expanded="true" />
+            <element signature="e#5600#5746#0" expanded="true" />
+            <element signature="e#5735#5736#0" expanded="true" />
+            <element signature="e#5847#5991#0" expanded="true" />
+            <element signature="e#5980#5981#0" expanded="true" />
+            <element signature="e#6062#6206#0" expanded="true" />
+            <element signature="e#6195#6196#0" expanded="true" />
+            <element signature="e#6283#6426#0" expanded="true" />
+            <element signature="e#6415#6416#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TODO">
+    <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14925373" vertical-offset="0" max-vertical-offset="603">
-          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.8308458" vertical-offset="174" max-vertical-offset="1710">
+          <caret line="45" column="81" selection-start-line="45" selection-start-column="81" selection-end-line="45" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImportExport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42288557" vertical-offset="0" max-vertical-offset="825">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AddressBook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.920398" vertical-offset="0" max-vertical-offset="2025">
+          <caret line="39" column="80" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding>
+            <element signature="e#4440#4441#0" expanded="true" />
+            <element signature="e#4473#4474#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,7 +1,4 @@
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +11,7 @@ import java.util.HashMap;
  * AddressBook is an address management program. It takes addresses in USPS standard format and stores them in an
  * address book.
  */
-public class Main implements Observer {
+public class AddressBook implements Observer {
 
     private final File BOOKS = new File("addressBooks/books.txt");
 
@@ -23,13 +20,15 @@ public class Main implements Observer {
     private AllBooksView allBooksView;
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
     private ArrayList<String> addressBookList;
+    private ReadWrite readWrite;
 
     /**
      * Constructor. Loads the saved address book from the TSV file and starts the allBooksView.
      */
-    public Main() {
+    public AddressBook() {
         tsv = new TSV();
-        addressBookList = read(BOOKS.toPath());
+        readWrite = new ReadWrite();
+        addressBookList = readWrite.read(BOOKS.toPath());
 
         createAllAddressBooks();
 
@@ -55,61 +54,6 @@ public class Main implements Observer {
     }
 
     /**
-     * Saves the contents of the addressBook to the TSV file.
-     */
-    private void saveTSV(File file) {
-        AddressConverter convert = new AddressConverter();
-        try {
-            tsv.write(file, convert.internalToStandard(allBooksView.getAddressBook()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads the contents of the TSV file into the addressBook.
-     */
-    private void loadTSV(File file) {
-        try {
-            tsv.read(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //addressBook = convert.standardToInternal(tsv.addressList);
-        //allBooksView.setAddressBook(addressBook);
-    }
-
-    private ArrayList<String> read(Path path) {
-        ArrayList<String> input = new ArrayList<>();
-
-        try {
-            BufferedReader reader = Files.newBufferedReader(path, Charset.forName("US-ASCII"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                input.add(line);
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-
-        return input;
-    }
-
-    private void write(ArrayList<String> addressBookList) {
-        try {
-            BufferedWriter writer = Files.newBufferedWriter(BOOKS.toPath(), Charset.forName("US-ASCII"));
-            for (String string : addressBookList) {
-                writer.write(string + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-    }
-
-    /**
      * Initiates the save, import, or export of an address book. Called by the AllBooksView.
      * @param num is the switch case.
      */
@@ -119,7 +63,7 @@ public class Main implements Observer {
 
         switch (num) {
             case 1:  // Save
-                saveTSV(allBooksView.getFile());
+                tsv.saveTSV(allBooksView.getFile(), allBooksView.getAddressBook());
                 break;
             case 2:  // Import
                 file = importExport.importTSV();
@@ -133,10 +77,10 @@ public class Main implements Observer {
 
                      */
                     //AddressConverter convert = new AddressConverter();
-                    loadTSV(file);
-                    saveTSV(new File("addressBooks/" + file.getName()));
+                    tsv.loadTSV(file);
+                    tsv.saveTSV(new File("addressBooks/" + file.getName()), allBooksView.getAddressBook());
                     addressBookList.add(file.getName());
-                    write(addressBookList);
+                    readWrite.write(BOOKS.toPath(), addressBookList);
                     allBooksView.setAddressBookList(addressBookList);
 
                     createAllAddressBooks();
@@ -151,14 +95,14 @@ public class Main implements Observer {
             case 3:  // Export
                 file = importExport.exportTSV();
                 if (file != null) {
-                    saveTSV(file);
+                    tsv.saveTSV(file, allBooksView.getAddressBook());
                 }
                 break;
             case 4:  // New Book
-                saveTSV(new File("addressBooks/" + allBooksView.getNewFileName()));
+                tsv.saveTSV(new File("addressBooks/" + allBooksView.getNewFileName()), allBooksView.getAddressBook());
 
                 addressBookList.add(allBooksView.getNewFileName());
-                write(addressBookList);
+                readWrite.write(BOOKS.toPath(), addressBookList);
                 allBooksView.setAddressBookList(addressBookList);
 
                 createAllAddressBooks();
@@ -179,10 +123,10 @@ public class Main implements Observer {
     }
 
     /**
-     * Main method.
+     * AddressBook method.
      * @param args is the command line arguments array.
      */
     public static void main(String[] args) {
-        new Main();
+        new AddressBook();
     }
 }

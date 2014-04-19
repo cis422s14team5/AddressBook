@@ -5,7 +5,7 @@
 //import java.awt.event.ActionListener;
 //import java.util.ArrayList;
 //
-//public class AddressBookView extends JFrame {
+//public class BookView extends JFrame {
 //
 //    private JTextField firstNameField;
 //    private JTextField lastNameField;
@@ -34,7 +34,7 @@
 //    JButton next;
 //    JButton prev;
 //
-//    public AddressBookView(final ArrayList<MapAddress> mapAddressList) {
+//    public BookView(final ArrayList<MapAddress> mapAddressList) {
 //        this.mapAddressList = mapAddressList;
 //        observers = new ArrayList<Observer>();
 //        mapAddress = new MapAddress();

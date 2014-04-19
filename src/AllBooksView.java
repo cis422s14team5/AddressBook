@@ -199,7 +199,7 @@ public class AllBooksView extends JFrame {
 
         if (!bookList.isSelectionEmpty()) {
             file = new File("addressBooks/" + addressBookList.get(bookList.getSelectedIndex()));
-            new AddressBookView(this, bookList.getSelectedIndex());
+            new BookView(this, bookList.getSelectedIndex());
         } else if (addressBookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
         } else {
@@ -208,7 +208,7 @@ public class AllBooksView extends JFrame {
     }
 
     /**
-     * Notifies Main that it needs to import an address book.
+     * Notifies AddressBook that it needs to import an address book.
      */
     private void importTSV() {
         for (Observer observer : observers) {
@@ -217,7 +217,7 @@ public class AllBooksView extends JFrame {
     }
 
     /**
-     * Notifies Main that it needs to export an address book.
+     * Notifies AddressBook that it needs to export an address book.
      */
     private void exportTSV() {
         addressBook = allAddressBooks.get(bookList.getSelectedIndex());
@@ -236,7 +236,7 @@ public class AllBooksView extends JFrame {
     }
 
     /**
-     * Notifies Main that it needs to import an address book.
+     * Notifies AddressBook that it needs to import an address book.
      */
     private void loadAddressBook() {
         for (Observer observer : observers) {
