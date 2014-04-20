@@ -33,9 +33,9 @@ TODO Likely Changes
  */
 public class AllBooks extends JFrame {
 
-    private File saveDir;
+    protected File saveDir;
     private File books;
-    private String slash;
+    protected String slash;
     private JList<String> scrollList;
     private ArrayList<String> bookList;
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
