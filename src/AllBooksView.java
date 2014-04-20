@@ -24,8 +24,6 @@ public class AllBooksView extends JFrame {
 
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
 
-    public ArrayList<Observer> observers;
-
     private ArrayList<HashMap<String, String>> addressBook;
 
     private File file;
@@ -255,45 +253,8 @@ public class AllBooksView extends JFrame {
         bookList.setListData(addressBookList.toArray(new String[addressBookList.size()]));
     }
 
-    public void setAddressBookList(ArrayList<String> addressBookList) {
-        this.addressBookList = addressBookList;
-    }
-
-    public ArrayList<ArrayList<HashMap<String, String>>> getAllAddressBooks() {
-        return allAddressBooks;
-    }
-
-    public void setAllAddressBooks(ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks) {
-        this.allAddressBooks = allAddressBooks;
-    }
-
-    public ArrayList<HashMap<String, String>> getAddressBook() {
-        return addressBook;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-
     public void setAddressBook(ArrayList<HashMap<String, String>> addressBook) {
         this.addressBook = addressBook;
-    }
-
-    public String getNewFileName() {
-        return newFileName;
-    }
-
-    public ArrayList<Observer> getObservers() {
-        return observers;
-    }
-
-    /**
-     * Adds an observer to the observer list.
-     * @param observer is the observer to be added.
-     */
-    public void addObserver(Observer observer) {
-        observers.add(observer);
     }
 
 
