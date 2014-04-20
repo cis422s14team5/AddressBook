@@ -15,34 +15,13 @@ public class BookView extends JFrame {
     private ImportExport importExport;
     private TSV tsv;
 
+    private JList<String> scrollList;
+    private boolean isEditing;
+    private int index;
+    private String title;
+
     // Panels
     private JTabbedPane tabbedPane;
-
-    // All Contacts Panels
-    private JPanel allContactsPanel;
-    private JPanel allContactsButtonPanel;
-
-    // Contact Panels
-    private JPanel contactPanel;
-    private JPanel contactButtonPanel;
-    private JPanel addressPanel;
-    private JPanel lastPanel;
-    private JPanel deliveryPanel;
-    private JPanel secondPanel;
-    private JPanel recipientPanel;
-    private JPanel phonePanel;
-
-    // Labels
-    private JLabel lastLabel;
-    private JLabel cityLabel = new JLabel("City");
-    private JLabel stateLabel = new JLabel("State");
-    private JLabel zipLabel = new JLabel("Zip");
-    private JLabel deliveryLabel = new JLabel("Delivery:");
-    private JLabel secondLabel = new JLabel("Second:");
-    private JLabel recipientLabel = new JLabel("Recipient: ");
-    private JLabel lastNameLabel = new JLabel("Last");
-    private JLabel firstNameLabel = new JLabel("First");
-    private JLabel phoneLabel = new JLabel("Phone:");
 
     // Text Fields
     private JTextField cityField;
@@ -53,22 +32,6 @@ public class BookView extends JFrame {
     private JTextField lastNameField;
     private JTextField firstNameField;
     private JTextField phoneField;
-
-    // Buttons
-    private JButton close;
-    private JButton newContact;
-    private JButton edit;
-    private JButton remove;
-    private JButton clear;
-    private JButton save;
-    private JButton cancel;
-
-    private JList scrollList;
-
-    private boolean isEditing;
-
-    private int index;
-    private String title;
 
     public BookView(AllBooksView allBooksView, int index, String title) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -137,7 +100,7 @@ public class BookView extends JFrame {
         JMenuItem importMenuItem = new JMenuItem("Import");
         importMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        closeMenuItem.addActionListener(new ActionListener() {
+        importMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 importTSV();
             }
@@ -147,7 +110,7 @@ public class BookView extends JFrame {
         JMenuItem exportMenuItem = new JMenuItem("Export");
         exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        closeMenuItem.addActionListener(new ActionListener() {
+        exportMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 exportTSV();
             }
@@ -172,22 +135,22 @@ public class BookView extends JFrame {
         tabbedPane = new JTabbedPane();
 
         // All Contacts Panels
-        allContactsPanel = new JPanel();
-        allContactsButtonPanel = new JPanel();
+        JPanel allContactsPanel = new JPanel();
+        JPanel allContactsButtonPanel = new JPanel();
 
         // Contact Panels
-        contactPanel = new JPanel();
-        contactButtonPanel = new JPanel();
-        addressPanel = new JPanel();
-        lastPanel = new JPanel();
-        deliveryPanel = new JPanel();
-        secondPanel = new JPanel();
-        recipientPanel = new JPanel();
-        phonePanel = new JPanel();
+        JPanel contactPanel = new JPanel();
+        JPanel contactButtonPanel = new JPanel();
+        JPanel addressPanel = new JPanel();
+        JPanel lastPanel = new JPanel();
+        JPanel deliveryPanel = new JPanel();
+        JPanel secondPanel = new JPanel();
+        JPanel recipientPanel = new JPanel();
+        JPanel phonePanel = new JPanel();
 
         // JList and JScrollPane
-        DefaultListModel listModel = new DefaultListModel();
-        scrollList = new JList<String>(listModel);
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        scrollList = new JList<>(listModel);
         scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollList.setSelectedIndex(0);
         listModel.clear();
@@ -212,16 +175,16 @@ public class BookView extends JFrame {
         scrollPane.setPreferredSize(new Dimension(360, 145));
 
         // Labels
-        lastLabel = new JLabel("Last:");
-        cityLabel = new JLabel("City");
-        stateLabel = new JLabel("State");
-        zipLabel = new JLabel("Zip");
-        deliveryLabel = new JLabel("Delivery:");
-        secondLabel = new JLabel("Second:");
-        recipientLabel = new JLabel("Recipient: ");
-        lastNameLabel = new JLabel("Last");
-        firstNameLabel = new JLabel("First");
-        phoneLabel = new JLabel("Phone:");
+        JLabel lastLabel = new JLabel("Last:");
+        JLabel cityLabel = new JLabel("City");
+        JLabel stateLabel = new JLabel("State");
+        JLabel zipLabel = new JLabel("Zip");
+        JLabel deliveryLabel = new JLabel("Delivery:");
+        JLabel secondLabel = new JLabel("Second:");
+        JLabel recipientLabel = new JLabel("Recipient: ");
+        JLabel lastNameLabel = new JLabel("Last");
+        JLabel firstNameLabel = new JLabel("First");
+        JLabel phoneLabel = new JLabel("Phone:");
 
         // Text Fields
         cityField = new JTextField();
@@ -235,7 +198,7 @@ public class BookView extends JFrame {
 
         // All Contacts Buttons
 
-        newContact = new JButton("New");
+        JButton newContact = new JButton("New");
         newContact.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 tabbedPane.setEnabledAt(0, false);
@@ -243,7 +206,7 @@ public class BookView extends JFrame {
             }
         });
 
-        edit = new JButton("Edit");
+        JButton edit = new JButton("Edit");
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 tabbedPane.setEnabledAt(0, false);
@@ -251,7 +214,7 @@ public class BookView extends JFrame {
             }
         });
 
-        remove = new JButton("Remove");
+        JButton remove = new JButton("Remove");
         remove.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 removeContact();
@@ -259,21 +222,21 @@ public class BookView extends JFrame {
         });
 
         // Contact Buttons
-        clear = new JButton("Clear");
+        JButton clear = new JButton("Clear");
         clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 clearFields();
             }
         });
 
-        save = new JButton("Save");
+        JButton save = new JButton("Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 saveContact();
             }
         });
 
-        cancel = new JButton("Cancel");
+        JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 cancelEdit();

@@ -25,7 +25,6 @@ public class ImportExport {
         fileDialog.setMode(FileDialog.LOAD);
         fileDialog.setVisible(true);
         if (fileDialog.getFile() != null) {
-
             String file = fileDialog.getDirectory() + fileDialog.getFile();
             return new File(file);
         } else {
@@ -39,6 +38,7 @@ public class ImportExport {
      */
     public File exportTSV() {
         fileDialog.setMode(FileDialog.SAVE);
+        fileDialog.setFile("untitled.tsv");
         fileDialog.setVisible(true);
         if (fileDialog.getFile() != null) {
             String file = fileDialog.getDirectory() + fileDialog.getFile();
