@@ -241,6 +241,12 @@ public class AllBooks extends JFrame {
         scrollList.setSelectedIndex(0);
 
         // TODO Open newly created address book here.
+        for (int i = 0; i < bookList.size(); i ++){
+            if (bookList.get(i).equals(newFileName)){
+                Book book = new Book(this, allAddressBooks.get(i), bookList.get(i));
+                book.setTitle(bookList.get(i));
+            }
+        }
     }
 
     private void removeBook() {
@@ -253,6 +259,7 @@ public class AllBooks extends JFrame {
         if (choice == 0) { // Yes
             Path path = FileSystems.getDefault().getPath(
                     saveDir + slash +  bookList.get(scrollList.getSelectedIndex()) + ".tsv");
+            getDialog(bookList.get(scrollList.getSelectedIndex()));
             try {
                 Files.deleteIfExists(path);
             } catch (IOException e) {
@@ -310,5 +317,15 @@ public class AllBooks extends JFrame {
             slash = "/";
         }
         books = new File(saveDir + slash +  "books.txt");
+    }
+
+    private void getDialog(String name) {
+        for (Window window : JFrame.getWindows()) {
+            if (window instanceof JFrame) {
+                if (((JFrame)window).getTitle().equals(name)) {
+                    window.dispose();
+                }
+            }
+        }
     }
 }

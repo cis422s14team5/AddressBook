@@ -57,7 +57,7 @@ public class Book extends JFrame {
 
         // Window
         setTitle("Address Book");
-        setSize(760, 260);
+        setSize(560, 360);
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -174,6 +174,7 @@ public class Book extends JFrame {
         JPanel secondPanel = new JPanel();
         JPanel recipientPanel = new JPanel();
         JPanel phonePanel = new JPanel();
+        JPanel zipPanel = new JPanel();
 
         // JList and JScrollPane
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -186,6 +187,7 @@ public class Book extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                tabbedPane.setEnabledAt(0, false);
                 JList list = (JList)e.getSource();
                 if (e.getClickCount() == 2) {
                     editContact(list.locationToIndex(e.getPoint()));
@@ -220,15 +222,12 @@ public class Book extends JFrame {
         });
 
         // Labels
-        JLabel lastLabel = new JLabel("Last:");
-        JLabel cityLabel = new JLabel("City");
-        JLabel stateLabel = new JLabel("State");
-        JLabel zipLabel = new JLabel("Zip");
+        JLabel cityLabel = new JLabel("City:");
+        JLabel stateLabel = new JLabel("      State:");
+        JLabel zipLabel = new JLabel("Zip:");
         JLabel deliveryLabel = new JLabel("Delivery:");
         JLabel secondLabel = new JLabel("Second:");
-        JLabel recipientLabel = new JLabel("Recipient: ");
-        JLabel lastNameLabel = new JLabel("Last");
-        JLabel firstNameLabel = new JLabel("First");
+        JLabel recipientLabel = new JLabel("Name: ");
         JLabel phoneLabel = new JLabel("Phone:");
 
         // Text Fields
@@ -308,55 +307,62 @@ public class Book extends JFrame {
         allContactsButtonPanel.add(edit);
         allContactsButtonPanel.add(remove);
 
-        // TODO Fix the layout of the Contacts tab so the fields fill up all the space left after the labels.
+
         // Contact Layout
+
         // GridLayout contactPanelLayout = new GridLayout(2, 0);
         // contactPanel.setLayout(contactPanelLayout);
         // contactPanel.setBorder(border);
         contactPanel.add(addressPanel);
         contactPanel.add(contactButtonPanel);
 
-        GridLayout addressPanelLayout = new GridLayout(5, 0);
+        GridLayout addressPanelLayout = new GridLayout(7, 0);
         addressPanel.setLayout(addressPanelLayout);
-        // addressPanel.setBorder(border);
+        addressPanel.setBorder(border);
+        addressPanel.add(recipientPanel);
         addressPanel.add(lastPanel);
+        addressPanel.add(zipPanel);
         addressPanel.add(deliveryPanel);
         addressPanel.add(secondPanel);
-        addressPanel.add(recipientPanel);
         addressPanel.add(phonePanel);
+        addressPanel.add(contactButtonPanel);
 
         GridLayout linePanelLayout = new GridLayout(1, 0);
         lastPanel.setLayout(linePanelLayout);
-        lastPanel.add(lastLabel);
+        //lastPanel.add(lastLabel);
         lastPanel.add(cityLabel);
         lastPanel.add(cityField);
         lastPanel.add(stateLabel);
         lastPanel.add(stateField);
-        lastPanel.add(zipLabel);
-        lastPanel.add(zipField);
 
-        deliveryPanel.setLayout(linePanelLayout);
+        GridLayout linePanel2Layout = new GridLayout(0, 2);
+        deliveryPanel.setLayout(linePanel2Layout);
         deliveryPanel.add(deliveryLabel);
         deliveryPanel.add(deliveryField);
 
-        secondPanel.setLayout(linePanelLayout);
+        zipPanel.setLayout(linePanel2Layout);
+        zipPanel.add(zipLabel);
+        zipPanel.add(zipField);
+
+        secondPanel.setLayout(linePanel2Layout);
         secondPanel.add(secondLabel);
         secondPanel.add(secondField);
 
-        recipientPanel.setLayout(linePanelLayout);
+        GridLayout linePanel3Layout = new GridLayout(0, 3);
+        recipientPanel.setLayout(linePanel3Layout);
         recipientPanel.add(recipientLabel);
-        recipientPanel.add(lastNameLabel);
-        recipientPanel.add(lastNameField);
-        recipientPanel.add(firstNameLabel);
         recipientPanel.add(firstNameField);
+        //recipientPanel.add(lastNameLabel);
+        recipientPanel.add(lastNameField);
+        //recipientPanel.add(firstNameLabel);
 
-        phonePanel.setLayout(linePanelLayout);
+        phonePanel.setLayout(linePanel2Layout);
         phonePanel.add(phoneLabel);
         phonePanel.add(phoneField);
 
         GridLayout contactButtonPanelLayout = new GridLayout(0, 3);
         contactButtonPanel.setLayout(contactButtonPanelLayout);
-        // contactButtonPanel.setBorder(border);
+        contactButtonPanel.setBorder(border);
         contactButtonPanel.add(cancel);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
