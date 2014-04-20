@@ -1,3 +1,5 @@
+import org.supercsv.cellprocessor.Optional;
+import org.supercsv.cellprocessor.constraint.LMinMax;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapReader;
@@ -41,9 +43,6 @@ public class TSV {
             new NotNull(), // Second
             new NotNull(), // Recipient
             new NotNull() // Phone
-//            new NotNull(),
-//            new NotNull(),
-//            new NotNull()
         };
     }
 
@@ -59,7 +58,11 @@ public class TSV {
 
             // the header columns are used as the keys to the Map
             final String[] header = mapReader.getHeader(true);
-            final CellProcessor[] processors = getProcessors();
+
+            final CellProcessor[] processors =  new CellProcessor[header.length];
+            for (int i = 0; i < header.length; i++) {
+                processors[i] = new NotNull();
+            }
 
             Map<String, Object> address;
             while ((address = mapReader.read(header, processors)) != null) {
@@ -88,14 +91,21 @@ public class TSV {
      * implementation provided by the developer. It has been modified to suit the context.
      */
     public void write(File file, ArrayList<HashMap<String, String>> mapList) {
-        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone"};
+        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone",
+                null, null, null, null, null, null, null};
         this.addressList = mapList;
 
         ICsvMapWriter mapWriter = null;
         try {
             mapWriter = new CsvMapWriter(new FileWriter(file), CsvPreference.TAB_PREFERENCE);
 
-            final CellProcessor[] processors = getProcessors();
+            final CellProcessor[] processors = {
+                    new NotNull(), // Last
+                    new NotNull(), // Delivery
+                    new NotNull(), // Second
+                    new NotNull(), // Recipient
+                    new NotNull()  // Phone
+            };;
 
             // write the header
             mapWriter.writeHeader(header);

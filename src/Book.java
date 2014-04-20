@@ -6,6 +6,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * An address book.
+ */
 public class Book extends JFrame {
 
     private ArrayList<HashMap<String, String>> addressBook;
@@ -33,6 +36,12 @@ public class Book extends JFrame {
     private JTextField phoneField;
     private AllBooks allBooks;
 
+    /**
+     * Constructor. Creates an address book window.
+     * @param allBooks is a copy of the all books view
+     * @param addressBook is the address book for this window.
+     * @param title is the title of the address book.
+     */
     public Book(AllBooks allBooks, ArrayList<HashMap<String, String>> addressBook, String title) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
@@ -334,8 +343,6 @@ public class Book extends JFrame {
      * Updates the list of addresses in the scroll list.
      */
     public void updateScrollList() {
-
-        //listModel.clear();
         scrollList.setListData(new String[0]);
         ArrayList<String> tempList = new ArrayList<>();
         for (HashMap<String, String> address : addressBook) {
@@ -344,6 +351,9 @@ public class Book extends JFrame {
         scrollList.setListData(tempList.toArray(new String[tempList.size()]));
     }
 
+    /**
+     * Cancels the edits and goes back to the contact list.
+     */
     private void cancelEdit() {
         tabbedPane.setSelectedIndex(0);
         tabbedPane.setEnabledAt(0, true);
@@ -396,6 +406,7 @@ public class Book extends JFrame {
      */
     private void getContact(int index) {
         address = addressBook.get(index);
+        System.out.println(address);
 
         if (!address.get("city").equals(" ")) {
             cityField.setText(address.get("city"));
@@ -519,6 +530,10 @@ public class Book extends JFrame {
         }
     }
 
+    /**
+     * Checks the last name field for valid input.
+     * @return true if valid.
+     */
     private boolean checkLastName() {
         boolean valid = false;
         if (!lastNameField.getText().equals("")) {
@@ -530,6 +545,10 @@ public class Book extends JFrame {
         return valid;
     }
 
+    /**
+     * Checks the phone field for valid input.
+     * @return true if valid.
+     */
     private boolean checkPhone() {
         boolean valid = false;
         if (!phoneField.getText().equals("") &&
@@ -545,6 +564,10 @@ public class Book extends JFrame {
         return valid;
     }
 
+    /**
+     * Checks the zip field for valid input.
+     * @return true if valid.
+     */
     private boolean checkZip() {
         boolean valid = false;
         if (!zipField.getText().equals("") && zipField.getText().matches("^[0-9]{5}$") ||
@@ -573,6 +596,9 @@ public class Book extends JFrame {
         phoneField.setText("");
     }
 
+    /**
+     * Closes the address book.
+     */
     private void closeBook() {
         if (modified) {
             int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -597,6 +623,9 @@ public class Book extends JFrame {
         getRootPane().putClientProperty("Window.documentModified", Boolean.FALSE);
     }
 
+    /**
+     * Lets the user supply a new name and makes a copy of the address book.
+     */
     private void saveAs() {
         AddressConverter converter = new AddressConverter();
         allBooks.openNewBookDialog(converter.internalToStandard(addressBook));
