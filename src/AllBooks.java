@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class AllBooks extends JFrame {
 
-    private final File BOOKS = new File("addressBooks/books.txt");
+    private final File BOOKS = new File(System.getProperty("user.home") + "/AddressBooks/books.txt");
 
     private JList<String> scrollList;
 
@@ -28,13 +28,7 @@ public class AllBooks extends JFrame {
 
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
 
-    private ArrayList<HashMap<String, String>> addressBook;
-
-    private File file;
-
     private String newFileName;
-
-    private ArrayList<String> openBooks;
 
     private TSV tsv;
     private ReadWrite readWrite;
@@ -48,11 +42,10 @@ public class AllBooks extends JFrame {
         tsv = new TSV();
         readWrite = new ReadWrite();
 
+        checkForBooks();
         bookList = readWrite.read(BOOKS.toPath());
         Collections.sort(bookList);
         createAllAddressBooks();
-
-        openBooks = new ArrayList<>();
 
         // Window
         setTitle("Address Book");
@@ -88,7 +81,6 @@ public class AllBooks extends JFrame {
 
         openMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //loadAddressBook();
                 openBookView(scrollList.getSelectedIndex());
             }
         });
@@ -195,7 +187,6 @@ public class AllBooks extends JFrame {
         if (!scrollList.isSelectionEmpty()) {
             Book book = new Book(this, allAddressBooks.get(index), bookList.get(index));
             book.setTitle(bookList.get(index));
-            openBooks.add("addressBooks/" + bookList.get(index) + ".tsv");
         } else if (bookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
         } else {
@@ -242,6 +233,8 @@ public class AllBooks extends JFrame {
     }
 
     private void removeBook() {
+        // TODO if the removed address book is open ask to keep it or close it
+
         int choice = JOptionPane.showConfirmDialog(null,
                 "If you remove this address book it will be gone forever.\nAre you sure?",
                 "Remove Address Book",
@@ -266,16 +259,22 @@ public class AllBooks extends JFrame {
         System.exit(0);
     }
 
-    private void getDialog(String name) {
-        JDialog dialog = new JDialog((Window)null, name);
-        for (Window window : JDialog.getWindows()) {
-            if (window instanceof JDialog) {
-                System.out.println(((JDialog)window).getTitle());
-            }
-        }
-    }
-
     public void updateBookList() {
         scrollList.setListData(bookList.toArray(new String[bookList.size()]));
+    }
+
+    private void checkForBooks() {
+        File directory = new File(System.getProperty("user.home"), "AddressBooks");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (!BOOKS.exists()) {
+            try {
+                BOOKS.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
