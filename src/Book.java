@@ -11,6 +11,8 @@ import java.util.HashMap;
  */
 public class Book extends JFrame {
 
+    private final File SAVEDIR = new File(System.getProperty("user.home") + "/AddressBooks");
+
     private ArrayList<HashMap<String, String>> addressBook;
     private HashMap<String, String> address;
 
@@ -618,7 +620,7 @@ public class Book extends JFrame {
      */
     private void saveBook() {
         AddressConverter converter = new AddressConverter();
-        tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
+        tsv.write(new File(SAVEDIR + "/" + title + ".tsv"), converter.internalToStandard(addressBook));
         modified = false;
         getRootPane().putClientProperty("Window.documentModified", Boolean.FALSE);
     }

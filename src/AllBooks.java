@@ -20,7 +20,9 @@ import java.util.HashMap;
  */
 public class AllBooks extends JFrame {
 
-    private final File BOOKS = new File(System.getProperty("user.home") + "/AddressBooks/books.txt");
+    private File saveDir;
+    private File books;
+    private String slash;
 
     private JList<String> scrollList;
 
@@ -42,13 +44,14 @@ public class AllBooks extends JFrame {
         tsv = new TSV();
         readWrite = new ReadWrite();
 
+        checkOS();
         checkForBooks();
-        bookList = readWrite.read(BOOKS.toPath());
+        bookList = readWrite.read(books.toPath());
         Collections.sort(bookList);
         createAllAddressBooks();
 
         // Window
-        setTitle("Address Book");
+        setTitle("Address Books");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(460, 260);
         setResizable(false);
@@ -171,7 +174,7 @@ public class AllBooks extends JFrame {
         allAddressBooks = new ArrayList<>();
 
         for (String addressBook : bookList) {
-            File file = new File ("addressBooks/" + addressBook + ".tsv");
+            File file = new File(saveDir + slash +  addressBook + ".tsv");
 
             AddressConverter convert = new AddressConverter();
             try {
@@ -216,14 +219,14 @@ public class AllBooks extends JFrame {
         scrollList.setSelectedIndex(bookList.size());
 
         // Write to the TSV file.
-        tsv.write(new File("addressBooks/" + newFileName + ".tsv"), addressBook);
+        tsv.write(new File(saveDir + slash +  newFileName + ".tsv"), addressBook);
 
         // Add to address bookList.
         bookList.add(newFileName);
         Collections.sort(bookList);
 
         // Write to books.txt
-        readWrite.write(BOOKS.toPath(), bookList);
+        readWrite.write(books.toPath(), bookList);
 
         createAllAddressBooks();
         updateBookList();
@@ -241,14 +244,14 @@ public class AllBooks extends JFrame {
                 JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == 0) { // Yes
             Path path = FileSystems.getDefault().getPath(
-                    "addressBooks/" + bookList.get(scrollList.getSelectedIndex()) + ".tsv");
+                    saveDir + slash +  bookList.get(scrollList.getSelectedIndex()) + ".tsv");
             try {
                 Files.deleteIfExists(path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             bookList.remove(scrollList.getSelectedIndex());
-            readWrite.write(BOOKS.toPath(), bookList);
+            readWrite.write(books.toPath(), bookList);
             createAllAddressBooks();
             updateBookList();
         }
@@ -264,17 +267,29 @@ public class AllBooks extends JFrame {
     }
 
     private void checkForBooks() {
-        File directory = new File(System.getProperty("user.home"), "AddressBooks");
-        if (!directory.exists()) {
-            directory.mkdir();
+        if (!saveDir.exists()) {
+            saveDir.mkdir();
         }
 
-        if (!BOOKS.exists()) {
+        if (!books.exists()) {
             try {
-                BOOKS.createNewFile();
+                books.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void checkOS() {
+        String os = System.getProperty("os.name");
+        System.out.println(os);
+        if (os.equals("Windows")) {
+            saveDir = new File(System.getProperty("user.home"), "Application Data\\AddressBooks");
+            slash = "\\";
+        } else {
+            saveDir = new File(System.getProperty("user.home") + "/AddressBooks");
+            slash = "/";
+            books = new File(saveDir + slash +  "books.txt");
         }
     }
 }
