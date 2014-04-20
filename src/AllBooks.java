@@ -76,7 +76,7 @@ public class AllBooks extends JFrame {
 
         newMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                openNewBookDialog();
+                openNewBookDialog(new ArrayList<HashMap<String, String>>());
             }
         });
         fileMenu.add(newMenuItem);
@@ -149,7 +149,7 @@ public class AllBooks extends JFrame {
         JButton newBook = new JButton("New");
         newBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                openNewBookDialog();
+                openNewBookDialog(new ArrayList<HashMap<String, String>>());
             }
         });
 
@@ -194,7 +194,7 @@ public class AllBooks extends JFrame {
     private void openBookView(int index) {
         if (!scrollList.isSelectionEmpty()) {
             file = new File("addressBooks/" + bookList.get(index) + ".tsv");
-            Book book = new Book(allAddressBooks.get(index), bookList.get(index));
+            Book book = new Book(this, allAddressBooks.get(index), bookList.get(index));
             book.setTitle(bookList.get(index));
             openBooks.add(file.getName());
         } else if (bookList.size() == 0) {
@@ -204,7 +204,7 @@ public class AllBooks extends JFrame {
         }
     }
 
-    private void openNewBookDialog() {
+    public void openNewBookDialog(ArrayList<HashMap<String, String>> addressBook) {
         newFileName = "";
         newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
         boolean matches = false;
@@ -214,16 +214,15 @@ public class AllBooks extends JFrame {
             }
         }
         if (!newFileName.equals("") && !matches) {
-            createNewBook();
+            createNewBook(addressBook);
         } else {
             JOptionPane.showMessageDialog(this,
                     "An address book with that name already exists. Please choose another.");
-            openNewBookDialog();
+            openNewBookDialog(addressBook);
         }
     }
 
-    private void createNewBook() {
-        addressBook = new ArrayList<>();
+    private void createNewBook(ArrayList<HashMap<String, String>> addressBook) {
         scrollList.setSelectedIndex(bookList.size());
 
         // Write to the TSV file.

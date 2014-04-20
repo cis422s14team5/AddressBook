@@ -30,12 +30,14 @@ public class Book extends JFrame {
     private JTextField lastNameField;
     private JTextField firstNameField;
     private JTextField phoneField;
+    private AllBooks allBooks;
 
-    public Book(ArrayList<HashMap<String, String>> addressBook, String title) {
+    public Book(AllBooks allBooks, ArrayList<HashMap<String, String>> addressBook, String title) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
         this.title = title;
         this.addressBook = addressBook;
+        this.allBooks = allBooks;
         isEditing = false;
         importExport = new ImportExport(this);
         tsv = new TSV();
@@ -129,7 +131,7 @@ public class Book extends JFrame {
                 (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
         saveAsMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                saveBook();
+                saveAs();
             }
         });
         fileMenu.add(saveAsMenuItem);
@@ -553,14 +555,6 @@ public class Book extends JFrame {
         phoneField.setText("");
     }
 
-    /**
-     * Saves the current address book.
-     */
-    private void saveBook() {
-        AddressConverter converter = new AddressConverter();
-        tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
-    }
-
     private void closeBook() {
         int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == 0) { // Yes
@@ -569,6 +563,19 @@ public class Book extends JFrame {
         if (choice != 2) {
             dispose();
         }
+    }
+
+    /**
+     * Saves the current address book.
+     */
+    private void saveBook() {
+        AddressConverter converter = new AddressConverter();
+        tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
+    }
+
+    private void saveAs() {
+        AddressConverter converter = new AddressConverter();
+        allBooks.openNewBookDialog(converter.internalToStandard(addressBook));
     }
 
     /**
