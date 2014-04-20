@@ -29,7 +29,7 @@ TODO Likely Changes
  */
 
 /**
- * The address book GUI.
+ * All address books.
  */
 public class AllBooks extends JFrame {
 
