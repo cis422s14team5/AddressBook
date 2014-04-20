@@ -38,9 +38,13 @@ public class CheckInput {
         if (!phoneField.getText().equals("") &&
                 phoneField.getText().matches("^[0-9]{10}$") ||                              // ##########
                 phoneField.getText().matches("^[(][0-9]{3}[)][ ][0-9]{3}[-][0-9]{4}$") ||   // (###) ###-####
+                phoneField.getText().matches("^[(][0-9]{3}[)][ ][0-9]{3}[.][0-9]{4}$") ||   // (###) ###.####
                 phoneField.getText().matches("^[(][0-9]{3}[)][0-9]{3}[-][0-9]{4}$") ||      // (###)###-####
+                phoneField.getText().matches("^[(][0-9]{3}[)][0-9]{3}[.][0-9]{4}$") ||      // (###)###.####
                 phoneField.getText().matches("^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$") ||         // ###-###-####
+                phoneField.getText().matches("^[0-9]{3}[.][0-9]{3}[.][0-9]{4}$") ||         // ###.###.####
                 phoneField.getText().matches("^[0-9]{7}$") ||                               // #######
+                phoneField.getText().matches("^[0-9]{3}[.][0-9]{4}$") ||                    // ###.####
                 phoneField.getText().matches("^[0-9]{3}[-][0-9]{4}$")) {                    // ###-####
             valid = true;
         } else if (phoneField.getText().equals("")) {

@@ -2,8 +2,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -156,6 +159,18 @@ public class Book extends JFrame {
         });
         fileMenu.add(saveAsMenuItem);
 
+        fileMenu.addSeparator();
+
+        JMenuItem printMenuItem = new JMenuItem("Print...");
+        printMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        printMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                print();
+            }
+        });
+        fileMenu.add(printMenuItem);
+
         setJMenuBar(menuBar);
 
         // Panels
@@ -201,7 +216,7 @@ public class Book extends JFrame {
         updateScrollList();
 
         JScrollPane scrollPane = new JScrollPane(scrollList);
-        scrollPane.setPreferredSize(new Dimension(360, 145));
+        //scrollPane.setPreferredSize(new Dimension(360, 145));
 
         // Drop-down
         String[] sortOptions = {"Last Name", "Zip Code"};
@@ -320,10 +335,10 @@ public class Book extends JFrame {
         addressPanel.setLayout(addressPanelLayout);
         addressPanel.setBorder(border);
         addressPanel.add(recipientPanel);
-        addressPanel.add(lastPanel);
-        addressPanel.add(zipPanel);
         addressPanel.add(deliveryPanel);
         addressPanel.add(secondPanel);
+        addressPanel.add(lastPanel);
+        addressPanel.add(zipPanel);
         addressPanel.add(phonePanel);
         addressPanel.add(contactButtonPanel);
 
@@ -376,6 +391,7 @@ public class Book extends JFrame {
     public void updateScrollList() {
         scrollList.setListData(new String[0]);
         ArrayList<String> tempList = new ArrayList<>();
+        sortByLastName();
         for (HashMap<String, String> address : addressBook) {
             tempList.add(address.get("lastName") + ", " + address.get("firstName"));
         }
@@ -428,42 +444,42 @@ public class Book extends JFrame {
     private void getContact(int index) {
         address = addressBook.get(index);
 
-        if (!address.get("city").equals(" ")) {
+        if (address.get("city") != null) {
             cityField.setText(address.get("city"));
         } else {
             cityField.setText("");
         }
-        if (!address.get("state").equals(" ")) {
+        if (address.get("state") != null) {
             stateField.setText(address.get("state"));
         } else {
             stateField.setText("");
         }
-        if (!address.get("zip").equals(" ")) {
+        if (address.get("zip") != null) {
             zipField.setText(address.get("zip"));
         } else {
             zipField.setText("");
         }
-        if (!address.get("delivery").equals(" ")) {
+        if (address.get("delivery") != null) {
             deliveryField.setText(address.get("delivery"));
         } else {
             deliveryField.setText("");
         }
-        if (!address.get("second").equals(" ")) {
+        if (address.get("second") != null) {
             secondField.setText(address.get("second"));
         } else {
             secondField.setText("");
         }
-        if (!address.get("lastName").equals(" ")) {
+        if (address.get("lastName") != null) {
             lastNameField.setText(address.get("lastName"));
         } else {
             lastNameField.setText("");
         }
-        if (!address.get("firstName").equals(" ")) {
+        if (address.get("firstName") != null) {
             firstNameField.setText(address.get("firstName"));
         } else {
             firstNameField.setText("");
         }
-        if (!address.get("phone").equals(" ")) {
+        if (address.get("phone") != null) {
             phoneField.setText(address.get("phone"));
         } else {
             phoneField.setText("");
@@ -485,43 +501,43 @@ public class Book extends JFrame {
             if (!phoneField.getText().equals("")) {
                 address.put("phone", phoneField.getText());
             } else {
-                address.put("phone", " ");
+                address.put("phone", null);
             }
 
             if (!cityField.getText().equals("")) {
                 address.put("city", cityField.getText());
             } else {
-                address.put("city", " ");
+                address.put("city", null);
             }
 
             if (!stateField.getText().equals("")) {
                 address.put("state", stateField.getText());
             } else {
-                address.put("state", " ");
+                address.put("state", null);
             }
 
             if (!zipField.getText().equals("")) {
                 address.put("zip", zipField.getText());
             } else {
-                address.put("zip", " ");
+                address.put("zip", null);
             }
 
             if (!deliveryField.getText().equals("")) {
                 address.put("delivery", deliveryField.getText());
             } else {
-                address.put("delivery", " ");
+                address.put("delivery", null);
             }
 
             if (!secondField.getText().equals("")) {
                 address.put("second", secondField.getText());
             } else {
-                address.put("second", " ");
+                address.put("second", null);
             }
 
             if (!firstNameField.getText().equals("")) {
                 address.put("firstName", firstNameField.getText());
             } else {
-                address.put("firstName", " ");
+                address.put("firstName", null);
             }
 
             if (cityField.getText().equals("") && stateField.getText().equals("") &&
@@ -636,5 +652,48 @@ public class Book extends JFrame {
         tabbedPane.setEnabledAt(0, true);
         isEditing = false;
         clearFields();
+    }
+
+    public void print() {
+        try {
+            String cn = UIManager.getSystemLookAndFeelClassName();
+            UIManager.setLookAndFeel(cn); // Use the native L&F
+        } catch (Exception cnf) {
+        }
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new PrintBook(addressBook));
+        boolean ok = job.printDialog();
+        if (ok) {
+            try {
+                System.out.println("Print");
+                job.print();
+            } catch (PrinterException ex) {
+                System.out.println("The job did not successfully complete");
+            }
+        }
+    }
+
+    public ArrayList<HashMap<String, String>> sortByLastName() {
+        ArrayList<HashMap<String, String>> sortedByLastName = new ArrayList<>();
+        ArrayList<HashMap<String, String>> temp = new ArrayList<>();
+        String nameArr[] = new String[addressBook.size()];
+
+        for (int i = 0; i < addressBook.size(); i++) {
+            nameArr[i] = addressBook.get(i).get("lastName");
+        }
+        Arrays.sort(nameArr);
+
+        for (int i = 0; i < addressBook.size(); i++) {
+            String nameStr = nameArr[i];
+            for (int j = 0; j < addressBook.size(); j++) {
+                if (addressBook.get(j).get("lastName").equals(nameStr)) {
+                    sortedByLastName.add(addressBook.get(j));
+                    addressBook.get(j).put("lastName", ".");
+                }
+            }
+        }
+//        addressBook.clear();
+        addressBook = sortedByLastName;
+        return sortedByLastName;
     }
 }

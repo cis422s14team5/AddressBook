@@ -1,3 +1,4 @@
+import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapReader;
@@ -29,20 +30,20 @@ public class TSV {
         addressList = new ArrayList<>();
     }
 
-    /**
-     * Creates and returns the cell processors that are used in read and write methods.  The code below is a
-     * modification of the default CsvMapReader implementation provided by the developer. It has been modified
-     * to suit the context.
-     */
-    private CellProcessor[] getProcessors() {
-        return new CellProcessor[] {
-            new NotNull(), // Last
-            new NotNull(), // Delivery
-            new NotNull(), // Second
-            new NotNull(), // Recipient
-            new NotNull() // Phone
-        };
-    }
+//    /**
+//     * Creates and returns the cell processors that are used in read and write methods.  The code below is a
+//     * modification of the default CsvMapReader implementation provided by the developer. It has been modified
+//     * to suit the context.
+//     */
+//    private CellProcessor[] getProcessors() {
+//        return new CellProcessor[] {
+//            new NotNull(), // Last
+//            new NotNull(), // Delivery
+//            new NotNull(), // Second
+//            new NotNull(), // Recipient
+//            new NotNull() // Phone
+//        };
+//    }
 
     /**
      * Reads a tsv file using CsvMapReader. The code below is a modification of the default CsvMapReader implementation
@@ -60,7 +61,7 @@ public class TSV {
             final CellProcessor[] processors =  new CellProcessor[header.length];
             for (int i = 0; i < header.length; i++) {
                 if (header[i] != null) {
-                    processors[i] = new NotNull();
+                    processors[i] = new Optional();
                 }
             }
 
@@ -99,11 +100,11 @@ public class TSV {
             mapWriter = new CsvMapWriter(new FileWriter(file), CsvPreference.TAB_PREFERENCE);
 
             final CellProcessor[] processors = {
-                    new NotNull(), // Last
-                    new NotNull(), // Delivery
-                    new NotNull(), // Second
-                    new NotNull(), // Recipient
-                    new NotNull()  // Phone
+                    new Optional(), // Last
+                    new Optional(), // Delivery
+                    new Optional(), // Second
+                    new Optional(), // Recipient
+                    new Optional()  // Phone
             };
 
             // write the header

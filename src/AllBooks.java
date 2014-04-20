@@ -131,7 +131,6 @@ public class AllBooks extends JFrame {
         });
 
         JScrollPane bookPane = new JScrollPane(scrollList);
-        //bookPane.setPreferredSize(new Dimension(360, 240));
 
         // Buttons
         JButton open = new JButton("Open");
@@ -167,6 +166,9 @@ public class AllBooks extends JFrame {
         mainButtonPanel.add(open);
         mainButtonPanel.add(newBook);
         mainButtonPanel.add(removeBook);
+
+
+        //bookPane.setPreferredSize(new Dimension(360, 840));
 
         GridLayout mainPanelLayout = new GridLayout(2, 0);
         mainPanel.setLayout(mainPanelLayout);
