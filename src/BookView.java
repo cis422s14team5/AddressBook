@@ -45,7 +45,6 @@ public class BookView extends JFrame {
         tsv = new TSV();
 
         // Window
-        //addressBookFrame = new JDialog();
         setTitle("Address Book");
         setSize(760, 260);
         setResizable(false);
@@ -122,11 +121,21 @@ public class BookView extends JFrame {
         JMenuItem saveMenuItem = new JMenuItem("Save");
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        saveMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                saveAddressBook();
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         JMenuItem saveAsMenuItem = new JMenuItem("Save As...");
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
+        saveAsMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                saveAddressBook();
+            }
+        });
         fileMenu.add(saveAsMenuItem);
 
         setJMenuBar(menuBar);
@@ -575,22 +584,23 @@ public class BookView extends JFrame {
     }
 
     /**
-     * Notifies AddressBook that it needs to import an address book.
+     * Imports all the addresses from the selected TSV file into addressBook.
      */
     private void importTSV() {
-        File file = importExport.importTSV();
+        File file = importExport.exportTSV();
         if (file != null) {
-            tsv.loadTSV(file);
+            addressBook.addAll(tsv.read(file));
         }
+
     }
 
     /**
-     * Notifies AddressBook that it needs to export an address book.
+     * Imports all the addresses from addressBook into the selected TSV file.
      */
     private void exportTSV() {
         File file = importExport.exportTSV();
         if (file != null) {
-            tsv.saveTSV(file, addressBook);
+            tsv.write(file, addressBook);
         }
     }
 }

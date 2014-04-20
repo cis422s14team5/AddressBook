@@ -6,9 +6,7 @@ import org.supercsv.io.ICsvMapReader;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +40,10 @@ public class TSV {
             new NotNull(), // Delivery
             new NotNull(), // Second
             new NotNull(), // Recipient
-            new NotNull()  // Phone
+            new NotNull() // Phone
+//            new NotNull(),
+//            new NotNull(),
+//            new NotNull()
         };
     }
 
@@ -50,7 +51,7 @@ public class TSV {
      * Reads a tsv file using CsvMapReader. The code below is a modification of the default CsvMapReader implementation
      * provided by the developer. It has been modified to suit the context.
      */
-    public ArrayList<HashMap<String, String>> read(File file) throws Exception {
+    public ArrayList<HashMap<String, String>> read(File file) {
         ArrayList<HashMap<String, String>> addressList = new ArrayList<>();
         ICsvMapReader mapReader = null;
         try {
@@ -65,9 +66,17 @@ public class TSV {
                 addressList.add((HashMap) address);
             }
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             if (mapReader != null) {
-                mapReader.close();
+                try {
+                    mapReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -78,7 +87,7 @@ public class TSV {
      * Writes to a tsv file using CsvMapWriter. The code below is a modification of the default CsvMapWriter
      * implementation provided by the developer. It has been modified to suit the context.
      */
-    public void write(File file, ArrayList<HashMap<String, String>> mapList) throws Exception {
+    public void write(File file, ArrayList<HashMap<String, String>> mapList) {
         final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone"};
         this.addressList = mapList;
 
@@ -96,33 +105,16 @@ public class TSV {
                 mapWriter.write(address, header, processors);
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             if (mapWriter != null) {
-                mapWriter.close();
+                try {
+                    mapWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-    }
-
-    /**
-     * Saves the contents of the addressBook to the TSV file.
-     */
-    protected void saveTSV(File file, ArrayList<HashMap<String, String>> addressBook) {
-        AddressConverter convert = new AddressConverter();
-        try {
-            write(file, convert.internalToStandard(addressBook));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads the contents of the TSV file into the addressBook.
-     */
-    protected void loadTSV(File file) {
-        try {
-            read(file);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

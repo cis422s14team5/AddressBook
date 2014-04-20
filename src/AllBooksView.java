@@ -16,6 +16,8 @@ import java.util.HashMap;
  */
 public class AllBooksView extends JFrame {
 
+    private final File BOOKS = new File("addressBooks/books.txt");
+
     private JList<String> bookList;
 
     private ArrayList<String> addressBookList;
@@ -32,17 +34,21 @@ public class AllBooksView extends JFrame {
 
     private ArrayList<String> openBooks;
 
+    private TSV tsv;
+    private ReadWrite readWrite;
+
     /**
      * Constructor. Sets up the window, panels, labels, buttons, and fields.
-     * @param addressBookList is the list of address books.
      */
-    public AllBooksView(final ArrayList<String> addressBookList,
-                        ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks) {
+    public AllBooksView() {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
-        this.addressBookList = addressBookList;
+
+        tsv = new TSV();
+        readWrite = new ReadWrite();
+
+        addressBookList = readWrite.read(BOOKS.toPath());
         Collections.sort(addressBookList);
-        this.allAddressBooks = allAddressBooks;
-        observers = new ArrayList<>();
+        createAllAddressBooks();
 
         openBooks = new ArrayList<>();
 
@@ -179,8 +185,38 @@ public class AllBooksView extends JFrame {
     private void createNewBook() {
         addressBook = new ArrayList<>();
         bookList.setSelectedIndex(addressBookList.size());
-        for (Observer observer : observers) {
-            observer.update(4);
+
+        // Write to the TSV file.
+        tsv.write(new File("addressBooks/" + newFileName + ".tsv"), addressBook);
+
+        // Write to books.txt
+        readWrite.write(BOOKS.toPath(), addressBookList);
+
+        // Add to local list of address books and sort.
+        addressBookList.add(newFileName);
+        Collections.sort(addressBookList);
+
+        createAllAddressBooks();
+
+        updateBookList();
+//        for (Observer observer : observers) {
+//            observer.update(4);
+//        }
+    }
+
+    private void createAllAddressBooks() {
+        allAddressBooks = new ArrayList<>();
+
+        for (String addressBook : addressBookList) {
+            File file = new File ("addressBooks/" + addressBook + ".tsv");
+
+            AddressConverter convert = new AddressConverter();
+            try {
+                ArrayList<HashMap<String, String>> addressList = tsv.read(file);
+                allAddressBooks.add(convert.standardToInternal(addressList));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -204,15 +240,6 @@ public class AllBooksView extends JFrame {
     public void closeBook(int index) {
         file = new File("addressBooks/" + addressBookList.get(index) + ".tsv");
         addressBook = allAddressBooks.get(index);
-    }
-
-    /**
-     * Notifies AddressBook that it needs to import an address book.
-     */
-    private void loadAddressBook() {
-        for (Observer observer : observers) {
-            observer.update(4);
-        }
     }
 
     private void getDialog(String name) {
