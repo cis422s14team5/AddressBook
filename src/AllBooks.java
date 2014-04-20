@@ -308,7 +308,7 @@ public class AllBooks extends JFrame {
         } else {
             saveDir = new File(System.getProperty("user.home") + "/AddressBooks");
             slash = "/";
-            books = new File(saveDir + slash +  "books.txt");
         }
+        books = new File(saveDir + slash +  "books.txt");
     }
 }

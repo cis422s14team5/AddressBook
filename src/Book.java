@@ -362,6 +362,8 @@ public class Book extends JFrame {
         contactButtonPanel.add(save);
     }
 
+    // All Addresses Methods
+
     /**
      * Updates the list of addresses in the scroll list.
      */
@@ -372,16 +374,6 @@ public class Book extends JFrame {
             tempList.add(address.get("lastName") + ", " + address.get("firstName"));
         }
         scrollList.setListData(tempList.toArray(new String[tempList.size()]));
-    }
-
-    /**
-     * Cancels the edits and goes back to the contact list.
-     */
-    private void cancelEdit() {
-        tabbedPane.setSelectedIndex(0);
-        tabbedPane.setEnabledAt(0, true);
-        isEditing = false;
-        clearFields();
     }
 
     /**
@@ -471,6 +463,8 @@ public class Book extends JFrame {
             phoneField.setText("");
         }
     }
+
+    // Contact Methods
 
     /**
      * Save the contents of the fields to the addressBook and the TSV file.
@@ -626,5 +620,15 @@ public class Book extends JFrame {
         if (file != null) {
             tsv.write(file, converter.internalToStandard(addressBook));
         }
+    }
+
+    /**
+     * Cancels the edits and goes back to the contact list.
+     */
+    private void cancelEdit() {
+        tabbedPane.setSelectedIndex(0);
+        tabbedPane.setEnabledAt(0, true);
+        isEditing = false;
+        clearFields();
     }
 }
