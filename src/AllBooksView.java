@@ -1,11 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 // TODO Break the AllBooksView into different modules: All Address Books, All Contacts, Contact
@@ -17,7 +16,7 @@ import java.util.HashMap;
  */
 public class AllBooksView extends JFrame {
 
-    private JList bookList;
+    private JList<String> bookList;
 
     private ArrayList<String> addressBookList;
 
@@ -31,6 +30,8 @@ public class AllBooksView extends JFrame {
 
     private String newFileName;
 
+    private ArrayList<String> openBooks;
+
     /**
      * Constructor. Sets up the window, panels, labels, buttons, and fields.
      * @param addressBookList is the list of address books.
@@ -39,8 +40,11 @@ public class AllBooksView extends JFrame {
                         ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         this.addressBookList = addressBookList;
+        Collections.sort(addressBookList);
         this.allAddressBooks = allAddressBooks;
         observers = new ArrayList<>();
+
+        openBooks = new ArrayList<>();
 
         // Window
         setTitle("Address Book");
@@ -77,15 +81,13 @@ public class AllBooksView extends JFrame {
         openMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 //loadAddressBook();
-                openAddressBookView();
+                openBookView(bookList.getSelectedIndex());
             }
         });
         fileMenu.add(openMenuItem);
 
-        fileMenu.addSeparator();
-
         JMenuItem closeMenuItem = new JMenuItem("Close");
-        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         closeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -95,34 +97,37 @@ public class AllBooksView extends JFrame {
         });
         fileMenu.add(closeMenuItem);
 
-        JMenuItem saveMenuItem = new JMenuItem("Save");
-        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        fileMenu.setMnemonic(KeyEvent.VK_S);
-        fileMenu.add(saveMenuItem);
-
-        JMenuItem saveAsMenuItem = new JMenuItem("Save As...");
-        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
-        fileMenu.add(saveAsMenuItem);
-
         setJMenuBar(menuBar);
 
         // Book List
-        bookList = new JList();
+        bookList = new JList<>();
         bookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         updateBookList();
         bookList.setSelectedIndex(0);
 
+        bookList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JList list = (JList)e.getSource();
+                if (e.getClickCount() == 2) {
+                    openBookView(list.locationToIndex(e.getPoint()));
+                } else if (e.getClickCount() == 3) {   // Triple-click
+                    openBookView(list.locationToIndex(e.getPoint()));
+
+                }
+            }
+        });
+
         JScrollPane bookPane = new JScrollPane(bookList);
-        bookPane.setPreferredSize(new Dimension(360, 145));
+        //bookPane.setPreferredSize(new Dimension(360, 240));
 
         // Buttons
         JButton open = new JButton("Open");
         open.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 //loadAddressBook();
-                openAddressBookView();
+                openBookView(bookList.getSelectedIndex());
             }
         });
 
@@ -130,20 +135,6 @@ public class AllBooksView extends JFrame {
         newBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 openNewBookPane();
-            }
-        });
-
-        JButton exportBook = new JButton("Export");
-        exportBook.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                exportTSV();
-            }
-        });
-
-        JButton importBook = new JButton("Import");
-        importBook.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                importTSV();
             }
         });
 
@@ -157,8 +148,6 @@ public class AllBooksView extends JFrame {
         // Button Layout
         mainButtonPanel.add(open);
         mainButtonPanel.add(newBook);
-        mainButtonPanel.add(importBook);
-        mainButtonPanel.add(exportBook);
 
         GridLayout mainPanelLayout = new GridLayout(2, 0);
         mainPanel.setLayout(mainPanelLayout);
@@ -172,10 +161,10 @@ public class AllBooksView extends JFrame {
 
     private void openNewBookPane() {
         newFileName = "";
-        newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?") + ".tsv";
+        newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
         boolean matches = false;
         for (String string : addressBookList) {
-            if (newFileName.equals(string)) {
+            if (newFileName.equals(string + ".tsv")) {
                 matches = true;
             }
         }
@@ -195,11 +184,12 @@ public class AllBooksView extends JFrame {
         }
     }
 
-    private void openAddressBookView() {
-
+    private void openBookView(int index) {
         if (!bookList.isSelectionEmpty()) {
-            file = new File("addressBooks/" + addressBookList.get(bookList.getSelectedIndex()));
-            new BookView(this, bookList.getSelectedIndex());
+            file = new File("addressBooks/" + addressBookList.get(index) + ".tsv");
+            BookView bookView = new BookView(this, index, file.getName());
+            bookView.setTitle(file.getName());
+            openBooks.add(file.getName());
         } else if (addressBookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
         } else {
@@ -207,31 +197,12 @@ public class AllBooksView extends JFrame {
         }
     }
 
-    /**
-     * Notifies AddressBook that it needs to import an address book.
-     */
-    private void importTSV() {
-        for (Observer observer : observers) {
-            observer.update(2);
-        }
-    }
-
-    /**
-     * Notifies AddressBook that it needs to export an address book.
-     */
-    private void exportTSV() {
-        addressBook = allAddressBooks.get(bookList.getSelectedIndex());
-        for (Observer observer : observers) {
-            observer.update(3);
-        }
-    }
-
     private void closeAllBooksView() {
         dispose();
     }
 
-    public void closeAddressBook(int index) {
-        file = new File("addressBooks/" + addressBookList.get(index));
+    public void closeBook(int index) {
+        file = new File("addressBooks/" + addressBookList.get(index) + ".tsv");
         addressBook = allAddressBooks.get(index);
     }
 
@@ -241,6 +212,15 @@ public class AllBooksView extends JFrame {
     private void loadAddressBook() {
         for (Observer observer : observers) {
             observer.update(4);
+        }
+    }
+
+    private void getDialog(String name) {
+        JDialog dialog = new JDialog((Window)null, name);
+        for (Window window : JDialog.getWindows()) {
+            if (window instanceof JDialog) {
+                System.out.println(((JDialog)window).getTitle());
+            }
         }
     }
 
@@ -277,6 +257,10 @@ public class AllBooksView extends JFrame {
         return newFileName;
     }
 
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
     /**
      * Adds an observer to the observer list.
      * @param observer is the observer to be added.
@@ -284,5 +268,6 @@ public class AllBooksView extends JFrame {
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
+
 
 }

@@ -15,7 +15,7 @@ public class ReadWrite {
             BufferedReader reader = Files.newBufferedReader(path, Charset.forName("US-ASCII"));
             String line;
             while ((line = reader.readLine()) != null) {
-                input.add(line);
+                input.add(line.substring(0, line.length() - 4));
             }
             reader.close();
         } catch (IOException e) {

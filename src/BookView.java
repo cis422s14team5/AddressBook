@@ -1,10 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +11,9 @@ public class BookView extends JFrame {
     private AllBooksView allBooksView;
     private ArrayList<HashMap<String, String>> addressBook;
     private HashMap<String, String> address;
+
+    private ImportExport importExport;
+    private TSV tsv;
 
     // Panels
     private JTabbedPane tabbedPane;
@@ -67,33 +68,108 @@ public class BookView extends JFrame {
     private boolean isEditing;
 
     private int index;
+    private String title;
 
-    private JDialog addressBookFrame;
+    public BookView(AllBooksView allBooksView, int index, String title) {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
 
-    public BookView(AllBooksView allBooksView, int index) {
+        this.title = title;
         this.index = index;
         this.allBooksView = allBooksView;
         addressBook = allBooksView.getAllAddressBooks().get(index);
         isEditing = false;
+        importExport = new ImportExport(this);
+        tsv = new TSV();
 
         // Window
-        addressBookFrame = new JDialog();
-        addressBookFrame.setTitle("Address Book");
-        addressBookFrame.setSize(760, 260);
-        addressBookFrame.setResizable(false);
-        addressBookFrame.setLocationRelativeTo(null); // TODO fix location where address book window opens
-        addressBookFrame.setLayout(new BorderLayout());
-        addressBookFrame.setVisible(true);
+        //addressBookFrame = new JDialog();
+        setTitle("Address Book");
+        setSize(760, 260);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+        setVisible(true);
+
+        // Menu
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.getAccessibleContext().setAccessibleDescription(
+                "The only menu in this program that has menu items");
+        fileMenu.setMnemonic(KeyEvent.VK_F);
+        menuBar.add(fileMenu);
+
+        JMenuItem newMenuItem = new JMenuItem("New Contact");
+        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+        newMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                newContact();
+            }
+        });
+        fileMenu.add(newMenuItem);
+
+
+        JMenuItem openMenuItem = new JMenuItem("Open Selected Contact");
+        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+        openMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                editContact(scrollList.getSelectedIndex());
+            }
+        });
+        fileMenu.add(openMenuItem);
+
+        JMenuItem closeMenuItem = new JMenuItem("Close");
+        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        closeMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                closeAddressBook();
+            }
+        });
+        fileMenu.add(closeMenuItem);
+
+        fileMenu.addSeparator();
+
+        JMenuItem importMenuItem = new JMenuItem("Import");
+        importMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        closeMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                importTSV();
+            }
+        });
+        fileMenu.add(importMenuItem);
+
+        JMenuItem exportMenuItem = new JMenuItem("Export");
+        exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        closeMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                exportTSV();
+            }
+        });
+        fileMenu.add(exportMenuItem);
+
+        fileMenu.addSeparator();
+
+        JMenuItem saveMenuItem = new JMenuItem("Save");
+        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        fileMenu.add(saveMenuItem);
+
+        JMenuItem saveAsMenuItem = new JMenuItem("Save As...");
+        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
+        fileMenu.add(saveAsMenuItem);
+
+        setJMenuBar(menuBar);
 
         // Panels
         tabbedPane = new JTabbedPane();
-//        tabbedPane.addChangeListener(new ChangeListener() {
-//            @Override
-//            public void stateChanged(ChangeEvent e) {
-//                isEditing = false;
-//                //clearFields();
-//            }
-//        });
 
         // All Contacts Panels
         allContactsPanel = new JPanel();
@@ -115,6 +191,20 @@ public class BookView extends JFrame {
         scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollList.setSelectedIndex(0);
         listModel.clear();
+
+        scrollList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JList list = (JList)e.getSource();
+                if (e.getClickCount() == 2) {
+                    editContact(list.locationToIndex(e.getPoint()));
+                } else if (e.getClickCount() == 3) {   // Triple-click
+                    editContact(list.locationToIndex(e.getPoint()));
+
+                }
+            }
+        });
 
         updateScrollList();
 
@@ -144,12 +234,6 @@ public class BookView extends JFrame {
         phoneField = new JTextField();
 
         // All Contacts Buttons
-        close = new JButton("Close");
-        close.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                closeAddressBook();
-            }
-        });
 
         newContact = new JButton("New");
         newContact.addActionListener(new ActionListener() {
@@ -163,7 +247,7 @@ public class BookView extends JFrame {
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 tabbedPane.setEnabledAt(0, false);
-                editContact();
+                editContact(scrollList.getSelectedIndex());
             }
         });
 
@@ -197,7 +281,7 @@ public class BookView extends JFrame {
         });
 
         // Layouts
-        addressBookFrame.add(tabbedPane);
+        add(tabbedPane);
         tabbedPane.addTab("All Contacts", allContactsPanel);
         tabbedPane.addTab("Contact", contactPanel);
 
@@ -212,7 +296,6 @@ public class BookView extends JFrame {
         allContactsButtonPanel.add(newContact);
         allContactsButtonPanel.add(edit);
         allContactsButtonPanel.add(remove);
-        allContactsButtonPanel.add(close);
 
         // Contact Layout
         //contactPanel.setBorder(border);
@@ -262,9 +345,9 @@ public class BookView extends JFrame {
         GridLayout contactButtonPanelLayout = new GridLayout(0, 3);
         contactButtonPanel.setLayout(contactButtonPanelLayout);
         //contactButtonPanel.setBorder(border);
+        contactButtonPanel.add(cancel);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
-        contactButtonPanel.add(cancel);
     }
 
     /**
@@ -310,10 +393,10 @@ public class BookView extends JFrame {
     /**
      * Switches the allBooksView to the Contact tab and fills the fields with the selected contact's details.
      */
-    private void editContact() {
+    private void editContact(int index) {
         if (!scrollList.isSelectionEmpty() && !isEditing) {
             isEditing = true;
-            getContact(scrollList.getSelectedIndex());
+            getContact(index);
             tabbedPane.setSelectedIndex(1);
         } else if (addressBook.isEmpty()) {
             JOptionPane.showMessageDialog(null, "The address book is empty, create a new contact.");
@@ -443,8 +526,7 @@ public class BookView extends JFrame {
             clearFields();
             tabbedPane.setSelectedIndex(0);
             updateScrollList();
-            saveAddressBook(); // TODO only
-            // JOptionPane.showMessageDialog(null, "Contact Saved.");
+            //saveAddressBook();
         }
     }
 
@@ -456,14 +538,14 @@ public class BookView extends JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a last name.");
         }
 
-        return  valid;
+        return valid;
     }
 
     private boolean checkPhone() {
         boolean valid = false;
         if (!phoneField.getText().equals("") &&
-                phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$") ||
-                phoneField.getText().matches("^[0-9]{3}[-]{1}[0-9]{4}$")) {
+                phoneField.getText().matches("^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$") ||
+                phoneField.getText().matches("^[0-9]{3}[-][0-9]{4}$")) {
             valid = true;
             //address.put("phone", phoneField.getText());
         } else if (phoneField.getText().equals("")) {
@@ -479,7 +561,7 @@ public class BookView extends JFrame {
     private boolean checkZip() {
         boolean valid = false;
         if (!zipField.getText().equals("") && zipField.getText().matches("^[0-9]{5}$") ||
-                zipField.getText().matches("^[0-9]{5}[-]{1}[0-9]{4}$")) {
+                zipField.getText().matches("^[0-9]{5}[-][0-9]{4}$")) {
             valid = true;
         } else if (zipField.getText().equals("")) {
             valid = true;
@@ -515,18 +597,37 @@ public class BookView extends JFrame {
     }
 
     private void closeAddressBook() {
-
         int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (choice == 0) { // Yes
             saveAddressBook();
-            allBooksView.closeAddressBook(index);
+            allBooksView.closeBook(index);
         } else if (choice == 1) {  // No
-            allBooksView.closeAddressBook(index);
+            allBooksView.closeBook(index);
         }
         if (choice != 2) {
-            addressBookFrame.dispose();
+            dispose();
         }
 
+    }
+
+    /**
+     * Notifies AddressBook that it needs to import an address book.
+     */
+    private void importTSV() {
+        File file = importExport.importTSV();
+        if (file != null) {
+            tsv.loadTSV(file);
+        }
+    }
+
+    /**
+     * Notifies AddressBook that it needs to export an address book.
+     */
+    private void exportTSV() {
+        File file = importExport.exportTSV();
+        if (file != null) {
+            tsv.saveTSV(file, addressBook);
+        }
     }
 }

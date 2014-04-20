@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 // TODO get the current store from the address books file.
@@ -15,7 +16,7 @@ public class AddressBook implements Observer {
 
     private final File BOOKS = new File("addressBooks/books.txt");
 
-    private ImportExport importExport;
+    //private ImportExport importExport;
     private TSV tsv;
     private AllBooksView allBooksView;
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
@@ -34,14 +35,14 @@ public class AddressBook implements Observer {
 
         allBooksView = new AllBooksView(addressBookList, allAddressBooks);
         allBooksView.addObserver(this);
-        importExport = new ImportExport(allBooksView);
+        //importExport = new ImportExport(allBooksView);
     }
 
     private void createAllAddressBooks() {
         allAddressBooks = new ArrayList<>();
 
         for (String addressBook : addressBookList) {
-            File file = new File ("addressBooks/" + addressBook);
+            File file = new File ("addressBooks/" + addressBook + ".tsv");
 
             AddressConverter convert = new AddressConverter();
             try {
@@ -63,45 +64,27 @@ public class AddressBook implements Observer {
 
         switch (num) {
             case 1:  // Save
-                tsv.saveTSV(allBooksView.getFile(), allBooksView.getAddressBook());
+                tsv.saveTSV(new File("addressBooks/" + allBooksView.getNewFileName() + ".tsv"),
+                        allBooksView.getAddressBook());
                 break;
             case 2:  // Import
-                file = importExport.importTSV();
-                if (file != null) {
-
-                    /*
-                    1. read file
-                    2. write file into addressBooks
-                    3. add name to
-
-
-                     */
-                    //AddressConverter convert = new AddressConverter();
-                    tsv.loadTSV(file);
-                    tsv.saveTSV(new File("addressBooks/" + file.getName()), allBooksView.getAddressBook());
-                    addressBookList.add(file.getName());
-                    readWrite.write(BOOKS.toPath(), addressBookList);
-                    allBooksView.setAddressBookList(addressBookList);
-
-                    createAllAddressBooks();
-                    allBooksView.setAllAddressBooks(allAddressBooks);
-
-                    allBooksView.updateBookList();
-
-                   // saveTSV(STORE);
-                    //allBooksView.setAddressBook(addressBook);
-                }
+//                file = importExport.importTSV();
+//                if (file != null) {
+//                    tsv.loadTSV(file);
+//                }
                 break;
             case 3:  // Export
-                file = importExport.exportTSV();
-                if (file != null) {
-                    tsv.saveTSV(file, allBooksView.getAddressBook());
-                }
+//                file = importExport.exportTSV();
+//                if (file != null) {
+//                    tsv.saveTSV(file, allBooksView.getAddressBook());
+//                }
                 break;
             case 4:  // New Book
-                tsv.saveTSV(new File("addressBooks/" + allBooksView.getNewFileName()), allBooksView.getAddressBook());
+                tsv.saveTSV(new File("addressBooks/" + allBooksView.getNewFileName() + ".tsv"),
+                        allBooksView.getAddressBook());
 
                 addressBookList.add(allBooksView.getNewFileName());
+                Collections.sort(addressBookList);
                 readWrite.write(BOOKS.toPath(), addressBookList);
                 allBooksView.setAddressBookList(addressBookList);
 
@@ -110,17 +93,12 @@ public class AddressBook implements Observer {
 
                 allBooksView.updateBookList();
                 break;
-            case 5:  // Load
-//                //file = allBooksView.getAddressBookFile();
-//                if (file != null) {
-//                    //loadTSV();
-//                    //view.setAddressBook(addressBook);
-//                }
-                break;
             default:
                 break;
         }
     }
+
+
 
     /**
      * AddressBook method.
