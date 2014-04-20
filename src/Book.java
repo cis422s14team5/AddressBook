@@ -64,7 +64,6 @@ public class Book extends JFrame {
         setVisible(true);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 closeBook();
