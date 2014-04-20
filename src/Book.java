@@ -408,7 +408,6 @@ public class Book extends JFrame {
      */
     private void getContact(int index) {
         address = addressBook.get(index);
-        System.out.println(address);
 
         if (!address.get("city").equals(" ")) {
             cityField.setText(address.get("city"));

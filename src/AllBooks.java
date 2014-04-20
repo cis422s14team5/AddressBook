@@ -23,15 +23,10 @@ public class AllBooks extends JFrame {
     private File saveDir;
     private File books;
     private String slash;
-
     private JList<String> scrollList;
-
     private ArrayList<String> bookList;
-
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
-
     private String newFileName;
-
     private TSV tsv;
     private ReadWrite readWrite;
 
@@ -257,15 +252,24 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Quits the program.
+     */
     private void closeAllBooksView() {
         dispose();
         System.exit(0);
     }
 
+    /**
+     * Updates the book list.
+     */
     public void updateBookList() {
         scrollList.setListData(bookList.toArray(new String[bookList.size()]));
     }
 
+    /**
+     * Check if books exists, if it doesn't create it.
+     */
     private void checkForBooks() {
         if (!saveDir.exists()) {
             saveDir.mkdir();
@@ -280,9 +284,11 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Check the OS to know where to read/write the save files.
+     */
     private void checkOS() {
         String os = System.getProperty("os.name");
-        System.out.println(os);
         if (os.equals("Windows")) {
             saveDir = new File(System.getProperty("user.home"), "Application Data\\AddressBooks");
             slash = "\\";
