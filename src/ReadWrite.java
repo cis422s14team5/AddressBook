@@ -29,7 +29,7 @@ public class ReadWrite {
         try {
             BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("US-ASCII"));
             for (String string : addressBookList) {
-                writer.write(string + "\n");
+                writer.write(string + ".tsv\n");
             }
             writer.close();
         } catch (IOException e) {

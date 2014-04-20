@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class BookView extends JFrame {
 
-    private AllBooksView allBooksView;
     private ArrayList<HashMap<String, String>> addressBook;
     private HashMap<String, String> address;
 
@@ -17,7 +16,6 @@ public class BookView extends JFrame {
 
     private JList<String> scrollList;
     private boolean isEditing;
-    private int index;
     private String title;
 
     // Panels
@@ -33,13 +31,11 @@ public class BookView extends JFrame {
     private JTextField firstNameField;
     private JTextField phoneField;
 
-    public BookView(AllBooksView allBooksView, int index, String title) {
+    public BookView(ArrayList<HashMap<String, String>> addressBook, String title) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
         this.title = title;
-        this.index = index;
-        this.allBooksView = allBooksView;
-        addressBook = allBooksView.getAllAddressBooks().get(index);
+        this.addressBook = addressBook;
         isEditing = false;
         importExport = new ImportExport(this);
         tsv = new TSV();
@@ -89,7 +85,7 @@ public class BookView extends JFrame {
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         closeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                closeAddressBook();
+                closeBook();
             }
         });
         fileMenu.add(closeMenuItem);
@@ -101,7 +97,7 @@ public class BookView extends JFrame {
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         importMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                importTSV();
+                importBook();
             }
         });
         fileMenu.add(importMenuItem);
@@ -111,7 +107,7 @@ public class BookView extends JFrame {
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         exportMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                exportTSV();
+                exportBook();
             }
         });
         fileMenu.add(exportMenuItem);
@@ -123,7 +119,7 @@ public class BookView extends JFrame {
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         saveMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                saveAddressBook();
+                saveBook();
             }
         });
         fileMenu.add(saveMenuItem);
@@ -133,7 +129,7 @@ public class BookView extends JFrame {
                 (java.awt.event.InputEvent.SHIFT_MASK | (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()))));
         saveAsMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                saveAddressBook();
+                saveBook();
             }
         });
         fileMenu.add(saveAsMenuItem);
@@ -344,7 +340,7 @@ public class BookView extends JFrame {
     }
 
     /**
-     * Switches the allBooksView to the Contact tab and clears the fields.
+     * Switches to the Contact tab and clears the fields.
      */
     private void newContact() {
         isEditing = false;
@@ -358,7 +354,7 @@ public class BookView extends JFrame {
     private void removeContact() {
         addressBook.remove(scrollList.getSelectedIndex());
         updateScrollList();
-        saveAddressBook();
+        saveBook();
         JOptionPane.showMessageDialog(null, "Contact Removed.");
     }
 
@@ -482,7 +478,7 @@ public class BookView extends JFrame {
                 if (isEditing) {
                     addressBook.remove(scrollList.getSelectedIndex());
                     updateScrollList();
-                    saveAddressBook();
+                    saveBook();
                 }
             } else {
                 if (isEditing) {
@@ -498,7 +494,6 @@ public class BookView extends JFrame {
             clearFields();
             tabbedPane.setSelectedIndex(0);
             updateScrollList();
-            //saveAddressBook();
         }
     }
 
@@ -559,23 +554,18 @@ public class BookView extends JFrame {
     }
 
     /**
-     * Notifies AddressBook that it needs to save the current address book.
+     * Saves the current address book.
      */
-    private void saveAddressBook() {
-        allBooksView.setAddressBook(addressBook);
-        for (Observer observer : allBooksView.observers) {
-            observer.update(1);
-        }
+    private void saveBook() {
+        AddressConverter converter = new AddressConverter();
+        tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
     }
 
-    private void closeAddressBook() {
+    private void closeBook() {
         int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (choice == 0) { // Yes
-            saveAddressBook();
-            allBooksView.closeBook(index);
-        } else if (choice == 1) {  // No
-            allBooksView.closeBook(index);
+            saveBook();
         }
         if (choice != 2) {
             dispose();
@@ -586,21 +576,24 @@ public class BookView extends JFrame {
     /**
      * Imports all the addresses from the selected TSV file into addressBook.
      */
-    private void importTSV() {
-        File file = importExport.exportTSV();
+    private void importBook() {
+        AddressConverter converter = new AddressConverter();
+        File file = importExport.importTSV();
         if (file != null) {
-            addressBook.addAll(tsv.read(file));
+            addressBook.addAll(converter.standardToInternal(tsv.read(file)));
+            saveBook();
+            updateScrollList();
         }
-
     }
 
     /**
      * Imports all the addresses from addressBook into the selected TSV file.
      */
-    private void exportTSV() {
+    private void exportBook() {
+        AddressConverter converter = new AddressConverter();
         File file = importExport.exportTSV();
         if (file != null) {
-            tsv.write(file, addressBook);
+            tsv.write(file, converter.internalToStandard(addressBook));
         }
     }
 }

@@ -18,9 +18,9 @@ public class AllBooksView extends JFrame {
 
     private final File BOOKS = new File("addressBooks/books.txt");
 
-    private JList<String> bookList;
+    private JList<String> scrollList;
 
-    private ArrayList<String> addressBookList;
+    private ArrayList<String> bookList;
 
     private ArrayList<ArrayList<HashMap<String, String>>> allAddressBooks;
 
@@ -44,8 +44,8 @@ public class AllBooksView extends JFrame {
         tsv = new TSV();
         readWrite = new ReadWrite();
 
-        addressBookList = readWrite.read(BOOKS.toPath());
-        Collections.sort(addressBookList);
+        bookList = readWrite.read(BOOKS.toPath());
+        Collections.sort(bookList);
         createAllAddressBooks();
 
         openBooks = new ArrayList<>();
@@ -72,7 +72,7 @@ public class AllBooksView extends JFrame {
 
         newMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                openNewBookPane();
+                openNewBookDialog();
             }
         });
         fileMenu.add(newMenuItem);
@@ -85,7 +85,7 @@ public class AllBooksView extends JFrame {
         openMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 //loadAddressBook();
-                openBookView(bookList.getSelectedIndex());
+                openBookView(scrollList.getSelectedIndex());
             }
         });
         fileMenu.add(openMenuItem);
@@ -104,16 +104,16 @@ public class AllBooksView extends JFrame {
         setJMenuBar(menuBar);
 
         // Book List
-        bookList = new JList<>();
-        bookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollList = new JList<>();
+        scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         updateBookList();
-        bookList.setSelectedIndex(0);
+        scrollList.setSelectedIndex(0);
 
-        bookList.addMouseListener(new MouseAdapter() {
+        scrollList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JList list = (JList)e.getSource();
+                JList list = (JList) e.getSource();
                 if (e.getClickCount() == 2) {
                     openBookView(list.locationToIndex(e.getPoint()));
                 } else if (e.getClickCount() == 3) {   // Triple-click
@@ -123,7 +123,7 @@ public class AllBooksView extends JFrame {
             }
         });
 
-        JScrollPane bookPane = new JScrollPane(bookList);
+        JScrollPane bookPane = new JScrollPane(scrollList);
         //bookPane.setPreferredSize(new Dimension(360, 240));
 
         // Buttons
@@ -131,14 +131,14 @@ public class AllBooksView extends JFrame {
         open.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 //loadAddressBook();
-                openBookView(bookList.getSelectedIndex());
+                openBookView(scrollList.getSelectedIndex());
             }
         });
 
         JButton newBook = new JButton("New");
         newBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                openNewBookPane();
+                openNewBookDialog();
             }
         });
 
@@ -163,49 +163,10 @@ public class AllBooksView extends JFrame {
         setVisible(true);
     }
 
-    private void openNewBookPane() {
-        newFileName = "";
-        newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
-        boolean matches = false;
-        for (String string : addressBookList) {
-            if (newFileName.equals(string + ".tsv")) {
-                matches = true;
-            }
-        }
-        if (!newFileName.equals("") && !matches) {
-            createNewBook();
-        } else {
-            JOptionPane.showMessageDialog(this, "That title already exists. Please choose another.");
-            openNewBookPane();
-        }
-    }
-
-    private void createNewBook() {
-        addressBook = new ArrayList<>();
-        bookList.setSelectedIndex(addressBookList.size());
-
-        // Write to the TSV file.
-        tsv.write(new File("addressBooks/" + newFileName + ".tsv"), addressBook);
-
-        // Write to books.txt
-        readWrite.write(BOOKS.toPath(), addressBookList);
-
-        // Add to local list of address books and sort.
-        addressBookList.add(newFileName);
-        Collections.sort(addressBookList);
-
-        createAllAddressBooks();
-
-        updateBookList();
-//        for (Observer observer : observers) {
-//            observer.update(4);
-//        }
-    }
-
     private void createAllAddressBooks() {
         allAddressBooks = new ArrayList<>();
 
-        for (String addressBook : addressBookList) {
+        for (String addressBook : bookList) {
             File file = new File ("addressBooks/" + addressBook + ".tsv");
 
             AddressConverter convert = new AddressConverter();
@@ -219,25 +180,60 @@ public class AllBooksView extends JFrame {
     }
 
     private void openBookView(int index) {
-        if (!bookList.isSelectionEmpty()) {
-            file = new File("addressBooks/" + addressBookList.get(index) + ".tsv");
-            BookView bookView = new BookView(this, index, file.getName());
-            bookView.setTitle(file.getName());
+        if (!scrollList.isSelectionEmpty()) {
+            file = new File("addressBooks/" + bookList.get(index) + ".tsv");
+            BookView bookView = new BookView(allAddressBooks.get(index), bookList.get(index));
+            bookView.setTitle(bookList.get(index));
             openBooks.add(file.getName());
-        } else if (addressBookList.size() == 0) {
+        } else if (bookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
         } else {
             JOptionPane.showMessageDialog(null, "There are no address books selected, please select one.");
         }
     }
 
-    private void closeAllBooksView() {
-        dispose();
+    private void openNewBookDialog() {
+        newFileName = "";
+        newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
+        boolean matches = false;
+        for (String string : bookList) {
+            if (newFileName.equals(string + ".tsv")) {
+                matches = true;
+            }
+        }
+        if (!newFileName.equals("") && !matches) {
+            createNewBook();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "An address book with that name already exists. Please choose another.");
+            openNewBookDialog();
+        }
     }
 
-    public void closeBook(int index) {
-        file = new File("addressBooks/" + addressBookList.get(index) + ".tsv");
-        addressBook = allAddressBooks.get(index);
+    private void createNewBook() {
+        addressBook = new ArrayList<>();
+        scrollList.setSelectedIndex(bookList.size());
+
+        // Write to the TSV file.
+        tsv.write(new File("addressBooks/" + newFileName + ".tsv"), addressBook);
+
+        // Add to address bookList.
+        bookList.add(newFileName);
+        Collections.sort(bookList);
+
+        // Write to books.txt
+        readWrite.write(BOOKS.toPath(), bookList);
+
+        createAllAddressBooks();
+        updateBookList();
+        scrollList.setSelectedIndex(0);
+
+        // TODO Open newly created address book here.
+    }
+
+    private void closeAllBooksView() {
+        dispose();
+        System.exit(0);
     }
 
     private void getDialog(String name) {
@@ -250,12 +246,6 @@ public class AllBooksView extends JFrame {
     }
 
     public void updateBookList() {
-        bookList.setListData(addressBookList.toArray(new String[addressBookList.size()]));
+        scrollList.setListData(bookList.toArray(new String[bookList.size()]));
     }
-
-    public void setAddressBook(ArrayList<HashMap<String, String>> addressBook) {
-        this.addressBook = addressBook;
-    }
-
-
 }
