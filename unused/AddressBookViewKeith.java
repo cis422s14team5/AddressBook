@@ -26,7 +26,7 @@
 //        observers = new ArrayList<Observer>();
 //
 //        // Window
-//        setTitle("Add/AllBooksView Address");
+//        setTitle("Add/AllBooks Address");
 //        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        setSize(300, 300);
 //        setResizable(false);

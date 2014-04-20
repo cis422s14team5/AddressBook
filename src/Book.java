@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BookView extends JFrame {
+public class Book extends JFrame {
 
     private ArrayList<HashMap<String, String>> addressBook;
     private HashMap<String, String> address;
@@ -31,7 +31,7 @@ public class BookView extends JFrame {
     private JTextField firstNameField;
     private JTextField phoneField;
 
-    public BookView(ArrayList<HashMap<String, String>> addressBook, String title) {
+    public Book(ArrayList<HashMap<String, String>> addressBook, String title) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
         this.title = title;
@@ -371,7 +371,6 @@ public class BookView extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Please select a contact to edit.");
         }
-        //isEditing = false;
     }
 
     /**
@@ -429,7 +428,6 @@ public class BookView extends JFrame {
     private void saveContact() {
         address = new HashMap<>();
 
-
         if (checkLastName() && checkPhone() && checkZip()) {
             address.put("lastName", lastNameField.getText());
 
@@ -439,32 +437,36 @@ public class BookView extends JFrame {
                 address.put("phone", " ");
             }
 
-
             if (!cityField.getText().equals("")) {
                 address.put("city", cityField.getText());
             } else {
                 address.put("city", " ");
             }
+
             if (!stateField.getText().equals("")) {
                 address.put("state", stateField.getText());
             } else {
                 address.put("state", " ");
             }
+
             if (!zipField.getText().equals("")) {
                 address.put("zip", zipField.getText());
             } else {
                 address.put("zip", " ");
             }
+
             if (!deliveryField.getText().equals("")) {
                 address.put("delivery", deliveryField.getText());
             } else {
                 address.put("delivery", " ");
             }
+
             if (!secondField.getText().equals("")) {
                 address.put("second", secondField.getText());
             } else {
                 address.put("second", " ");
             }
+
             if (!firstNameField.getText().equals("")) {
                 address.put("firstName", firstNameField.getText());
             } else {
@@ -514,10 +516,8 @@ public class BookView extends JFrame {
                 phoneField.getText().matches("^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$") ||
                 phoneField.getText().matches("^[0-9]{3}[-][0-9]{4}$")) {
             valid = true;
-            //address.put("phone", phoneField.getText());
         } else if (phoneField.getText().equals("")) {
             valid = true;
-           // address.put("phone", " ");
         } else {
             JOptionPane.showMessageDialog(this, "You did not enter a valid phone number. Please try again.");
         }
@@ -563,14 +563,12 @@ public class BookView extends JFrame {
 
     private void closeBook() {
         int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
-
         if (choice == 0) { // Yes
             saveBook();
         }
         if (choice != 2) {
             dispose();
         }
-
     }
 
     /**

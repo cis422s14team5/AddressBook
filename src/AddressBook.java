@@ -13,6 +13,6 @@ public class AddressBook {
      * @param args is the command line arguments array.
      */
     public static void main(String[] args) {
-        new AllBooksView();
+        new AllBooks();
     }
 }

@@ -3,18 +3,22 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-// TODO Break the AllBooksView into different modules: All Address Books, All Contacts, Contact
+// TODO Break the AllBooks into different modules: All Address Books, All Contacts, Contact
 // TODO Fix the layout of the Contacts tab so the fields fill up all the space left after the labels.
 // TODO Validate input in a separate module
 
 /**
  * The address book GUI.
  */
-public class AllBooksView extends JFrame {
+public class AllBooks extends JFrame {
 
     private final File BOOKS = new File("addressBooks/books.txt");
 
@@ -38,7 +42,7 @@ public class AllBooksView extends JFrame {
     /**
      * Constructor. Sets up the window, panels, labels, buttons, and fields.
      */
-    public AllBooksView() {
+    public AllBooks() {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
 
         tsv = new TSV();
@@ -135,6 +139,13 @@ public class AllBooksView extends JFrame {
             }
         });
 
+        JButton removeBook = new JButton("Remove");
+        removeBook.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                removeBook();
+            }
+        });
+
         JButton newBook = new JButton("New");
         newBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -152,6 +163,7 @@ public class AllBooksView extends JFrame {
         // Button Layout
         mainButtonPanel.add(open);
         mainButtonPanel.add(newBook);
+        mainButtonPanel.add(removeBook);
 
         GridLayout mainPanelLayout = new GridLayout(2, 0);
         mainPanel.setLayout(mainPanelLayout);
@@ -182,8 +194,8 @@ public class AllBooksView extends JFrame {
     private void openBookView(int index) {
         if (!scrollList.isSelectionEmpty()) {
             file = new File("addressBooks/" + bookList.get(index) + ".tsv");
-            BookView bookView = new BookView(allAddressBooks.get(index), bookList.get(index));
-            bookView.setTitle(bookList.get(index));
+            Book book = new Book(allAddressBooks.get(index), bookList.get(index));
+            book.setTitle(bookList.get(index));
             openBooks.add(file.getName());
         } else if (bookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
@@ -229,6 +241,20 @@ public class AllBooksView extends JFrame {
         scrollList.setSelectedIndex(0);
 
         // TODO Open newly created address book here.
+    }
+
+    private void removeBook() {
+        Path path = FileSystems.getDefault().getPath(
+                "addressBooks/" + bookList.get(scrollList.getSelectedIndex()) + ".tsv");
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        bookList.remove(scrollList.getSelectedIndex());
+        readWrite.write(BOOKS.toPath(), bookList);
+        createAllAddressBooks();
+        updateBookList();
     }
 
     private void closeAllBooksView() {
