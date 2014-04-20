@@ -71,8 +71,8 @@
       <file leaf-file-name="AllBooks.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2217" max-vertical-offset="4305">
-              <caret line="196" column="16" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3402" max-vertical-offset="4305">
+              <caret line="245" column="73" selection-start-line="245" selection-start-column="73" selection-end-line="245" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2248#2438#0" expanded="true" />
@@ -99,8 +99,8 @@
       <file leaf-file-name="Book.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.12935324" vertical-offset="7872" max-vertical-offset="9045">
-              <caret line="556" column="37" selection-start-line="556" selection-start-column="7" selection-end-line="556" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.45273632" vertical-offset="4932" max-vertical-offset="9120">
+              <caret line="373" column="23" selection-start-line="373" selection-start-column="23" selection-end-line="373" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1589#1718#0" expanded="true" />
@@ -167,8 +167,8 @@
       <file leaf-file-name="Business.tsv" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addressBooks/Business.tsv">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="135">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -775,8 +775,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addressBooks/Business.tsv">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="135">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -791,8 +791,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2217" max-vertical-offset="4305">
-          <caret line="196" column="16" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3402" max-vertical-offset="4305">
+          <caret line="245" column="73" selection-start-line="245" selection-start-column="73" selection-end-line="245" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2248#2438#0" expanded="true" />
@@ -817,8 +817,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12935324" vertical-offset="7872" max-vertical-offset="9045">
-          <caret line="556" column="37" selection-start-line="556" selection-start-column="7" selection-end-line="556" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.45273632" vertical-offset="4932" max-vertical-offset="9120">
+          <caret line="373" column="23" selection-start-line="373" selection-start-column="23" selection-end-line="373" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1589#1718#0" expanded="true" />

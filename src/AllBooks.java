@@ -243,7 +243,7 @@ public class AllBooks extends JFrame {
 
     private void removeBook() {
         int choice = JOptionPane.showConfirmDialog(null,
-                "If you remove this address book it will be gone forever?\nAre you sure?",
+                "If you remove this address book it will be gone forever.\nAre you sure?",
                 "Remove Address Book",
                 JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == 0) { // Yes

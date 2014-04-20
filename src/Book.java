@@ -93,7 +93,7 @@ public class Book extends JFrame {
         fileMenu.add(openMenuItem);
 
         JMenuItem closeMenuItem = new JMenuItem("Close");
-        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+        closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         closeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -278,15 +278,15 @@ public class Book extends JFrame {
         allContactsButtonPanel.add(remove);
 
         // Contact Layout
-        //contactPanel.setBorder(border);
-        //GridLayout contactPanelLayout = new GridLayout(2, 0);
-        //contactPanel.setLayout(contactPanelLayout);
+        // GridLayout contactPanelLayout = new GridLayout(2, 0);
+        // contactPanel.setLayout(contactPanelLayout);
+        // contactPanel.setBorder(border);
         contactPanel.add(addressPanel);
         contactPanel.add(contactButtonPanel);
 
         GridLayout addressPanelLayout = new GridLayout(5, 0);
         addressPanel.setLayout(addressPanelLayout);
-        //addressPanel.setBorder(border);
+        // addressPanel.setBorder(border);
         addressPanel.add(lastPanel);
         addressPanel.add(deliveryPanel);
         addressPanel.add(secondPanel);
@@ -324,7 +324,7 @@ public class Book extends JFrame {
 
         GridLayout contactButtonPanelLayout = new GridLayout(0, 3);
         contactButtonPanel.setLayout(contactButtonPanelLayout);
-        //contactButtonPanel.setBorder(border);
+        // contactButtonPanel.setBorder(border);
         contactButtonPanel.add(cancel);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
@@ -364,10 +364,15 @@ public class Book extends JFrame {
      * Removes the selected contact from the addressBook and the TSV file.
      */
     private void removeContact() {
-        addressBook.remove(scrollList.getSelectedIndex());
-        updateScrollList();
-        saveBook();
-        JOptionPane.showMessageDialog(null, "Contact Removed.");
+        int choice = JOptionPane.showConfirmDialog(null,
+                "If you remove this contact it will be gone forever.\nAre you sure?",
+                "Remove Address Book",
+                JOptionPane.YES_NO_CANCEL_OPTION);
+        if (choice == 0) {
+            addressBook.remove(scrollList.getSelectedIndex());
+            updateScrollList();
+            saveBook();
+        }
     }
 
     /**
