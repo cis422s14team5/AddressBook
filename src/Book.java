@@ -52,6 +52,14 @@ public class Book extends JFrame {
         setLayout(new BorderLayout());
         setVisible(true);
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                closeBook();
+            }
+        });
+
         // Menu
         JMenuBar menuBar = new JMenuBar();
 
@@ -500,6 +508,9 @@ public class Book extends JFrame {
             clearFields();
             tabbedPane.setSelectedIndex(0);
             updateScrollList();
+
+            modified = true;
+            getRootPane().putClientProperty("Window.documentModified", Boolean.TRUE);
         }
     }
 
@@ -562,6 +573,7 @@ public class Book extends JFrame {
             int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
             if (choice == 0) { // Yes
                 saveBook();
+                dispose();
             } else if (choice == 1) { // No
                 dispose();
             }
@@ -576,7 +588,8 @@ public class Book extends JFrame {
     private void saveBook() {
         AddressConverter converter = new AddressConverter();
         tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
-        modified = true;
+        modified = false;
+        getRootPane().putClientProperty("Window.documentModified", Boolean.FALSE);
     }
 
     private void saveAs() {

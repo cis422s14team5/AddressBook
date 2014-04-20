@@ -193,10 +193,9 @@ public class AllBooks extends JFrame {
 
     private void openBookView(int index) {
         if (!scrollList.isSelectionEmpty()) {
-            file = new File("addressBooks/" + bookList.get(index) + ".tsv");
             Book book = new Book(this, allAddressBooks.get(index), bookList.get(index));
             book.setTitle(bookList.get(index));
-            openBooks.add(file.getName());
+            openBooks.add("addressBooks/" + bookList.get(index) + ".tsv");
         } else if (bookList.size() == 0) {
             JOptionPane.showMessageDialog(null, "There are no address books, please create one.");
         } else {

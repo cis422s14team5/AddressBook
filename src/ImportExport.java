@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
@@ -10,10 +11,10 @@ public class ImportExport {
 
     /**
      * Constructor.
-     * @param booksView is the window over which the file dialog is created.
+     * @param book is the window over which the file dialog is created.
      */
-    public ImportExport(Book booksView) {
-        fileDialog = new FileDialog(booksView);
+    public ImportExport(JFrame book) {
+        fileDialog = new FileDialog(book);
         fileDialog.setFilenameFilter(new TSVFilter());
     }
 
