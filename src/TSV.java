@@ -61,7 +61,9 @@ public class TSV {
 
             final CellProcessor[] processors =  new CellProcessor[header.length];
             for (int i = 0; i < header.length; i++) {
-                processors[i] = new NotNull();
+                if (header[i] != null) {
+                    processors[i] = new NotNull();
+                }
             }
 
             Map<String, Object> address;
@@ -104,7 +106,8 @@ public class TSV {
                     new NotNull(), // Delivery
                     new NotNull(), // Second
                     new NotNull(), // Recipient
-                    new NotNull()  // Phone
+                    new NotNull(),  // Phone
+                    null, null, null, null, null, null, null
             };;
 
             // write the header

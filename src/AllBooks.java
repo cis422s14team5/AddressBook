@@ -11,9 +11,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-// TODO Break the AllBooks into different modules: All Address Books, All Contacts, Contact
-// TODO Fix the layout of the Contacts tab so the fields fill up all the space left after the labels.
-// TODO Validate input in a separate module
+
+/*
+TODO Fix the layout
+
+TODO Likely Changes
+- Add additional fields to the entries: for example, fields for additional email address,
+  mobile phone number, business phone, birthday, etc. .
+- TODO Search: As the number of entries gets larger, we will want to be able to search the address book.
+- Ability to keep customized address books with different types of entries in each.
+- TODO Merge: Ability to merge address books.
+
+
+- Simple version that only keeps name and phone number.
+- Allow user-defined fields
+- Support multiple address books with different fields
+ */
 
 /**
  * The address book GUI.

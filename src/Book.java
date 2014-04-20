@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -49,6 +50,7 @@ public class Book extends JFrame {
 
         this.title = title;
         this.addressBook = addressBook;
+
         this.allBooks = allBooks;
         modified = false;
         isEditing = false;
@@ -288,6 +290,7 @@ public class Book extends JFrame {
         allContactsButtonPanel.add(edit);
         allContactsButtonPanel.add(remove);
 
+        // TODO Fix the layout of the Contacts tab so the fields fill up all the space left after the labels.
         // Contact Layout
         // GridLayout contactPanelLayout = new GridLayout(2, 0);
         // contactPanel.setLayout(contactPanelLayout);
@@ -602,7 +605,8 @@ public class Book extends JFrame {
      */
     private void closeBook() {
         if (modified) {
-            int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
+            int choice = JOptionPane.showConfirmDialog(null, "Save this address book?",
+                    "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
             if (choice == 0) { // Yes
                 saveBook();
                 dispose();

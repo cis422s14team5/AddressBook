@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// TODO in standardToInternal, if Last.length < 3: use regex to figure out which is a state, city, and zip instead of
-// arbitrarily choosing the indexes, since user could have inputted any of the three
-
 /**
  * A class to convert addresses between the internal format and the USPS standard format.
  *
@@ -61,8 +58,10 @@ public class AddressConverter {
                 tempLast = new String[] {tempLast[0], tempLast[1], tempLast[2]};
             }
 
+            System.out.println("TempLast");
             String[] last = new String[] {" ", " ", " "};
             for (String string : tempLast) {
+                System.out.println(string);
                 if (checkLast(string) == 0) {
                     last[0] = string;
                 }
@@ -72,6 +71,11 @@ public class AddressConverter {
                 if (checkLast(string) == 2) {
                     last[2] = string;
                 }
+            }
+
+            System.out.println("Last");
+            for (String string : last) {
+                System.out.println(string);
             }
 
             String delivery = address.get("Delivery");
@@ -95,10 +99,10 @@ public class AddressConverter {
     }
 
     private int checkLast(String string) {
-        if (string.matches("[a-zA-Z]+")) {
-            return 0;
-        } else if (string.matches("[A-Z]{2}")) {
+        if (string.matches("[A-Z]{2}")) {
             return 1;
+        } else if (string.matches("[a-zA-Z]+")) {
+            return 0;
         } else if (string.matches("[0-9]{5}") || string.matches("[0-9]{5}[-][0-9]{4}")) {
             return 2;
         }

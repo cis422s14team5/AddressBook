@@ -35,6 +35,4 @@ Ask Faulk
 -  It must be possible to extend and update the addressbook design as requirements change. (Hence my emphasis on modularity)
 
 
-TODO
-
 

@@ -1,11 +1,6 @@
-// TODO get the current store from the address books file.
-// TODO export address books to a default folder
-// TODO encrypt the STORE
-// TODO add button to save the imported address book as the default address book?
 
 /**
- * AddressBook is an address management program. It takes addresses in USPS standard format and stores them in an
- * address book.
+ * AddressBook is an address management program.
  */
 public class AddressBook {
     /**
