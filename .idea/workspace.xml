@@ -68,10 +68,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AllBooks.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AllBooks.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.07462686" vertical-offset="0" max-vertical-offset="4800">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4800">
               <caret line="3" column="59" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
               <folding>
                 <element signature="e#2464#2654#0" expanded="true" />
@@ -95,16 +95,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Book.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9240">
-              <caret line="49" column="86" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.07462686" vertical-offset="6135" max-vertical-offset="8790">
+              <caret line="462" column="77" selection-start-line="462" selection-start-column="52" selection-end-line="462" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6405#6888#0" expanded="true" />
                 <element signature="e#6877#6878#0" expanded="true" />
+                <element signature="e#7277#7724#0" expanded="true" />
+                <element signature="e#7713#7714#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckInput.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="597" max-vertical-offset="1200">
+              <caret line="50" column="5" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,8 +147,9 @@
         <option value="$PROJECT_DIR$/faulk_questions.txt" />
         <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/TSV.java" />
-        <option value="$PROJECT_DIR$/src/Book.java" />
         <option value="$PROJECT_DIR$/src/AllBooks.java" />
+        <option value="$PROJECT_DIR$/src/CheckInput.java" />
+        <option value="$PROJECT_DIR$/src/Book.java" />
       </list>
     </option>
   </component>
@@ -549,6 +562,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#6405#6888#0" expanded="true" />
             <element signature="e#6877#6878#0" expanded="true" />
+            <element signature="e#7277#7724#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -669,21 +684,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Book.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9240">
-          <caret line="49" column="86" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6405#6888#0" expanded="true" />
-            <element signature="e#6877#6878#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07462686" vertical-offset="0" max-vertical-offset="4800">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4800">
           <caret line="3" column="59" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
           <folding>
             <element signature="e#2464#2654#0" expanded="true" />
@@ -702,6 +705,28 @@
             <element signature="e#5300#5301#0" expanded="true" />
             <element signature="e#9460#9461#0" expanded="true" />
             <element signature="e#9545#9546#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="597" max-vertical-offset="1200">
+          <caret line="50" column="5" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Book.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07462686" vertical-offset="6135" max-vertical-offset="8790">
+          <caret line="462" column="77" selection-start-line="462" selection-start-column="52" selection-end-line="462" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6405#6888#0" expanded="true" />
+            <element signature="e#6877#6878#0" expanded="true" />
+            <element signature="e#7277#7724#0" expanded="true" />
+            <element signature="e#7713#7714#0" expanded="true" />
           </folding>
         </state>
       </provider>

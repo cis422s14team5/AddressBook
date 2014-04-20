@@ -201,6 +201,24 @@ public class Book extends JFrame {
         JScrollPane scrollPane = new JScrollPane(scrollList);
         scrollPane.setPreferredSize(new Dimension(360, 145));
 
+        // Drop-down
+        String[] sortOptions = {"Last Name", "Zip Code"};
+        JComboBox<String> sortDropDown = new JComboBox<>(sortOptions);
+        sortDropDown.setSelectedIndex(0);
+        sortDropDown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox)e.getSource();
+                if (cb.getSelectedItem() == 0) {
+                    // sort list by last name
+                    // update scrolllist
+                } else {
+                    // sort list by zip code
+                    // update scrolllist
+                }
+            }
+        });
+
         // Labels
         JLabel lastLabel = new JLabel("Last:");
         JLabel cityLabel = new JLabel("City");
@@ -278,7 +296,10 @@ public class Book extends JFrame {
         Border border = BorderFactory.createEmptyBorder(0, 10, 10, 10);
 
         // All Contacts Layout
+        GridLayout allContactsPanelLayout = new GridLayout(3, 0);
+        allContactsPanel.setLayout(allContactsPanelLayout);
         allContactsPanel.setBorder(border);
+        allContactsPanel.add(sortDropDown);
         allContactsPanel.add(scrollPane);
         allContactsPanel.add(allContactsButtonPanel);
 
@@ -456,8 +477,9 @@ public class Book extends JFrame {
      */
     private void saveContact() {
         address = new HashMap<>();
+        CheckInput checkInput = new CheckInput(this, lastNameField, phoneField, zipField);
 
-        if (checkLastName() && checkPhone() && checkZip()) {
+        if (checkInput.checkLastName() && checkInput.checkPhone() && checkInput.checkZip()) {
             address.put("lastName", lastNameField.getText());
 
             if (!phoneField.getText().equals("")) {
@@ -529,58 +551,6 @@ public class Book extends JFrame {
             modified = true;
             getRootPane().putClientProperty("Window.documentModified", Boolean.TRUE);
         }
-    }
-
-    /**
-     * Checks the last name field for valid input.
-     * @return true if valid.
-     */
-    private boolean checkLastName() {
-        boolean valid = false;
-        if (!lastNameField.getText().equals("")) {
-            valid = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "Please enter a last name.");
-        }
-
-        return valid;
-    }
-
-    /**
-     * Checks the phone field for valid input.
-     * @return true if valid.
-     */
-    private boolean checkPhone() {
-        boolean valid = false;
-        if (!phoneField.getText().equals("") &&
-                phoneField.getText().matches("^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$") ||
-                phoneField.getText().matches("^[0-9]{3}[-][0-9]{4}$")) {
-            valid = true;
-        } else if (phoneField.getText().equals("")) {
-            valid = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "You did not enter a valid phone number. Please try again.");
-        }
-
-        return valid;
-    }
-
-    /**
-     * Checks the zip field for valid input.
-     * @return true if valid.
-     */
-    private boolean checkZip() {
-        boolean valid = false;
-        if (!zipField.getText().equals("") && zipField.getText().matches("^[0-9]{5}$") ||
-                zipField.getText().matches("^[0-9]{5}[-][0-9]{4}$")) {
-            valid = true;
-        } else if (zipField.getText().equals("")) {
-            valid = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "You did not enter a valid zip code. Please try again.");
-        }
-
-        return valid;
     }
 
     /**
