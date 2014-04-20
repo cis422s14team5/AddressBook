@@ -93,8 +93,7 @@ public class TSV {
      * implementation provided by the developer. It has been modified to suit the context.
      */
     public void write(File file, ArrayList<HashMap<String, String>> mapList) {
-        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone",
-                null, null, null, null, null, null, null};
+        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone"};
         this.addressList = mapList;
 
         ICsvMapWriter mapWriter = null;
@@ -106,9 +105,8 @@ public class TSV {
                     new NotNull(), // Delivery
                     new NotNull(), // Second
                     new NotNull(), // Recipient
-                    new NotNull(),  // Phone
-                    null, null, null, null, null, null, null
-            };;
+                    new NotNull()  // Phone
+            };
 
             // write the header
             mapWriter.writeHeader(header);

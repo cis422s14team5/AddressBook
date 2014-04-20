@@ -58,10 +58,8 @@ public class AddressConverter {
                 tempLast = new String[] {tempLast[0], tempLast[1], tempLast[2]};
             }
 
-            System.out.println("TempLast");
             String[] last = new String[] {" ", " ", " "};
             for (String string : tempLast) {
-                System.out.println(string);
                 if (checkLast(string) == 0) {
                     last[0] = string;
                 }
@@ -71,11 +69,6 @@ public class AddressConverter {
                 if (checkLast(string) == 2) {
                     last[2] = string;
                 }
-            }
-
-            System.out.println("Last");
-            for (String string : last) {
-                System.out.println(string);
             }
 
             String delivery = address.get("Delivery");
