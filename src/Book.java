@@ -17,6 +17,7 @@ public class Book extends JFrame {
     private JList<String> scrollList;
     private boolean isEditing;
     private String title;
+    private boolean modified;
 
     // Panels
     private JTabbedPane tabbedPane;
@@ -38,6 +39,7 @@ public class Book extends JFrame {
         this.title = title;
         this.addressBook = addressBook;
         this.allBooks = allBooks;
+        modified = false;
         isEditing = false;
         importExport = new ImportExport(this);
         tsv = new TSV();
@@ -556,11 +558,14 @@ public class Book extends JFrame {
     }
 
     private void closeBook() {
-        int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
-        if (choice == 0) { // Yes
-            saveBook();
-        }
-        if (choice != 2) {
+        if (modified) {
+            int choice = JOptionPane.showConfirmDialog(null, "Save this address book?", "Save Address Book", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice == 0) { // Yes
+                saveBook();
+            } else if (choice == 1) { // No
+                dispose();
+            }
+        } else {
             dispose();
         }
     }
@@ -571,6 +576,7 @@ public class Book extends JFrame {
     private void saveBook() {
         AddressConverter converter = new AddressConverter();
         tsv.write(new File("addressBooks/" + title + ".tsv"), converter.internalToStandard(addressBook));
+        modified = true;
     }
 
     private void saveAs() {

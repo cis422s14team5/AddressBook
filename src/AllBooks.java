@@ -243,17 +243,23 @@ public class AllBooks extends JFrame {
     }
 
     private void removeBook() {
-        Path path = FileSystems.getDefault().getPath(
-                "addressBooks/" + bookList.get(scrollList.getSelectedIndex()) + ".tsv");
-        try {
-            Files.deleteIfExists(path);
-        } catch (IOException e) {
-            e.printStackTrace();
+        int choice = JOptionPane.showConfirmDialog(null,
+                "If you remove this address book it will be gone forever?\nAre you sure?",
+                "Remove Address Book",
+                JOptionPane.YES_NO_CANCEL_OPTION);
+        if (choice == 0) { // Yes
+            Path path = FileSystems.getDefault().getPath(
+                    "addressBooks/" + bookList.get(scrollList.getSelectedIndex()) + ".tsv");
+            try {
+                Files.deleteIfExists(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bookList.remove(scrollList.getSelectedIndex());
+            readWrite.write(BOOKS.toPath(), bookList);
+            createAllAddressBooks();
+            updateBookList();
         }
-        bookList.remove(scrollList.getSelectedIndex());
-        readWrite.write(BOOKS.toPath(), bookList);
-        createAllAddressBooks();
-        updateBookList();
     }
 
     private void closeAllBooksView() {
