@@ -68,21 +68,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AllBooks.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AllBooks.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2195" max-vertical-offset="5145">
-              <caret line="186" column="72" selection-start-line="186" selection-start-column="72" selection-end-line="186" selection-end-column="72" />
+            <state vertical-scroll-proportion="0.26174498" vertical-offset="1890" max-vertical-offset="5145">
+              <caret line="166" column="56" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Book.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25503355" vertical-offset="9515" max-vertical-offset="10260">
-              <caret line="715" column="57" selection-start-line="715" selection-start-column="25" selection-end-line="715" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2300" max-vertical-offset="10230">
+              <caret line="66" column="38" selection-start-line="66" selection-start-column="33" selection-end-line="67" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -118,8 +118,8 @@
         <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/ImportExport.java" />
         <option value="$PROJECT_DIR$/src/PrintBook.java" />
-        <option value="$PROJECT_DIR$/src/AllBooks.java" />
         <option value="$PROJECT_DIR$/src/Book.java" />
+        <option value="$PROJECT_DIR$/src/AllBooks.java" />
       </list>
     </option>
   </component>
@@ -572,18 +572,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
+    <entry file="file://$PROJECT_DIR$/src/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2195" max-vertical-offset="5145">
-          <caret line="186" column="72" selection-start-line="186" selection-start-column="72" selection-end-line="186" selection-end-column="72" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="10230">
+          <caret line="66" column="38" selection-start-line="66" selection-start-column="33" selection-end-line="67" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Book.java">
+    <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25503355" vertical-offset="9515" max-vertical-offset="10260">
-          <caret line="715" column="57" selection-start-line="715" selection-start-column="25" selection-end-line="715" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.26174498" vertical-offset="1890" max-vertical-offset="5145">
+          <caret line="166" column="56" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
           <folding />
         </state>
       </provider>

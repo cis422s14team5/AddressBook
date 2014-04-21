@@ -67,7 +67,7 @@ public class AllBooks extends JFrame {
         // Window
         setTitle("Address Books");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(460, 260);
+        setSize(460, 450);
         setResizable(false);
         setLocationRelativeTo(null);
 
@@ -158,7 +158,7 @@ public class AllBooks extends JFrame {
         JPanel buttonPanel = new JPanel();
 
         JScrollPane bookPane = new JScrollPane(scrollList);
-        bookPane.setPreferredSize(new Dimension(360, 150));
+        bookPane.setPreferredSize(new Dimension(360, 340));
 
         // Buttons
         JButton open = new JButton("Open");

@@ -730,8 +730,6 @@ public class Book extends JFrame {
         }
     }
 
-
-
     public void sortByLastName() {
         addressBook = sortBooks.sortByName(addressBook);
     }
