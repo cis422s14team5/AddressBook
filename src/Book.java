@@ -339,8 +339,6 @@ public class Book extends JFrame {
         Border borderTop = BorderFactory.createEmptyBorder(10, 0, 0, 0);
 
         // All Contacts Layout
-        //GridLayout allContactsPanelLayout = new GridLayout(3, 0);
-        //allContactsPanel.setLayout(allContactsPanelLayout);
         allContactsPanel.setBorder(border);
         allContactsPanel.add(sortPanel, BorderLayout.PAGE_END);
         allContactsPanel.add(scrollPane, BorderLayout.CENTER);
