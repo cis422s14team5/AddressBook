@@ -1,5 +1,3 @@
-import com.sun.codemodel.internal.JOp;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -13,22 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-
-/*
-TODO Fix the layout
-
-TODO Likely Changes
-- Add additional fields to the entries: for example, fields for additional email address,
-  mobile phone number, business phone, birthday, etc. .
-- TODO Search: As the number of entries gets larger, we will want to be able to search the address book.
-- Ability to keep customized address books with different types of entries in each.
-- TODO Merge: Ability to merge address books.
-
-
-- Simple version that only keeps name and phone number.
-- Allow user-defined fields
-- Support multiple address books with different fields
- */
 
 /**
  * All address books.
