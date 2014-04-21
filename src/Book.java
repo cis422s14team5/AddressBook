@@ -18,14 +18,14 @@ public class Book extends JFrame {
 
     private ImportExport importExport;
     private TSV tsv;
+    private String title;
+
+    private SortBooks sortBooks;
+    private boolean isEditing;
+    private boolean modified;
+    private boolean sortedByName;
 
     private JList<String> scrollList;
-    private boolean isEditing;
-    private String title;
-    private boolean modified;
-    boolean sortedByName;
-
-    // Panels
     private JTabbedPane tabbedPane;
 
     // Text Fields
@@ -41,7 +41,6 @@ public class Book extends JFrame {
     private JTextArea noteField;
 
     private AllBooks allBooks;
-    private SortBooks sortBooks;
 
     /**
      * Constructor. Creates an address book window.
@@ -718,8 +717,7 @@ public class Book extends JFrame {
         try {
             String cn = UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(cn); // Use the native L&F
-        } catch (Exception cnf) {
-        }
+        } catch (Exception ignored) {}
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setPrintable(new PrintBook(addressBook));
         boolean ok = job.printDialog();
