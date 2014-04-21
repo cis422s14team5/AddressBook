@@ -77,9 +77,8 @@ public class TSV {
      * implementation provided by the developer. It has been modified to suit the context.
      */
     public void write(File file, ArrayList<HashMap<String, String>> mapList) {
-        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone"};
+        final String[] header = new String[] {"Last", "Delivery", "Second", "Recipient", "Phone", "Email", "Note"};
         this.addressList = mapList;
-
         ICsvMapWriter mapWriter = null;
         try {
             mapWriter = new CsvMapWriter(new FileWriter(file), CsvPreference.TAB_PREFERENCE);
@@ -89,7 +88,9 @@ public class TSV {
                     new Optional(), // Delivery
                     new Optional(), // Second
                     new Optional(), // Recipient
-                    new Optional()  // Phone
+                    new Optional(), // Phone
+                    new Optional(), // Email
+                    new Optional()  // Note
             };
 
             // write the header

@@ -23,6 +23,7 @@ public class Book extends JFrame {
     private boolean isEditing;
     private String title;
     private boolean modified;
+    boolean sortedByName;
 
     // Panels
     private JTabbedPane tabbedPane;
@@ -36,8 +37,11 @@ public class Book extends JFrame {
     private JTextField lastNameField;
     private JTextField firstNameField;
     private JTextField phoneField;
+    private JTextField emailField;
+    private JTextArea noteField;
 
     private AllBooks allBooks;
+    private SortBooks sortBooks;
 
     /**
      * Constructor. Creates an address book window.
@@ -50,16 +54,19 @@ public class Book extends JFrame {
 
         this.title = title;
         this.addressBook = addressBook;
-
         this.allBooks = allBooks;
-        modified = false;
-        isEditing = false;
+
         importExport = new ImportExport(this);
         tsv = new TSV();
+        sortBooks = new SortBooks();
+
+        modified = false;
+        isEditing = false;
+        sortedByName = true;
 
         // Window
         setTitle("Address Book");
-        setSize(560, 360);
+        setSize(560, 450);
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -189,6 +196,8 @@ public class Book extends JFrame {
         JPanel recipientPanel = new JPanel();
         JPanel phonePanel = new JPanel();
         JPanel zipPanel = new JPanel();
+        JPanel notePanel = new JPanel();
+        JPanel emailPanel = new JPanel();
 
         // JList and JScrollPane
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -212,6 +221,11 @@ public class Book extends JFrame {
             }
         });
 
+        if (allBooks.isMerging) {
+            addressBook.addAll(allBooks.mergeBook);
+            allBooks.isMerging = false;
+        }
+
         updateScrollList();
 
         JScrollPane scrollPane = new JScrollPane(scrollList);
@@ -225,12 +239,14 @@ public class Book extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
-                if (cb.getSelectedItem() == 0) {
-                    // sort list by last name
-                    // update scrolllist
+                if (cb.getSelectedIndex() == 0) {
+                    sortByLastName();
+                    sortedByName = true;
+                    updateScrollList();
                 } else {
-                    // sort list by zip code
-                    // update scrolllist
+                    sortByZip();
+                    sortedByName = false;
+                    updateScrollList();
                 }
             }
         });
@@ -243,6 +259,8 @@ public class Book extends JFrame {
         JLabel secondLabel = new JLabel("Second:");
         JLabel recipientLabel = new JLabel("Name: ");
         JLabel phoneLabel = new JLabel("Phone:");
+        JLabel emailLabel = new JLabel("Email:");
+        JLabel noteLabel = new JLabel("Note:");
 
         // Text Fields
         cityField = new JTextField();
@@ -253,6 +271,15 @@ public class Book extends JFrame {
         lastNameField = new JTextField();
         firstNameField = new JTextField();
         phoneField = new JTextField();
+        emailField = new JTextField();
+
+        noteField = new JTextArea();
+        JScrollPane notePane = new JScrollPane(noteField);
+        noteField.setLineWrap(true);
+        noteField.setWrapStyleWord(true);
+        notePane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
 
         // All Contacts Buttons
 
@@ -330,7 +357,7 @@ public class Book extends JFrame {
         contactPanel.add(addressPanel);
         contactPanel.add(contactButtonPanel);
 
-        GridLayout addressPanelLayout = new GridLayout(7, 0);
+        GridLayout addressPanelLayout = new GridLayout(9, 0);
         addressPanel.setLayout(addressPanelLayout);
         addressPanel.setBorder(border);
         addressPanel.add(recipientPanel);
@@ -339,6 +366,8 @@ public class Book extends JFrame {
         addressPanel.add(lastPanel);
         addressPanel.add(zipPanel);
         addressPanel.add(phonePanel);
+        addressPanel.add(emailPanel);
+        addressPanel.add(notePanel);
         addressPanel.add(contactButtonPanel);
 
         GridLayout linePanelLayout = new GridLayout(1, 0);
@@ -380,6 +409,16 @@ public class Book extends JFrame {
         contactButtonPanel.add(cancel);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
+
+        notePanel.setLayout(linePanel2Layout);
+        //notePanel.setBorder(border);
+        notePanel.add(noteLabel);
+        notePanel.add(notePane);
+
+        emailPanel.setLayout(linePanelLayout);
+        //emailPanel.setBorder(border);
+        emailPanel.add(emailLabel);
+        emailPanel.add(emailField);
     }
 
     // All Addresses Methods
@@ -390,11 +429,12 @@ public class Book extends JFrame {
     public void updateScrollList() {
         scrollList.setListData(new String[0]);
         ArrayList<String> tempList = new ArrayList<>();
-        sortByLastName();
+        checkSort();
         for (HashMap<String, String> address : addressBook) {
             tempList.add(address.get("lastName") + ", " + address.get("firstName"));
         }
         scrollList.setListData(tempList.toArray(new String[tempList.size()]));
+        scrollList.setSelectedIndex(0);
     }
 
     /**
@@ -431,8 +471,10 @@ public class Book extends JFrame {
             tabbedPane.setSelectedIndex(1);
         } else if (addressBook.isEmpty()) {
             JOptionPane.showMessageDialog(null, "The address book is empty, create a new contact.");
+            tabbedPane.setEnabledAt(0, true);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a contact to edit.");
+            tabbedPane.setEnabledAt(0, true);
         }
     }
 
@@ -482,6 +524,16 @@ public class Book extends JFrame {
             phoneField.setText(address.get("phone"));
         } else {
             phoneField.setText("");
+        }
+        if (address.get("email") != null) {
+            emailField.setText(address.get("email"));
+        } else {
+            emailField.setText("");
+        }
+        if (address.get("note") != null) {
+            noteField.setText(address.get("note"));
+        } else {
+            noteField.setText("");
         }
     }
 
@@ -539,10 +591,23 @@ public class Book extends JFrame {
                 address.put("firstName", null);
             }
 
+            if (!emailField.getText().equals("")) {
+                address.put("email", emailField.getText());
+            } else {
+                address.put("email", null);
+            }
+
+            if (!noteField.getText().equals("")) {
+                address.put("note", noteField.getText());
+            } else {
+                address.put("note", null);
+            }
+
             if (cityField.getText().equals("") && stateField.getText().equals("") &&
                     zipField.getText().equals("") && deliveryField.getText().equals("") &&
                     secondField.getText().equals("") && lastNameField.getText().equals("") &&
-                    firstNameField.getText().equals("") && phoneField.getText().equals("")) {
+                    firstNameField.getText().equals("") && phoneField.getText().equals("") &&
+                    emailField.getText().equals("") && noteField.getText().equals("")) {
                 if (isEditing) {
                     addressBook.remove(scrollList.getSelectedIndex());
                     updateScrollList();
@@ -580,6 +645,8 @@ public class Book extends JFrame {
         lastNameField.setText("");
         firstNameField.setText("");
         phoneField.setText("");
+        emailField.setText("");
+        noteField.setText("");
     }
 
     /**
@@ -605,7 +672,6 @@ public class Book extends JFrame {
      */
     private void saveBook() {
         AddressConverter converter = new AddressConverter();
-        System.out.println(addressBook);
         tsv.write(new File(allBooks.saveDir + allBooks.slash + title + ".tsv"),
                 converter.internalToStandard(addressBook));
         modified = false;
@@ -665,7 +731,6 @@ public class Book extends JFrame {
         boolean ok = job.printDialog();
         if (ok) {
             try {
-                System.out.println("Print");
                 job.print();
             } catch (PrinterException ex) {
                 System.out.println("The job did not successfully complete");
@@ -674,27 +739,18 @@ public class Book extends JFrame {
     }
 
     public void sortByLastName() {
-        SortBooks sortBooks = new SortBooks();
         addressBook = sortBooks.sortByName(addressBook);
     }
 
-    public int search(String field, String input) {
-        for(int i = 0; i < addressBook.size(); i++)
-            if(addressBook.get(i).get(field).equals(input))
-                return i;
-        return -1;
+    public void sortByZip() {
+        addressBook = sortBooks.sortByZip(addressBook);
     }
 
-    public int searchLastName(String input, int x, int y) {//call this with (input, 0, addressBook.size()-1)
-        if(input.equals(addressBook.get(y/2).get("lastName")))
-            return y/2;
-        else if(x == y)
-            return -1;
-        else if(input.compareTo(addressBook.get(y/2).get("lastName")) < 0)
-            return searchLastName(input, x, y/2);
-        else if(input.compareTo(addressBook.get(y/2).get("lastName")) > 0)
-            return searchLastName(input, y/2, y);
-        else
-            return -1;
+    public void checkSort() {
+        if (sortedByName) {
+            sortByLastName();
+        } else {
+            sortByZip();
+        }
     }
 }

@@ -43,6 +43,9 @@ public class AllBooks extends JFrame {
     private TSV tsv;
     private ReadWrite readWrite;
 
+    public boolean isMerging;
+    public ArrayList<HashMap<String, String>> mergeBook;
+
     /**
      * Constructor. Sets up the window, panels, labels, buttons, and fields.
      */
@@ -51,6 +54,7 @@ public class AllBooks extends JFrame {
 
         tsv = new TSV();
         readWrite = new ReadWrite();
+        isMerging = false;
 
         checkOS();
         checkForBooks();
@@ -85,7 +89,6 @@ public class AllBooks extends JFrame {
         });
         fileMenu.add(newMenuItem);
 
-
         JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -96,6 +99,21 @@ public class AllBooks extends JFrame {
             }
         });
         fileMenu.add(openMenuItem);
+
+        fileMenu.addSeparator();
+
+        JMenuItem mergeMenuItem = new JMenuItem("Merge");
+        mergeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+        mergeMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                mergeBooks();
+            }
+        });
+        fileMenu.add(mergeMenuItem);
+
+        fileMenu.addSeparator();
 
         JMenuItem closeMenuItem = new JMenuItem("Close");
         closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
@@ -108,13 +126,16 @@ public class AllBooks extends JFrame {
         });
         fileMenu.add(closeMenuItem);
 
+
         setJMenuBar(menuBar);
 
         // Book List
         scrollList = new JList<>();
-        scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        //scrollList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         updateBookList();
-        scrollList.setSelectedIndex(0);
+        int[] selected = {0};
+        scrollList.setSelectedIndices(selected);
 
         scrollList.addMouseListener(new MouseAdapter() {
             @Override
@@ -216,20 +237,22 @@ public class AllBooks extends JFrame {
                 matches = true;
             }
         }
-        if (!newFileName.equals("") && !matches) {
-            createNewBook(addressBook);
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "An address book with that name already exists. Please choose another.");
-            openNewBookDialog(addressBook);
+        if (newFileName != null) {
+            if (!newFileName.equals("") && !matches) {
+                createNewBook(addressBook);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "An address book with that name already exists. Please choose another.");
+                openNewBookDialog(addressBook);
+            }
         }
     }
 
     private void createNewBook(ArrayList<HashMap<String, String>> addressBook) {
-        scrollList.setSelectedIndex(bookList.size());
+        //scrollList.setSelectedIndex(bookList.size());
 
         // Write to the TSV file.
-        tsv.write(new File(saveDir + slash +  newFileName + ".tsv"), addressBook);
+        tsv.write(new File(saveDir + slash + newFileName + ".tsv"), addressBook);
 
         // Add to address bookList.
         bookList.add(newFileName);
@@ -242,7 +265,7 @@ public class AllBooks extends JFrame {
         updateBookList();
         scrollList.setSelectedIndex(0);
 
-        // TODO Open newly created address book here.
+
         for (int i = 0; i < bookList.size(); i ++){
             if (bookList.get(i).equals(newFileName)){
                 Book book = new Book(this, allAddressBooks.get(i), bookList.get(i));
@@ -252,10 +275,8 @@ public class AllBooks extends JFrame {
     }
 
     private void removeBook() {
-        // TODO if the removed address book is open ask to keep it or close it
-
         int choice = JOptionPane.showConfirmDialog(null,
-                "If you remove this address book it will be gone forever.\nAre you sure?",
+                "If you remove an address book it will be gone forever.\nAre you sure?",
                 "Remove Address Book",
                 JOptionPane.YES_NO_CANCEL_OPTION);
         if (choice == 0) { // Yes
@@ -267,7 +288,9 @@ public class AllBooks extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            bookList.remove(scrollList.getSelectedIndex());
+            for (int index : scrollList.getSelectedIndices()) {
+                bookList.remove(index);
+            }
             readWrite.write(books.toPath(), bookList);
             createAllAddressBooks();
             updateBookList();
@@ -287,6 +310,7 @@ public class AllBooks extends JFrame {
      */
     public void updateBookList() {
         scrollList.setListData(bookList.toArray(new String[bookList.size()]));
+        scrollList.setSelectedIndex(0);
     }
 
     /**
@@ -304,6 +328,18 @@ public class AllBooks extends JFrame {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void mergeBooks() {
+        mergeBook = new ArrayList<>();
+        isMerging = true;
+
+
+        for (int index : scrollList.getSelectedIndices()) {
+            mergeBook.addAll(allAddressBooks.get(index));
+        }
+
+        openNewBookDialog(new ArrayList<HashMap<String, String>>());
     }
 
     /**
