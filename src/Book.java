@@ -6,7 +6,6 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -606,6 +605,7 @@ public class Book extends JFrame {
      */
     private void saveBook() {
         AddressConverter converter = new AddressConverter();
+        System.out.println(addressBook);
         tsv.write(new File(allBooks.saveDir + allBooks.slash + title + ".tsv"),
                 converter.internalToStandard(addressBook));
         modified = false;
@@ -673,27 +673,28 @@ public class Book extends JFrame {
         }
     }
 
-    public ArrayList<HashMap<String, String>> sortByLastName() {
-        ArrayList<HashMap<String, String>> sortedByLastName = new ArrayList<>();
-        ArrayList<HashMap<String, String>> temp = new ArrayList<>();
-        String nameArr[] = new String[addressBook.size()];
+    public void sortByLastName() {
+        SortBooks sortBooks = new SortBooks();
+        addressBook = sortBooks.sortByValue(addressBook);
+    }
 
-        for (int i = 0; i < addressBook.size(); i++) {
-            nameArr[i] = addressBook.get(i).get("lastName");
-        }
-        Arrays.sort(nameArr);
+    public int search(String field, String input) {
+        for(int i = 0; i < addressBook.size(); i++)
+            if(addressBook.get(i).get(field).equals(input))
+                return i;
+        return -1;
+    }
 
-        for (int i = 0; i < addressBook.size(); i++) {
-            String nameStr = nameArr[i];
-            for (int j = 0; j < addressBook.size(); j++) {
-                if (addressBook.get(j).get("lastName").equals(nameStr)) {
-                    sortedByLastName.add(addressBook.get(j));
-                    addressBook.get(j).put("lastName", ".");
-                }
-            }
-        }
-//        addressBook.clear();
-        addressBook = sortedByLastName;
-        return sortedByLastName;
+    public int searchLastName(String input, int x, int y) {//call this with (input, 0, addressBook.size()-1)
+        if(input.equals(addressBook.get(y/2).get("lastName")))
+            return y/2;
+        else if(x == y)
+            return -1;
+        else if(input.compareTo(addressBook.get(y/2).get("lastName")) < 0)
+            return searchLastName(input, x, y/2);
+        else if(input.compareTo(addressBook.get(y/2).get("lastName")) > 0)
+            return searchLastName(input, y/2, y);
+        else
+            return -1;
     }
 }

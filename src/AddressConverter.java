@@ -23,7 +23,27 @@ public class AddressConverter {
         for (HashMap<String, String> address : addressBook) {
             HashMap<String, String> tempAddress = new HashMap<>();
 
-            tempAddress.put("Last", address.get("city") + " " + address.get("state") + " " + address.get("zip"));
+            String last = null;
+            if (address.get("city") == null && address.get("state") == null && address.get("zip") == null) {
+                System.out.println(true);
+                last = null + " " + null + " " + null;
+            } else if (address.get("city") == null && address.get("state") == null) {
+                last = " " + " " + address.get("zip");
+            } else if (address.get("city") == null && address.get("zip") == null) {
+                last = " " + address.get("state") + " ";
+            } else if (address.get("zip") == null && address.get("state") == null) {
+                last = address.get("city") + " " + " ";
+            } else if (address.get("city") == null) {
+                last =  " " + address.get("state") + " " + address.get("zip");
+            }  else if (address.get("state") == null) {
+                last = address.get("city") + " " + address.get("zip");
+            } else if (address.get("zip") == null) {
+                last = address.get("city") + " " + address.get("state") + " ";
+            } else {
+                last = address.get("city") + " " + address.get("state") + " " + address.get("zip");
+            }
+
+            tempAddress.put("Last", last);
             tempAddress.put("Delivery", address.get("delivery"));
             tempAddress.put("Second", address.get("second"));
             tempAddress.put("Recipient", address.get("firstName") + " " + address.get("lastName"));
@@ -49,16 +69,16 @@ public class AddressConverter {
             String[] tempLast = address.get("Last").split("\\s+");
 
             if (tempLast.length == 0) {
-                tempLast = new String[] {" ", " ", " "};
+                tempLast = new String[] {null, null, null};
             } else if (tempLast.length == 1) {
-                tempLast = new String[] {tempLast[0], " ", " "};
+                tempLast = new String[] {tempLast[0], null, null};
             } else if (tempLast.length == 2) {
-                tempLast = new String[] {tempLast[0], tempLast[1], " "};
+                tempLast = new String[] {tempLast[0], tempLast[1], null};
             } else {
                 tempLast = new String[] {tempLast[0], tempLast[1], tempLast[2]};
             }
 
-            String[] last = new String[] {" ", " ", " "};
+            String[] last = new String[] {null, null, null};
             for (String string : tempLast) {
                 if (checkLast(string) == 0) {
                     last[0] = string;
@@ -94,7 +114,7 @@ public class AddressConverter {
     private int checkLast(String string) {
         if (string.matches("[A-Z]{2}")) {
             return 1;
-        } else if (string.matches("[a-zA-Z]+")) {
+        } else if (string.matches("[a-zA-Z]+") && !(string.matches("[n][u][l][l]"))) {
             return 0;
         } else if (string.matches("[0-9]{5}") || string.matches("[0-9]{5}[-][0-9]{4}")) {
             return 2;
