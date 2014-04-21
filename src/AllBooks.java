@@ -1,3 +1,5 @@
+import com.sun.codemodel.internal.JOp;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -330,15 +332,16 @@ public class AllBooks extends JFrame {
     }
 
     private void mergeBooks() {
-        mergeBook = new ArrayList<>();
-        isMerging = true;
-
-
-        for (int index : scrollList.getSelectedIndices()) {
-            mergeBook.addAll(allAddressBooks.get(index));
+        if (scrollList.getSelectedIndices().length > 1) {
+            mergeBook = new ArrayList<>();
+            isMerging = true;
+            for (int index : scrollList.getSelectedIndices()) {
+                mergeBook.addAll(allAddressBooks.get(index));
+            }
+            openNewBookDialog(new ArrayList<HashMap<String, String>>());
+        } else {
+            JOptionPane.showMessageDialog(this, "You must select more than one address book to merge.");
         }
-
-        openNewBookDialog(new ArrayList<HashMap<String, String>>());
     }
 
     /**

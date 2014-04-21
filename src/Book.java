@@ -198,6 +198,7 @@ public class Book extends JFrame {
         JPanel zipPanel = new JPanel();
         JPanel notePanel = new JPanel();
         JPanel emailPanel = new JPanel();
+        JPanel sortPanel = new JPanel();
 
         // JList and JScrollPane
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -261,6 +262,7 @@ public class Book extends JFrame {
         JLabel phoneLabel = new JLabel("Phone:");
         JLabel emailLabel = new JLabel("Email:");
         JLabel noteLabel = new JLabel("Note:");
+        JLabel sortLabel = new JLabel("Sort by:");
 
         // Text Fields
         cityField = new JTextField();
@@ -339,9 +341,12 @@ public class Book extends JFrame {
         GridLayout allContactsPanelLayout = new GridLayout(3, 0);
         allContactsPanel.setLayout(allContactsPanelLayout);
         allContactsPanel.setBorder(border);
-        allContactsPanel.add(sortDropDown);
+        allContactsPanel.add(sortPanel);
         allContactsPanel.add(scrollPane);
         allContactsPanel.add(allContactsButtonPanel);
+
+        sortPanel.add(sortLabel);
+        sortPanel.add(sortDropDown);
 
         allContactsButtonPanel.setBorder(border);
         allContactsButtonPanel.add(newContact);
