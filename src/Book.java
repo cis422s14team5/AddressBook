@@ -675,7 +675,7 @@ public class Book extends JFrame {
 
     public void sortByLastName() {
         SortBooks sortBooks = new SortBooks();
-        addressBook = sortBooks.sortByValue(addressBook);
+        addressBook = sortBooks.sortByName(addressBook);
     }
 
     public int search(String field, String input) {
