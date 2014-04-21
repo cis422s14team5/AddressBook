@@ -71,8 +71,8 @@
       <file leaf-file-name="AllBooks.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26174498" vertical-offset="1890" max-vertical-offset="5145">
-              <caret line="166" column="56" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.26174498" vertical-offset="480" max-vertical-offset="5145">
+              <caret line="58" column="57" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -81,8 +81,8 @@
       <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2300" max-vertical-offset="10230">
-              <caret line="66" column="38" selection-start-line="66" selection-start-column="33" selection-end-line="67" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="10230">
+              <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -574,16 +574,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="10230">
-          <caret line="66" column="38" selection-start-line="66" selection-start-column="33" selection-end-line="67" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="10230">
+          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AllBooks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26174498" vertical-offset="1890" max-vertical-offset="5145">
-          <caret line="166" column="56" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.26174498" vertical-offset="480" max-vertical-offset="5145">
+          <caret line="58" column="57" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
           <folding />
         </state>
       </provider>
