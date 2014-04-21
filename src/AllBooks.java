@@ -184,8 +184,8 @@ public class AllBooks extends JFrame {
         mainButtonPanel.setBorder(border);
 
         // Button Layout
-        mainButtonPanel.add(open);
         mainButtonPanel.add(newBook);
+        mainButtonPanel.add(open);
         mainButtonPanel.add(removeBook);
 
 
@@ -288,9 +288,8 @@ public class AllBooks extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            for (int index : scrollList.getSelectedIndices()) {
-                bookList.remove(index);
-            }
+
+            bookList.remove(scrollList.getSelectedIndex());
             readWrite.write(books.toPath(), bookList);
             createAllAddressBooks();
             updateBookList();

@@ -88,7 +88,7 @@ public class Book extends JFrame {
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
 
-        JMenuItem newMenuItem = new JMenuItem("New Contact");
+        JMenuItem newMenuItem = new JMenuItem("New");
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
@@ -100,7 +100,7 @@ public class Book extends JFrame {
         fileMenu.add(newMenuItem);
 
 
-        JMenuItem openMenuItem = new JMenuItem("Open Selected Contact");
+        JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
@@ -291,7 +291,7 @@ public class Book extends JFrame {
             }
         });
 
-        JButton edit = new JButton("Edit");
+        JButton edit = new JButton("Open");
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 tabbedPane.setEnabledAt(0, false);
@@ -314,7 +314,7 @@ public class Book extends JFrame {
             }
         });
 
-        JButton save = new JButton("Save");
+        JButton save = new JButton("Done");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 saveContact();
