@@ -153,7 +153,12 @@ public class AllBooks extends JFrame {
             }
         });
 
+        // Panels
+        JPanel panel = new JPanel();
+        JPanel buttonPanel = new JPanel();
+
         JScrollPane bookPane = new JScrollPane(scrollList);
+        bookPane.setPreferredSize(new Dimension(360, 150));
 
         // Buttons
         JButton open = new JButton("Open");
@@ -180,25 +185,17 @@ public class AllBooks extends JFrame {
 
         // Layout
         Border border = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        JPanel mainPanel = new JPanel();
-        mainPanel.setBorder(border);
-        JPanel mainButtonPanel = new JPanel();
-        mainButtonPanel.setBorder(border);
+        add(panel);
+
+        // Panel Layout
+        panel.setBorder(border);
+        panel.add(bookPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.PAGE_END);
 
         // Button Layout
-        mainButtonPanel.add(newBook);
-        mainButtonPanel.add(open);
-        mainButtonPanel.add(removeBook);
-
-
-        //bookPane.setPreferredSize(new Dimension(360, 840));
-
-        GridLayout mainPanelLayout = new GridLayout(2, 0);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanel.setBorder(border);
-        mainPanel.add(bookPane);
-        mainPanel.add(mainButtonPanel);
-        add(mainPanel);
+        buttonPanel.add(newBook);
+        buttonPanel.add(open);
+        buttonPanel.add(removeBook);
 
         setVisible(true);
     }

@@ -66,7 +66,7 @@ public class Book extends JFrame {
 
         // Window
         setTitle("Address Book");
-        setSize(560, 450);
+        setSize(460, 450);
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -230,7 +230,7 @@ public class Book extends JFrame {
         updateScrollList();
 
         JScrollPane scrollPane = new JScrollPane(scrollList);
-        //scrollPane.setPreferredSize(new Dimension(360, 145));
+        scrollPane.setPreferredSize(new Dimension(360, 270));
 
         // Drop-down
         String[] sortOptions = {"Last Name", "Zip Code"};
@@ -336,14 +336,15 @@ public class Book extends JFrame {
         tabbedPane.addTab("Contact", contactPanel);
 
         Border border = BorderFactory.createEmptyBorder(0, 10, 10, 10);
+        Border borderTop = BorderFactory.createEmptyBorder(10, 0, 0, 0);
 
         // All Contacts Layout
-        GridLayout allContactsPanelLayout = new GridLayout(3, 0);
-        allContactsPanel.setLayout(allContactsPanelLayout);
+        //GridLayout allContactsPanelLayout = new GridLayout(3, 0);
+        //allContactsPanel.setLayout(allContactsPanelLayout);
         allContactsPanel.setBorder(border);
-        allContactsPanel.add(sortPanel);
-        allContactsPanel.add(scrollPane);
-        allContactsPanel.add(allContactsButtonPanel);
+        allContactsPanel.add(sortPanel, BorderLayout.PAGE_END);
+        allContactsPanel.add(scrollPane, BorderLayout.CENTER);
+        allContactsPanel.add(allContactsButtonPanel, BorderLayout.PAGE_END);
 
         sortPanel.add(sortLabel);
         sortPanel.add(sortDropDown);
@@ -353,14 +354,9 @@ public class Book extends JFrame {
         allContactsButtonPanel.add(edit);
         allContactsButtonPanel.add(remove);
 
-
         // Contact Layout
-
-        // GridLayout contactPanelLayout = new GridLayout(2, 0);
-        // contactPanel.setLayout(contactPanelLayout);
-        // contactPanel.setBorder(border);
-        contactPanel.add(addressPanel);
-        contactPanel.add(contactButtonPanel);
+        contactPanel.add(addressPanel, BorderLayout.CENTER);
+        contactPanel.add(contactButtonPanel, BorderLayout.PAGE_END);
 
         GridLayout addressPanelLayout = new GridLayout(9, 0);
         addressPanel.setLayout(addressPanelLayout);
@@ -377,7 +373,6 @@ public class Book extends JFrame {
 
         GridLayout linePanelLayout = new GridLayout(1, 0);
         lastPanel.setLayout(linePanelLayout);
-        //lastPanel.add(lastLabel);
         lastPanel.add(cityLabel);
         lastPanel.add(cityField);
         lastPanel.add(stateLabel);
@@ -400,9 +395,7 @@ public class Book extends JFrame {
         recipientPanel.setLayout(linePanel3Layout);
         recipientPanel.add(recipientLabel);
         recipientPanel.add(firstNameField);
-        //recipientPanel.add(lastNameLabel);
         recipientPanel.add(lastNameField);
-        //recipientPanel.add(firstNameLabel);
 
         phonePanel.setLayout(linePanel2Layout);
         phonePanel.add(phoneLabel);
@@ -410,18 +403,16 @@ public class Book extends JFrame {
 
         GridLayout contactButtonPanelLayout = new GridLayout(0, 3);
         contactButtonPanel.setLayout(contactButtonPanelLayout);
-        contactButtonPanel.setBorder(border);
+        contactButtonPanel.setBorder(borderTop);
         contactButtonPanel.add(cancel);
         contactButtonPanel.add(clear);
         contactButtonPanel.add(save);
 
         notePanel.setLayout(linePanel2Layout);
-        //notePanel.setBorder(border);
         notePanel.add(noteLabel);
         notePanel.add(notePane);
 
         emailPanel.setLayout(linePanelLayout);
-        //emailPanel.setBorder(border);
         emailPanel.add(emailLabel);
         emailPanel.add(emailField);
     }
