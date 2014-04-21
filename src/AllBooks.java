@@ -357,12 +357,15 @@ public class AllBooks extends JFrame {
     }
 
     private void getDialog(String name) {
+        setTitle("");
         for (Window window : JFrame.getWindows()) {
+
             if (window instanceof JFrame) {
                 if (((JFrame)window).getTitle().equals(name)) {
                     window.dispose();
                 }
             }
         }
+        setTitle("Address Books");
     }
 }

@@ -8,17 +8,53 @@ import java.util.HashMap;
 public class PrintBook implements Printable {
 
     private ArrayList<HashMap<String, String>> addressBook;
+    int[] pageBreaks;  // array of page break line positions.
+    String[] textLines;
 
     public PrintBook(ArrayList<HashMap<String, String>> addressBook) {
         this.addressBook = addressBook;
+        initTextLines();
+    }
+
+    private void initTextLines() {
+        ArrayList<String> textTemp = new ArrayList<>();
+
+        for (HashMap<String, String> address : addressBook) {
+            textTemp.add(address.get("firstName") + " " + address.get("lastName"));
+            textTemp.add(address.get("delivery"));
+            if (address.get("second") != null && !address.get("second").equals("")
+                                              && !address.get("second").equals(" ")) {
+                textTemp.add(address.get("second"));
+            }
+            textTemp.add(address.get("city") + " " +  address.get("state") + " " +  address.get("zip"));
+            textTemp.add("");
+        }
+
+        //System.out.println(textTemp);
+        textLines = textTemp.toArray(new String[textTemp.size()]);
+
+//        for (String line : textLines) {
+//            System.out.println(line);
+//        }
     }
 
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        Font font = new Font("Serif", Font.PLAIN, 10);
+        FontMetrics metrics = graphics.getFontMetrics(font);
+        int lineHeight = metrics.getHeight();
 
-        // We have only one page, and 'page'
-        // is zero-based
-        if (pageIndex > 0) {
+        if (pageBreaks == null) {
+            initTextLines();
+            int linesPerPage = (int)(pageFormat.getImageableHeight()/lineHeight);
+            int numBreaks = (textLines.length - 1) / linesPerPage;
+            pageBreaks = new int[numBreaks];
+            for (int b = 0; b < numBreaks; b++) {
+                pageBreaks[b] = (b + 1) * linesPerPage;
+            }
+        }
+
+        if (pageIndex > pageBreaks.length) {
             return NO_SUCH_PAGE;
         }
 
@@ -29,11 +65,64 @@ public class PrintBook implements Printable {
         Graphics2D g2d = (Graphics2D)graphics;
         g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
-        // Now we perform our rendering
-        graphics.drawString("Hello world!", 100, 100);
+        /* Draw each line that is on this page.
+         * Increment 'y' position by lineHeight for each line.
+         */
+        int y = 0;
+        int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex-1];
+        int end   = (pageIndex == pageBreaks.length)
+                ? textLines.length : pageBreaks[pageIndex];
+        for (int line=start; line < end; line++) {
+            y += lineHeight;
+            graphics.drawString(textLines[line], 0, y);
+        }
 
         // tell the caller that this page is part
         // of the printed document
         return PAGE_EXISTS;
     }
+
+//    public int print(Graphics g, PageFormat pf, int pageIndex)
+//            throws PrinterException {
+//
+//        Font font = new Font("Serif", Font.PLAIN, 10);
+//        FontMetrics metrics = g.getFontMetrics(font);
+//        int lineHeight = metrics.getHeight();
+//
+//        if (pageBreaks == null) {
+//            initTextLines();
+//            int linesPerPage = (int)(pf.getImageableHeight()/lineHeight);
+//            int numBreaks = (textLines.length-1)/linesPerPage;
+//            pageBreaks = new int[numBreaks];
+//            for (int b=0; b<numBreaks; b++) {
+//                pageBreaks[b] = (b+1)*linesPerPage;
+//            }
+//        }
+//
+//        if (pageIndex > pageBreaks.length) {
+//            return NO_SUCH_PAGE;
+//        }
+//
+//        /* User (0,0) is typically outside the imageable area, so we must
+//         * translate by the X and Y values in the PageFormat to avoid clipping
+//         * Since we are drawing text we
+//         */
+//        Graphics2D g2d = (Graphics2D)g;
+//        g2d.translate(pf.getImageableX(), pf.getImageableY());
+//
+//        /* Draw each line that is on this page.
+//         * Increment 'y' position by lineHeight for each line.
+//         */
+//        int y = 0;
+//        int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex-1];
+//        int end   = (pageIndex == pageBreaks.length)
+//                ? textLines.length : pageBreaks[pageIndex];
+//        for (int line=start; line<end; line++) {
+//            y += lineHeight;
+//            g.drawString(textLines[line], 0, y);
+//        }
+//
+//        /* tell the caller that this page is part of the printed document */
+//        return PAGE_EXISTS;
+//    }
 }
