@@ -12,6 +12,10 @@ import java.util.HashMap;
  */
 public class AddressConverter {
 
+    String[] tempLast;
+    String city;
+    ArrayList<String> tempCity;
+
     /**
      * Converts addresses in an address book from the internal format to the USPS standard format.
      * @param addressBook the book of addresses to convert.
@@ -66,43 +70,48 @@ public class AddressConverter {
 
         for (HashMap<String, String> address : addressBook) {
             HashMap<String, String> tempAddress = new HashMap<>();
-            String[] last = new String[] {null, null, null};
+            ArrayList<String> last = new ArrayList<>();
 
             if (address.get("Last") != null) {
-                String[] tempLast = address.get("Last").split("\\s+");
+                tempLast = address.get("Last").split("\\s+");
 
-                if (tempLast.length == 0) {
-                    tempLast = new String[] {null, null, null};
-                } else if (tempLast.length == 1) {
-                    tempLast = new String[] {tempLast[0], null, null};
-                } else if (tempLast.length == 2) {
-                    tempLast = new String[] {tempLast[0], tempLast[1], null};
-                } else {
-                    tempLast = new String[] {tempLast[0], tempLast[1], tempLast[2]};
+                for (int i = 0; i < 10; i++) {
+                    last.add("");
                 }
 
-                for (String string : tempLast) {
+                int size = tempLast.length;
+                tempCity = new ArrayList<>();
+                for (int i = size - 1; i >= 0; i--) {
+                    String string = tempLast[i];
                     if (string != null && !string.equals("")) {
                         if (checkLast(string) == 0) {
-                            last[0] = "";
-                            last[1] = "";
-                            last[2] = "";
-                        }
-                        if (checkLast(string) == 1) {
-                            last[0] = string;
-                        }
-                        if (checkLast(string) == 2) {
-                            last[1] = string;
+                            last.set(0, "");
+                            last.set(1, "");
+                            last.set(2, "");
                         }
                         if (checkLast(string) == 3) {
-                            last[2] = string;
+                            last.set(2, string);
+                        }
+                        if (checkLast(string) == 2) {
+                            last.set(1, string);
+                        }
+                        if (checkLast(string) == 1) {
+                            tempCity.add(string);
                         }
                     }
                 }
+
+                city = "";
+                for (int i = tempCity.size() - 1; i >= 0; i--) {
+                    city += tempCity.get(i);
+                    if (i != 0) {
+                        city += " ";
+                    }
+                }
             } else {
-                last[0] = "";
-                last[1] = "";
-                last[2] = "";
+                for (int i = 0; i < 10; i++) {
+                    last.set(i, "");
+                }
             }
 
             String delivery = address.get("Delivery");
@@ -112,9 +121,10 @@ public class AddressConverter {
             String email = address.get("Email");
             String note = address.get("Note");
 
-            tempAddress.put("city", last[0]);
-            tempAddress.put("state", last[1]);
-            tempAddress.put("zip", last[2]);
+
+            tempAddress.put("city", city);
+            tempAddress.put("state", last.get(1));
+            tempAddress.put("zip", last.get(2));
             tempAddress.put("delivery", delivery);
             tempAddress.put("second", second);
             tempAddress.put("firstName", recipient[0]);
@@ -126,7 +136,6 @@ public class AddressConverter {
             tempBook.add(tempAddress);
         }
 
-        //System.out.println(tempBook);
         return tempBook;
     }
 

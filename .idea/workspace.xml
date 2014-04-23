@@ -81,15 +81,15 @@
       <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.230769" vertical-offset="7203" max-vertical-offset="10680">
-              <caret line="549" column="80" selection-start-line="549" selection-start-column="80" selection-end-line="549" selection-end-column="80" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="6971" max-vertical-offset="10695">
+              <caret line="559" column="91" selection-start-line="559" selection-start-column="50" selection-end-line="559" selection-end-column="50" />
               <folding>
                 <element signature="e#3573#3733#0" expanded="true" />
                 <element signature="e#3722#3723#0" expanded="true" />
                 <element signature="e#5378#5519#0" expanded="true" />
                 <element signature="e#5508#5509#0" expanded="true" />
-                <element signature="e#11622#11766#0" expanded="true" />
-                <element signature="e#11755#11756#0" expanded="true" />
+                <element signature="e#11631#11775#0" expanded="true" />
+                <element signature="e#11764#11765#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,8 +98,20 @@
       <file leaf-file-name="CheckInput.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54635763" vertical-offset="2025" max-vertical-offset="3000">
-              <caret line="157" column="45" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.84771574" vertical-offset="2949" max-vertical-offset="3540">
+              <caret line="230" column="98" selection-start-line="230" selection-start-column="1" selection-end-line="230" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddressConverter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1638" max-vertical-offset="2415">
+              <caret line="146" column="34" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -135,15 +147,15 @@
         <option value="$PROJECT_DIR$/src/TSV.java" />
         <option value="$PROJECT_DIR$/src/ImportExport.java" />
         <option value="$PROJECT_DIR$/src/AllBooks.java" />
-        <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/PrintBook.java" />
+        <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/Book.java" />
         <option value="$PROJECT_DIR$/src/CheckInput.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
+    <option name="x" value="16" />
     <option name="y" value="22" />
     <option name="width" value="1152" />
     <option name="height" value="874" />
@@ -442,7 +454,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="22" width="1152" height="874" extended-state="0" />
+    <frame x="16" y="22" width="1152" height="874" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -530,8 +542,8 @@
             <element signature="e#3722#3723#0" expanded="true" />
             <element signature="e#5378#5519#0" expanded="true" />
             <element signature="e#5508#5509#0" expanded="true" />
-            <element signature="e#11622#11766#0" expanded="true" />
-            <element signature="e#11755#11756#0" expanded="true" />
+            <element signature="e#11631#11775#0" expanded="true" />
+            <element signature="e#11764#11765#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -540,7 +552,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1215" max-vertical-offset="1305">
           <caret line="81" column="79" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -614,14 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8013245" vertical-offset="1046" max-vertical-offset="2265">
-          <caret line="103" column="65" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PrintBook.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2665563" vertical-offset="1526" max-vertical-offset="2130">
@@ -630,25 +636,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1638" max-vertical-offset="2415">
+          <caret line="146" column="34" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.230769" vertical-offset="7203" max-vertical-offset="10680">
-          <caret line="549" column="80" selection-start-line="549" selection-start-column="80" selection-end-line="549" selection-end-column="80" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6971" max-vertical-offset="10695">
+          <caret line="559" column="91" selection-start-line="559" selection-start-column="50" selection-end-line="559" selection-end-column="50" />
           <folding>
             <element signature="e#3573#3733#0" expanded="true" />
             <element signature="e#3722#3723#0" expanded="true" />
             <element signature="e#5378#5519#0" expanded="true" />
             <element signature="e#5508#5509#0" expanded="true" />
-            <element signature="e#11622#11766#0" expanded="true" />
-            <element signature="e#11755#11756#0" expanded="true" />
+            <element signature="e#11631#11775#0" expanded="true" />
+            <element signature="e#11764#11765#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54635763" vertical-offset="2025" max-vertical-offset="3000">
-          <caret line="157" column="45" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.84771574" vertical-offset="2949" max-vertical-offset="3540">
+          <caret line="230" column="98" selection-start-line="230" selection-start-column="1" selection-end-line="230" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

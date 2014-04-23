@@ -4,20 +4,24 @@ import java.util.Map;
 
 public class CheckInput {
 
+    private JTextField firstNameField;
     private JTextField lastNameField;
     private JTextField phoneField;
     private JTextField zipField;
+    private JTextField cityField;
     private JTextField stateField;
     private JTextField emailField;
     private Book book;
     private HashMap<String, String> stateMap;
 
-    public CheckInput(Book book, JTextField lastNameField, JTextField phoneField, JTextField zipField,
-                      JTextField stateField, JTextField emailField) {
+    public CheckInput(Book book, JTextField firstNameField, JTextField lastNameField, JTextField phoneField, JTextField zipField,
+                      JTextField cityField, JTextField stateField, JTextField emailField) {
         this.book = book;
+        this.firstNameField = firstNameField;
         this.lastNameField = lastNameField;
         this.phoneField = phoneField;
         this.zipField = zipField;
+        this.cityField = cityField;
         this.stateField = stateField;
         this.emailField = emailField;
         stateMap = new HashMap<>();
@@ -192,4 +196,36 @@ public class CheckInput {
         }
         return valid;
     }
+
+    /**
+     * Checks the city field for valid input.
+     * @return true if valid.
+     */
+    public boolean checkFirstName() {
+        boolean valid = false;
+        if (!firstNameField.getText().equals("") && firstNameField.getText().matches("[a-zA-Z]+")) {
+            valid = true;
+        } else if (firstNameField.getText().equals("")) {
+            valid = true;
+        } else {
+            JOptionPane.showMessageDialog(book, "You did not enter a valid first name. Please try again.");
+        }
+        return valid;
+    }
+
+//    /**
+//     * Checks the city field for valid input.
+//     * @return true if valid.
+//     */
+//    public boolean checkCity() {
+//        boolean valid = false;
+//        if (!cityField.getText().equals("") && cityField.getText().matches("[a-zA-Z\\s]")) {
+//            valid = true;
+//        } else if (cityField.getText().equals("")) {
+//            valid = true;
+//        } else {
+//            JOptionPane.showMessageDialog(book, "You did not enter a valid city. Please try again.");
+//        }
+//        return valid;
+//    }
 }

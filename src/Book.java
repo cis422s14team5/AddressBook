@@ -268,15 +268,15 @@ public class Book extends JFrame {
         JLabel sortLabel = new JLabel("Sort by:");
 
         // Text Fields
-        cityField = new JTextField();
-        stateField = new JTextField();
-        zipField = new JTextField();
-        deliveryField = new JTextField();
-        secondField = new JTextField();
-        lastNameField = new JTextField();
-        firstNameField = new JTextField();
-        phoneField = new JTextField();
-        emailField = new JTextField();
+        cityField = new JTextField(5);
+        stateField = new JTextField(5);
+        zipField = new JTextField(5);
+        deliveryField = new JTextField(5);
+        secondField = new JTextField(5);
+        lastNameField = new JTextField(5);
+        firstNameField = new JTextField(5);
+        phoneField = new JTextField(5);
+        emailField = new JTextField(5);
 
         noteField = new JTextArea(5, 20);
         JScrollPane notePane = new JScrollPane(noteField);
@@ -543,10 +543,11 @@ public class Book extends JFrame {
      */
     private void saveContact() {
         address = new HashMap<>();
-        CheckInput checkInput = new CheckInput(this, lastNameField, phoneField, zipField, stateField, emailField);
+        CheckInput checkInput = new CheckInput(this, firstNameField, lastNameField, phoneField, zipField,
+                cityField, stateField, emailField);
 
         if (checkInput.checkLastName() && checkInput.checkPhone() && checkInput.checkZip() && checkInput.checkState()
-                && checkInput.checkEmail()) {
+                && checkInput.checkEmail() && checkInput.checkFirstName()) {
             stateField.setText(checkInput.transformState(stateField.getText()));
             address.put("lastName", lastNameField.getText());
 
