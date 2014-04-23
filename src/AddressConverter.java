@@ -82,20 +82,21 @@ public class AddressConverter {
                 }
 
                 for (String string : tempLast) {
-
-                    if (checkLast(string) == 0) {
-                        last[0] = "";
-                        last[1] = "";
-                        last[2] = "";
-                    }
-                    if (checkLast(string) == 1) {
-                        last[0] = string;
-                    }
-                    if (checkLast(string) == 2) {
-                        last[1] = string;
-                    }
-                    if (checkLast(string) == 3) {
-                        last[2] = string;
+                    if (string != null && !string.equals("")) {
+                        if (checkLast(string) == 0) {
+                            last[0] = "";
+                            last[1] = "";
+                            last[2] = "";
+                        }
+                        if (checkLast(string) == 1) {
+                            last[0] = string;
+                        }
+                        if (checkLast(string) == 2) {
+                            last[1] = string;
+                        }
+                        if (checkLast(string) == 3) {
+                            last[2] = string;
+                        }
                     }
                 }
             } else {
@@ -125,6 +126,7 @@ public class AddressConverter {
             tempBook.add(tempAddress);
         }
 
+        //System.out.println(tempBook);
         return tempBook;
     }
 
