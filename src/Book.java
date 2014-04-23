@@ -108,7 +108,7 @@ public class Book extends JFrame {
 
         openMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                editContact(scrollList.getSelectedIndex());
+                System.out.println(isEditing);
             }
         });
         fileMenu.add(openMenuItem);
@@ -227,6 +227,7 @@ public class Book extends JFrame {
         if (allBooks.isMerging) {
             addressBook.addAll(allBooks.mergeBook);
             allBooks.isMerging = false;
+            saveBook();
         }
 
         updateScrollList();
@@ -455,15 +456,18 @@ public class Book extends JFrame {
             updateScrollList();
             saveBook();
         }
+        scrollList.setSelectedIndex(0);
     }
 
     /**
      * Switches the allBooksView to the Contact tab and fills the fields with the selected contact's details.
      */
     private void editContact(int index) {
+        System.out.println(isEditing);
         if (!scrollList.isSelectionEmpty() && !isEditing) {
             isEditing = true;
             getContact(index);
+
             tabbedPane.setSelectedIndex(1);
         } else if (addressBook.isEmpty()) {
             JOptionPane.showMessageDialog(null, "The address book is empty, create a new contact.");
@@ -480,6 +484,7 @@ public class Book extends JFrame {
      */
     private void getContact(int index) {
         address = addressBook.get(index);
+        System.out.println(address);
 
         if (address.get("city") != null) {
             cityField.setText(address.get("city"));

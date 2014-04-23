@@ -206,6 +206,7 @@ public class AllBooks extends JFrame {
      * @param index is the index of the selected address book in both allAddressBooks and the bookList.
      */
     private void openBookView(int index) {
+        createAllAddressBooks();
         if (!scrollList.isSelectionEmpty()) {
             Book book = new Book(this, allAddressBooks.get(index), bookList.get(index));
             book.setTitle(bookList.get(index));
@@ -224,12 +225,14 @@ public class AllBooks extends JFrame {
         newFileName = "";
         newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
         boolean matches = false;
-        for (String string : bookList) {
-            if (newFileName.equals(string + ".tsv")) {
-                matches = true;
-            }
-        }
         if (newFileName != null) {
+            for (String string : bookList) {
+                String tempName = newFileName.toLowerCase();
+                String stringTemp = string.toLowerCase();
+                if (tempName.equals(stringTemp)) {
+                    matches = true;
+                }
+            }
             if (!newFileName.equals("") && !matches) {
                 createNewBook(addressBook);
             } else {
@@ -269,6 +272,7 @@ public class AllBooks extends JFrame {
                 book.setTitle(bookList.get(i));
             }
         }
+
     }
 
     /**
@@ -334,6 +338,7 @@ public class AllBooks extends JFrame {
      * into the new book.
      */
     private void mergeBooks() {
+        createAllAddressBooks();
         if (scrollList.getSelectedIndices().length > 1) {
             mergeBook = new ArrayList<>();
             isMerging = true;
