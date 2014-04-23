@@ -1,6 +1,5 @@
 AddressBook
 ===========
-
 AddressBook is an address management program. It was the joint creation of David Chapman, Keith Hamm, Jack Ziesing,
 John Beck, Noah Hasson, and Wenbo Zhang: The Dragons.
 
@@ -18,6 +17,7 @@ Table of Contents
 
 Introduction
 ============
+
 Address Book was designed by team The Dragons as a simple implementation of an address book for the class CIS 422.
 
 Installation
@@ -44,7 +44,6 @@ page of address books called the all contacts tab.
 
 All Contacts tab
 ================
-
 The first window that opens is the "All Contacts Tab".  This is the area shown in the picture above and
 includes a scroll box with a list of people that are saved in the address book. You are allowed to select one of
 the names that appear in the scroll box at a time.  When one is selected, you can then edit or remove that person
@@ -60,7 +59,6 @@ Just click the drop down to select either.  Also the area where the contacts are
 
 Contact tab
 ===========
-
 The Contact Tab is the second area of the program.  This screen is used for editing a contact and adding a new one.
 When you have name highlighted in the "All Contacts Tab" and you click edit, you are brought to a screen that looks
 similar to the one above, except the content will differ.   Similarly when you click the "New" button from the
@@ -74,7 +72,6 @@ Cancel button: cancels entry, and doesn't add or change contact.
 
 Import/export
 =============
-
 The import/export function allows users to share address books with others.
 When a user exports their address book, the contacts are then stored on a .tsv file with a title of your choice
 wherever you specify. To access either function, look under the file drop down on the top bar on your screen.
@@ -90,17 +87,15 @@ When you press okay the contents of test.tsv will now appear in your address boo
 
 Merge
 =====
-
 The merge function allows you to take the contacts of two existing address book and merge them into a
 new address book with a new name.  The merge is accessed through File > Merge just like import and export,
 except from the view of all the address books. Merge requires two address books to be selected.  Once merge is
 selected you will be prompted for a new book title.
 
 Steps:
+
 1. File > Merge, or command M with two address books selected.
-
 2. Give the new address book a name
-
 3. Press okay, now you will be brought to your new address book, book3, but the contents of book1 and book2 will be
 there.
 
@@ -112,6 +107,5 @@ system print screen where you can choose your printer and other options.
 
 Quitting the program
 ====================
-
 To quit the program simply click the "x" box in the upper left corner of the window, or click "Main" at the top of
 your computer screen and then select "Quit Main".
