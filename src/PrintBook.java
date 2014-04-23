@@ -49,7 +49,7 @@ public class PrintBook implements Printable {
             } else if (address.get("city") != null && !address.get("city").equals("") && // No state
                     address.get("state") == null || address.get("state").equals("") &&
                     address.get("zip") != null && !address.get("zip").equals("")) {
-                if (address.get("city") == null) {
+                if (address.get("city") == null || address.get("city").equals("")) {
                     textTemp.add(address.get("zip"));
                 } else {
                     textTemp.add(address.get("city") + " " + address.get("zip"));
