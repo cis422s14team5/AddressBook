@@ -463,7 +463,6 @@ public class Book extends JFrame {
      * Switches the allBooksView to the Contact tab and fills the fields with the selected contact's details.
      */
     private void editContact(int index) {
-        System.out.println(isEditing);
         if (!scrollList.isSelectionEmpty() && !isEditing) {
             isEditing = true;
             getContact(index);
@@ -484,7 +483,6 @@ public class Book extends JFrame {
      */
     private void getContact(int index) {
         address = addressBook.get(index);
-        System.out.println(address);
 
         if (address.get("city") != null) {
             cityField.setText(address.get("city"));
