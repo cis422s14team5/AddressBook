@@ -2,7 +2,7 @@ AddressBook
 ===========
 
 AddressBook is an address management program. It was the joint creation of David Chapman, Keith Hamm, Jack Ziesing,
-John Beck, Noah Hasson, and Wenbo Zhang.
+John Beck, Noah Hasson, and Wenbo Zhang: The Dragons.
 
 Table of Contents
 =================
@@ -54,6 +54,7 @@ new button that allows you to add a new person. This new button redirects you to
 New button: brings you to the Contact tab, allowing you to create a new contact.
 Edit button: brings you to the Contact tab, bringing the selected clients information into the Contact tabs fields.
 Remove button: removes selected contact from the contacts list.
+
 At the top is a sorting tool that allows contacts to be sorted either by last name, or zip code.
 Just click the drop down to select either.  Also the area where the contacts are displayed is scrollable.
 
@@ -107,8 +108,7 @@ Print
 =====
 The print function prints the all the contacts of a given address book.  You can only print when you are viewing
 a specific address book.  Select File > Print or command P to trigger the print.  Next you will be directed to the
-system print screen where you can choose your printer and other options. Like this:
-
+system print screen where you can choose your printer and other options.
 
 Quitting the program
 ====================
