@@ -6,15 +6,15 @@ John Beck, Noah Hasson, and Wenbo Zhang: The Dragons.
 
 Table of Contents
 =================
-Introduction
-Installation
-Opening the program
-Using the program
-All Contacts Tab
-Contact Tab
-Import/export
-Merge
-Quitting the Program
+- Introduction
+- Installation
+- Opening the program
+- Using the program
+- All Contacts Tab
+- Contact Tab
+- Import/export
+- Merge
+- Quitting the Program
 
 Introduction
 ============
