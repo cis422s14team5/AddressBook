@@ -278,13 +278,13 @@ public class Book extends JFrame {
         phoneField = new JTextField();
         emailField = new JTextField();
 
-        noteField = new JTextArea();
+        noteField = new JTextArea(5, 20);
         JScrollPane notePane = new JScrollPane(noteField);
         noteField.setLineWrap(true);
         noteField.setWrapStyleWord(true);
         notePane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
+        notePane.setPreferredSize(new Dimension(5, 20));
 
         // All Contacts Buttons
 

@@ -20,13 +20,53 @@ public class PrintBook implements Printable {
         ArrayList<String> textTemp = new ArrayList<>();
 
         for (HashMap<String, String> address : addressBook) {
-            textTemp.add(address.get("firstName") + " " + address.get("lastName"));
-            textTemp.add(address.get("delivery"));
+            if (address.get("firstName") != null && !address.get("firstName").equals("")) {
+                textTemp.add(address.get("firstName") + " " + address.get("lastName"));
+            } else {
+                textTemp.add(address.get("lastName"));
+            }
+            if (address.get("delivery") != null && !address.get("delivery").equals("")) {
+                textTemp.add(address.get("delivery"));
+            }
             if (address.get("second") != null && !address.get("second").equals("")
                                               && !address.get("second").equals(" ")) {
                 textTemp.add(address.get("second"));
             }
-            textTemp.add(address.get("city") + " " +  address.get("state") + " " +  address.get("zip"));
+
+
+            if (address.get("city") != null && !address.get("city").equals("") && // All available
+                    address.get("state") != null && !address.get("state").equals("") &&
+                    address.get("zip") != null && !address.get("zip").equals("")) {
+                textTemp.add(address.get("city") + " " +  address.get("state") + " " +  address.get("zip"));
+            } else if (address.get("city") != null && !address.get("city").equals("") && // No zip
+                    address.get("state") != null && !address.get("state").equals("") &&
+                    address.get("zip") == null || address.get("zip").equals("")) {
+                textTemp.add(address.get("city") + " " +  address.get("state"));
+            } else if (address.get("city") != null && !address.get("city").equals("") && // No city
+                    address.get("state") == null || address.get("state").equals("") &&
+                    address.get("zip") != null && !address.get("zip").equals("")) {
+                textTemp.add(address.get("state") + " " + address.get("zip"));
+            } else if (address.get("city") != null && !address.get("city").equals("") && // No state
+                    address.get("state") == null || address.get("state").equals("") &&
+                    address.get("zip") != null && !address.get("zip").equals("")) {
+                textTemp.add(address.get("city") + " " + address.get("zip"));
+            } else if (address.get("city") != null && !address.get("city").equals("") && // No state or zip
+                    address.get("state") == null || address.get("state").equals("") &&
+                    address.get("zip") == null || address.get("zip").equals("")) {
+                textTemp.add(address.get("city"));
+            } else if (address.get("city") == null || address.get("city").equals("") && // No state or city
+                    address.get("state") == null || address.get("state").equals("") &&
+                    address.get("zip") != null && !address.get("zip").equals("")) {
+                textTemp.add(address.get("zip"));
+            } else if (address.get("city") == null || address.get("city").equals("") && // No city or zip
+                    address.get("state") != null && !address.get("state").equals("") &&
+                    address.get("zip") == null || address.get("zip").equals("")) {
+                textTemp.add(address.get("state"));
+            } else if (address.get("city") == null || address.get("city").equals("") && // No city, state, or zip
+                    address.get("state") == null || address.get("state").equals("") &&
+                    address.get("zip") == null || address.get("zip").equals("")) {
+                textTemp.add(address.get(" "));
+            }
             textTemp.add("");
         }
 

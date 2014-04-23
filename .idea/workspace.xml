@@ -81,8 +81,8 @@
       <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="9956" max-vertical-offset="10560">
-              <caret line="428" column="19" selection-start-line="428" selection-start-column="19" selection-end-line="428" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3056" max-vertical-offset="10560">
+              <caret line="286" column="53" selection-start-line="286" selection-start-column="53" selection-end-line="286" selection-end-column="53" />
               <folding>
                 <element signature="e#3573#3733#0" expanded="true" />
                 <element signature="e#3722#3723#0" expanded="true" />
@@ -94,8 +94,18 @@
       <file leaf-file-name="PrintBook.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PrintBook.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27317882" vertical-offset="0" max-vertical-offset="1200">
-              <caret line="16" column="64" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.47847682" vertical-offset="371" max-vertical-offset="1800">
+              <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckInput.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="1260">
+              <caret line="53" column="62" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -130,9 +140,9 @@
         <option value="$PROJECT_DIR$/src/TSV.java" />
         <option value="$PROJECT_DIR$/src/AddressConverter.java" />
         <option value="$PROJECT_DIR$/src/ImportExport.java" />
-        <option value="$PROJECT_DIR$/src/PrintBook.java" />
         <option value="$PROJECT_DIR$/src/AllBooks.java" />
         <option value="$PROJECT_DIR$/src/Book.java" />
+        <option value="$PROJECT_DIR$/src/PrintBook.java" />
       </list>
     </option>
   </component>
@@ -604,10 +614,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="1260">
+          <caret line="53" column="62" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9956" max-vertical-offset="10560">
-          <caret line="428" column="19" selection-start-line="428" selection-start-column="19" selection-end-line="428" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3056" max-vertical-offset="10560">
+          <caret line="286" column="53" selection-start-line="286" selection-start-column="53" selection-end-line="286" selection-end-column="53" />
           <folding>
             <element signature="e#3573#3733#0" expanded="true" />
             <element signature="e#3722#3723#0" expanded="true" />
@@ -617,8 +635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PrintBook.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27317882" vertical-offset="0" max-vertical-offset="1200">
-          <caret line="16" column="64" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.47847682" vertical-offset="371" max-vertical-offset="1800">
+          <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
           <folding />
         </state>
       </provider>
