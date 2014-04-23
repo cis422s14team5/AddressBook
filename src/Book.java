@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * An address book.
+ * An address book. This is divided into two main parts, the All Contacts tab and a Contact tab.
+ * The All Contacts tab is composed of a scroll list that holds a list of addresses and a set of buttons
+ * that provide the necessary functions for interacting with the address book. The Contact tab is a number of fields
+ * and buttons used to enter an address.
  */
 public class Book extends JFrame {
 
@@ -713,6 +716,9 @@ public class Book extends JFrame {
         clearFields();
     }
 
+    /**
+     * Prints all the addresses from the current address book.
+     */
     public void print() {
         try {
             String cn = UIManager.getSystemLookAndFeelClassName();
@@ -730,14 +736,23 @@ public class Book extends JFrame {
         }
     }
 
+    /**
+     * Sorts the current book's addresses by their last name.
+     */
     public void sortByLastName() {
         addressBook = sortBooks.sortByName(addressBook);
     }
 
+    /**
+     * Sorts the current book's address by their zip code.
+     */
     public void sortByZip() {
         addressBook = sortBooks.sortByZip(addressBook);
     }
 
+    /**
+     * Checks whether the address book is currently sorted by last name or zip code.
+     */
     public void checkSort() {
         if (sortedByName) {
             sortByLastName();

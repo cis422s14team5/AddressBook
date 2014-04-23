@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 
 /**
- * All address books.
+ * All address books. A list of all address books, buttons, and a menu for interaction.
  */
 public class AllBooks extends JFrame {
 
@@ -182,6 +182,9 @@ public class AllBooks extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creates or updates an array list of every address book.
+     */
     private void createAllAddressBooks() {
         allAddressBooks = new ArrayList<>();
 
@@ -198,6 +201,10 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Opens the currently selected address book.
+     * @param index is the index of the selected address book in both allAddressBooks and the bookList.
+     */
     private void openBookView(int index) {
         if (!scrollList.isSelectionEmpty()) {
             Book book = new Book(this, allAddressBooks.get(index), bookList.get(index));
@@ -209,6 +216,10 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Opens the a new book creation dialog, asks for a name, and calls createNewBook.
+     * @param addressBook is an empty address book that will be created in the system.
+     */
     public void openNewBookDialog(ArrayList<HashMap<String, String>> addressBook) {
         newFileName = "";
         newFileName = JOptionPane.showInputDialog(null, "What do you want to call this new book?");
@@ -229,6 +240,11 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Creates a new address book, saves it as a tsv file, and stores a reference in the books.txt archive. Updates the
+     * internal data structures that keep references to all address books in the system.
+     * @param addressBook is an empty address book that will be created in the system.
+     */
     private void createNewBook(ArrayList<HashMap<String, String>> addressBook) {
         //scrollList.setSelectedIndex(bookList.size());
 
@@ -255,6 +271,9 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Removes the selected address book. Verifies the choice with the user before removal.
+     */
     private void removeBook() {
         int choice = JOptionPane.showConfirmDialog(null,
                 "If you remove an address book it will be gone forever.\nAre you sure?",
@@ -310,6 +329,10 @@ public class AllBooks extends JFrame {
         }
     }
 
+    /**
+     * Merges the two selected address books into a newly created address book. All contacts from both books are copied
+     * into the new book.
+     */
     private void mergeBooks() {
         if (scrollList.getSelectedIndices().length > 1) {
             mergeBook = new ArrayList<>();
@@ -324,7 +347,7 @@ public class AllBooks extends JFrame {
     }
 
     /**
-     * Check the OS to know where to read/write the save files.
+     * Checks what the OS is, i.e. Windows, OS X, etc. This is used to decide where to read/write the save files.
      */
     private void checkOS() {
         String os = System.getProperty("os.name");
@@ -338,6 +361,10 @@ public class AllBooks extends JFrame {
         books = new File(saveDir + slash +  "books.txt");
     }
 
+    /**
+     * Looks through all the open address books and closes those that match the given string.
+     * @param name is the name of the address book that needs to be closed.
+     */
     private void getDialog(String name) {
         setTitle("");
         for (Window window : JFrame.getWindows()) {
