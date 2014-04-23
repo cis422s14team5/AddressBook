@@ -42,14 +42,18 @@ public class PrintBook implements Printable {
                     address.get("state") != null && !address.get("state").equals("") &&
                     address.get("zip") == null || address.get("zip").equals("")) {
                 textTemp.add(address.get("city") + " " +  address.get("state"));
-            } else if (address.get("city") != null && !address.get("city").equals("") && // No city
-                    address.get("state") == null || address.get("state").equals("") &&
+            } else if (address.get("city") == null || address.get("city").equals("") && // No city
+                    address.get("state") != null && !address.get("state").equals("") &&
                     address.get("zip") != null && !address.get("zip").equals("")) {
                 textTemp.add(address.get("state") + " " + address.get("zip"));
             } else if (address.get("city") != null && !address.get("city").equals("") && // No state
                     address.get("state") == null || address.get("state").equals("") &&
                     address.get("zip") != null && !address.get("zip").equals("")) {
-                textTemp.add(address.get("city") + " " + address.get("zip"));
+                if (address.get("city") == null) {
+                    textTemp.add(address.get("zip"));
+                } else {
+                    textTemp.add(address.get("city") + " " + address.get("zip"));
+                }
             } else if (address.get("city") != null && !address.get("city").equals("") && // No state or zip
                     address.get("state") == null || address.get("state").equals("") &&
                     address.get("zip") == null || address.get("zip").equals("")) {
