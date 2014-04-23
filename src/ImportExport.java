@@ -3,7 +3,7 @@ import java.awt.*;
 import java.io.File;
 
 /**
- * Import and export address books.
+ * Imports and exports address books to .tsv files.
  */
 public class ImportExport {
 
@@ -19,7 +19,7 @@ public class ImportExport {
     }
 
     /**
-     * Launches the load file dialog and tells AddressBook to import the selected file.
+     * Launches the load file dialog and imports the selected file tsv file.
      * @return the file to import.
      */
     public File importTSV() {
@@ -34,7 +34,7 @@ public class ImportExport {
     }
 
     /**
-     * Launches the save file dialog dialog and tells AddressBook to export the selected file.
+     * Launches the save file dialog dialog and exports to a user selected tsv file.
      * @return the file to export.
      */
     public File exportTSV() {

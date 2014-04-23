@@ -139,6 +139,12 @@ public class AddressConverter {
         return tempBook;
     }
 
+    /**
+     * Checks and validate using regex the contents of the last field. Used to convert from the standard USPS
+     * address format to our internal format.
+     * @param string the string to check.
+     * @return 0 if the string is null, 1 if it is a city, 2 if it is a state, and 3 if it is a zip code.
+     */
     private int checkLast(String string) {
         if (string == null) {
             return 0;

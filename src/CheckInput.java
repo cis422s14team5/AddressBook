@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Gets information from the contact tab and verifies key elements to be correct and valid information before saving.
+ */
 public class CheckInput {
 
     private JTextField firstNameField;
@@ -166,7 +169,8 @@ public class CheckInput {
     /**
      * Checks the state field for whether it was a full state name, or its state code. If it is a full state name
      * change it into its state code.
-     * @return String of state code.
+     * @param state is the string to transform.
+     * @return a string that is the correct state code.
      */
     public String transformState(String state){
         String newState = state;

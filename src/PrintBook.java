@@ -92,7 +92,7 @@ public class PrintBook implements Printable {
      * @param graphics is the graphics system used by Java to process the text.
      * @param pageFormat is the system used to format the pages.
      * @param pageIndex is an index used to track the number of pages.
-     * @return
+     * @return an int reflecting if the page has printed or not.
      * @throws PrinterException
      */
     @Override

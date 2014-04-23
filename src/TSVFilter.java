@@ -21,7 +21,7 @@ public class TSVFilter implements FilenameFilter {
     }
 
     /**
-     * Get the extension of a file.
+     * Gets the extension from a file name string.
      * @param fileName is the file for which an extension must be retrieved.
      * @return the extension retrieved.
      */
