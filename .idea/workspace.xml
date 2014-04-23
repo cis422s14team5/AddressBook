@@ -115,14 +115,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckInput.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CheckInput.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8415493" vertical-offset="3032" max-vertical-offset="3600">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3032" max-vertical-offset="3600">
               <caret line="234" column="38" selection-start-line="234" selection-start-column="1" selection-end-line="234" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="3.133087" vertical-offset="0" max-vertical-offset="1830">
+              <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddressBook.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AddressBook.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,7 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/store.tsv" />
         <option value="$PROJECT_DIR$/src/View.java" />
         <option value="$PROJECT_DIR$/src/AddressBookView.java" />
@@ -192,6 +214,7 @@
         <option value="$PROJECT_DIR$/src/PrintBook.java" />
         <option value="$PROJECT_DIR$/src/ImportExport.java" />
         <option value="$PROJECT_DIR$/src/CheckInput.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -630,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.057915058" vertical-offset="0" max-vertical-offset="777">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AddressConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47847682" vertical-offset="1886" max-vertical-offset="2505">
@@ -722,11 +738,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CheckInput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8415493" vertical-offset="3032" max-vertical-offset="3600">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3032" max-vertical-offset="3600">
           <caret line="234" column="38" selection-start-line="234" selection-start-column="1" selection-end-line="234" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AddressBook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.133087" vertical-offset="0" max-vertical-offset="1830">
+          <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
