@@ -543,9 +543,11 @@ public class Book extends JFrame {
      */
     private void saveContact() {
         address = new HashMap<>();
-        CheckInput checkInput = new CheckInput(this, lastNameField, phoneField, zipField);
+        CheckInput checkInput = new CheckInput(this, lastNameField, phoneField, zipField, stateField, emailField);
 
-        if (checkInput.checkLastName() && checkInput.checkPhone() && checkInput.checkZip()) {
+        if (checkInput.checkLastName() && checkInput.checkPhone() && checkInput.checkZip() && checkInput.checkState()
+                && checkInput.checkEmail()) {
+            stateField.setText(checkInput.transformState(stateField.getText()));
             address.put("lastName", lastNameField.getText());
 
             if (!phoneField.getText().equals("")) {

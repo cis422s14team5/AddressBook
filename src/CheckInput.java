@@ -1,17 +1,27 @@
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckInput {
 
     private JTextField lastNameField;
     private JTextField phoneField;
     private JTextField zipField;
+    private JTextField stateField;
+    private JTextField emailField;
     private Book book;
+    private HashMap<String, String> stateMap;
 
-    public CheckInput(Book book, JTextField lastNameField, JTextField phoneField, JTextField zipField) {
+    public CheckInput(Book book, JTextField lastNameField, JTextField phoneField, JTextField zipField,
+                      JTextField stateField, JTextField emailField) {
         this.book = book;
         this.lastNameField = lastNameField;
         this.phoneField = phoneField;
         this.zipField = zipField;
+        this.stateField = stateField;
+        this.emailField = emailField;
+        stateMap = new HashMap<>();
+        initializeStateMap();
     }
 
     /**
@@ -75,4 +85,111 @@ public class CheckInput {
         return valid;
     }
 
+    /**
+     * Initializes the HashMap of states with the names of the states and their respective state codes.
+     */
+    private void initializeStateMap() {
+        stateMap.put("Alabama", "AL");
+        stateMap.put("Alaska", "AK");
+        stateMap.put("Arizona", "AZ");
+        stateMap.put("Arkansas", "AR");
+        stateMap.put("California", "CA");
+        stateMap.put("Colorado", "CO");
+        stateMap.put("Connecticut", "CT");
+        stateMap.put("Delaware", "DE");
+        stateMap.put("District of Columbia", "DC");
+        stateMap.put("Florida", "FL");
+        stateMap.put("Georgia", "GA");
+        stateMap.put("Hawaii", "HI");
+        stateMap.put("Idaho", "ID");
+        stateMap.put("Illinois", "IL");
+        stateMap.put("Indiana", "IN");
+        stateMap.put("Iowa", "IA");
+        stateMap.put("Kansas", "KS");
+        stateMap.put("Kentucky", "KY");
+        stateMap.put("Louisiana", "LA");
+        stateMap.put("Maine", "ME");
+        stateMap.put("Montana", "MT");
+        stateMap.put("Nebraska", "NE");
+        stateMap.put("Nevada", "NV");
+        stateMap.put("New Hampshire", "NH");
+        stateMap.put("New Jersey", "NJ");
+        stateMap.put("New Mexico", "NM");
+        stateMap.put("New York", "NY");
+        stateMap.put("North Carolina", "NC");
+        stateMap.put("North Dakota", "ND");
+        stateMap.put("Ohio", "OH");
+        stateMap.put("Oklahoma", "OK");
+        stateMap.put("Oregon", "OR");
+        stateMap.put("Maryland", "MD");
+        stateMap.put("Massachusetts", "MA");
+        stateMap.put("Michigan", "MI");
+        stateMap.put("Minnesota", "MN");
+        stateMap.put("Mississippi", "MS");
+        stateMap.put("Missouri", "MO");
+        stateMap.put("Pennsylvania", "PA");
+        stateMap.put("Rhode Island", "RI");
+        stateMap.put("South Carolina", "SC");
+        stateMap.put("South Dakota", "SD");
+        stateMap.put("Tennessee", "TN");
+        stateMap.put("Texas", "TX");
+        stateMap.put("Utah", "UT");
+        stateMap.put("Vermont", "VT");
+        stateMap.put("Virginia", "VA");
+        stateMap.put("Washington", "WA");
+        stateMap.put("West Virginia", "WV");
+        stateMap.put("Wisconsin", "WI");
+        stateMap.put("Wyoming", "WY");
+    }
+
+    /**
+     * Checks the state field for valid input.
+     * @return true if valid.
+     */
+    public boolean checkState(){
+        boolean valid = false;
+        if (stateMap.containsKey(stateField.getText()) ||
+                stateMap.containsValue(stateField.getText()) ||
+                stateField.getText().equals("")){
+            valid = true;
+        } else {
+            JOptionPane.showMessageDialog(book, "Please enter a valid US state.");
+        }
+
+        return valid;
+    }
+
+    /**
+     * Checks the state field for whether it was a full state name, or its state code. If it is a full state name
+     * change it into its state code.
+     * @return String of state code.
+     */
+    public String transformState(String state){
+        String newState = state;
+        if (stateMap.containsKey(state)){
+            for(Map.Entry<String, String> entry: stateMap.entrySet()) {
+                if (entry.getKey().equals(state)){
+                    newState = entry.getValue();
+                }
+            }
+        }
+        return newState;
+    }
+
+    /**
+     * Checks the email field for valid input.
+     * @return true if valid.
+     */
+    public boolean checkEmail(){
+        boolean valid = false;
+        if (!emailField.getText().equals("") &&
+                emailField.getText().matches("^[a-zA-Z0-9.-_,]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+$")) {
+            valid = true;
+        } else if (emailField.getText().equals("")) {
+            valid = true;
+        } else {
+            JOptionPane.showMessageDialog(book, "You did not enter a valid Email. Please try again.");
+        }
+        return valid;
+    }
 }

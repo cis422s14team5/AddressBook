@@ -5,17 +5,27 @@ import java.awt.print.PrinterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * An implementation of the standard Java printing API.
+ */
 public class PrintBook implements Printable {
 
     private ArrayList<HashMap<String, String>> addressBook;
     int[] pageBreaks;  // array of page break line positions.
     String[] textLines;
 
+    /**
+     * Constructor.
+     * @param addressBook the address book to print.
+     */
     public PrintBook(ArrayList<HashMap<String, String>> addressBook) {
         this.addressBook = addressBook;
         initTextLines();
     }
 
+    /**
+     * Gets the addresses from the given address book and adds them line by line to an array that will be printed.
+     */
     private void initTextLines() {
         ArrayList<String> textTemp = new ArrayList<>();
 
@@ -77,6 +87,14 @@ public class PrintBook implements Printable {
         textLines = textTemp.toArray(new String[textTemp.size()]);
     }
 
+    /**
+     * Prints the compiled addresses using the OS's printing system.
+     * @param graphics is the graphics system used by Java to process the text.
+     * @param pageFormat is the system used to format the pages.
+     * @param pageIndex is an index used to track the number of pages.
+     * @return
+     * @throws PrinterException
+     */
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         Font font = new Font("Serif", Font.PLAIN, 10);
