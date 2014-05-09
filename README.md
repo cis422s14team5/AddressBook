@@ -4,7 +4,7 @@ AddressBook is an address management program. It was the joint creation of David
 John Beck, Noah Hasson, and Wenbo Zhang: The Dragons.
 
 Table of Contents
-=================
+-----------------
 - Introduction
 - Installation
 - Opening the program
@@ -16,22 +16,22 @@ Table of Contents
 - Quitting the Program
 
 Introduction
-============
+------------
 
 Address Book was designed by team The Dragons as a simple implementation of an address book for the class CIS 422.
 
 Installation
-============
+------------
 The address book program is designed to run on a machine that has Java 7.  If you don't have Java 7 click here to
 download. Once you have Java, you can download the address book program by clicking here.
 
 Opening the program
-===================
+-------------------
 To open up the application, double click on the .jar file titled AddressBook, and the application will run.
 If your system refuses to run it try right clicking and specify Open With > Jar Launcher or some variation.
 
 Using the program
-=================
+-----------------
 AddressBook automatically opens a blank address book the first time the application is run. In every subsequent
 launch, the program will load the contacts that have already been saved into the address book. Your first launch
 of the application should look like this.
@@ -43,7 +43,7 @@ be brought to a page like the one below.  You are now in the context of that new
 page of address books called the all contacts tab.
 
 All Contacts tab
-================
+----------------
 The first window that opens is the "All Contacts Tab".  This is the area shown in the picture above and
 includes a scroll box with a list of people that are saved in the address book. You are allowed to select one of
 the names that appear in the scroll box at a time.  When one is selected, you can then edit or remove that person
@@ -58,7 +58,7 @@ At the top is a sorting tool that allows contacts to be sorted either by last na
 Just click the drop down to select either.  Also the area where the contacts are displayed is scrollable.
 
 Contact tab
-===========
+-----------
 The Contact Tab is the second area of the program.  This screen is used for editing a contact and adding a new one.
 When you have name highlighted in the "All Contacts Tab" and you click edit, you are brought to a screen that looks
 similar to the one above, except the content will differ.   Similarly when you click the "New" button from the
@@ -71,7 +71,7 @@ Clear button: will erase all the information in all of the fields on the tab.
 Cancel button: cancels entry, and doesn't add or change contact.
 
 Import/export
-=============
+-------------
 The import/export function allows users to share address books with others.
 When a user exports their address book, the contacts are then stored on a .tsv file with a title of your choice
 wherever you specify. To access either function, look under the file drop down on the top bar on your screen.
@@ -86,7 +86,7 @@ If you choose to import, or hit command I, you will then be asked to select a .t
 When you press okay the contents of test.tsv will now appear in your address book.
 
 Merge
-=====
+-----
 The merge function allows you to take the contacts of two existing address book and merge them into a
 new address book with a new name.  The merge is accessed through File > Merge just like import and export,
 except from the view of all the address books. Merge requires two address books to be selected.  Once merge is
@@ -100,12 +100,12 @@ Steps:
 there.
 
 Print
-=====
+-----
 The print function prints the all the contacts of a given address book.  You can only print when you are viewing
 a specific address book.  Select File > Print or command P to trigger the print.  Next you will be directed to the
 system print screen where you can choose your printer and other options.
 
 Quitting the program
-====================
-To quit the program simply click the "x" box in the upper left corner of the window, or click "Main" at the top of
-your computer screen and then select "Quit Main".
+--------------------
+To quit the program simply click the "x" box in the upper left corner of the window, or click "AddressBook" at the top of
+your computer screen and then select "Quit AddressBook".
